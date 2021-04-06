@@ -18,10 +18,10 @@ export default {
       },
     },
     {
-      name: 'author',
-      title: 'Author',
+      name: 'artist',
+      title: 'Artist',
       type: 'reference',
-      to: {type: 'author'},
+      to: {type: 'artist'},
     },
     {
       name: 'mainImage',
