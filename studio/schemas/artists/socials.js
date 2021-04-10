@@ -24,6 +24,11 @@ export default {
       type: "url",
     },
     {
+      name: "bandcamp",
+      title: "Bandcamp",
+      type: "url",
+    },
+    {
       name: "spotify",
       title: "Spotify",
       type: "url",
@@ -41,6 +46,11 @@ export default {
     {
       name: "youtube",
       title: "Youtube",
+      type: "url",
+    },
+    {
+      name: "linkedIn",
+      title: "LinkedIn",
       type: "url",
     },
   ],
