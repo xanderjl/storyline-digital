@@ -4,7 +4,7 @@ import Navbar from "./Navbar"
 const Layout = ({ children }) => {
   return (
     <Flex direction="column" w="100%" minH="100vh">
-      {/* <Navbar /> */}
+      <Navbar />
       <Container flex={1} maxW="container.xl">
         {children}
       </Container>
