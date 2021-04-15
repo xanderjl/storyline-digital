@@ -1,19 +1,28 @@
 import { useState } from "react"
 import {
   Box,
+  Flex,
   Grid,
   Heading,
   Icon,
   Input,
   InputGroup,
   InputLeftElement,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
 } from "@chakra-ui/react"
 import Fuse from "fuse.js"
 import Layout from "@components/Layout"
 import SocialIcons from "@components/SocialIcons"
 import { BiSearch } from "react-icons/bi"
 import sanity from "@lib/sanity"
-import groq from "groq"
+import { groq } from "next-sanity"
+import PortableText from "@sanity/block-content-to-react"
 import React from "react"
 import Link from "@components/NextLink"
 
@@ -53,17 +62,31 @@ const Artists = ({ artists }) => {
         {artistResults.map(artist => {
           const { name, slug, bio, image, pronouns, socials } = artist
           return (
-            <Box
-              key={slug}
-              p="3rem 1.25rem"
-              boxShadow="sm"
-              border="1px solid black"
-            >
-              <Link href={`/artists/${slug}`} pb="2rem">
-                <Heading>{name}</Heading>
-              </Link>
-              <SocialIcons socials={socials} />
-            </Box>
+            <Popover isLazy>
+              <PopoverTrigger>
+                <Flex
+                  direction="column"
+                  align="center"
+                  key={slug}
+                  p="3rem"
+                  boxShadow="sm"
+                  border="1px solid black"
+                >
+                  <Link href={`/artists/`} pb="0.25rem">
+                    <Heading textAlign="center">{name}</Heading>
+                  </Link>
+                  <SocialIcons socials={socials} />
+                </Flex>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverHeader>{name}</PopoverHeader>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverBody>
+                  <PortableText blocks={bio} />
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
           )
         })}
       </Grid>
