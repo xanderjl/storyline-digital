@@ -27,7 +27,12 @@ const Artists = ({ artists }) => {
   return (
     <Layout>
       <Box px="1.25rem" pt="3rem">
-        <InputGroup size="lg">
+        <InputGroup
+          size="lg"
+          border="1px solid"
+          borderColor="black"
+          borderRadius={0}
+        >
           <InputLeftElement>
             <Icon as={BiSearch} boxSize={6} />
           </InputLeftElement>
@@ -35,6 +40,7 @@ const Artists = ({ artists }) => {
             placeholder="search for an artist"
             fontSize="xl"
             value={query}
+            border="none"
             onChange={e => setQuery(e.target.value)}
           />
         </InputGroup>
@@ -47,7 +53,12 @@ const Artists = ({ artists }) => {
         {artistResults.map(artist => {
           const { name, slug, bio, image, pronouns, socials } = artist
           return (
-            <Box key={slug} p="3rem 1.25rem" boxShadow="md">
+            <Box
+              key={slug}
+              p="3rem 1.25rem"
+              boxShadow="sm"
+              border="1px solid black"
+            >
               <Link href={`/artists/${slug}`} pb="2rem">
                 <Heading>{name}</Heading>
               </Link>
