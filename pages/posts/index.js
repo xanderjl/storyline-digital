@@ -1,7 +1,8 @@
 import Layout from "@components/Layout"
+import React from "react"
 
-const Donate = () => {
+const Posts = () => {
   return <Layout></Layout>
 }
 
-export default Donate
+export default Posts
