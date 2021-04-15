@@ -1,10 +1,13 @@
 import { useState } from "react"
 import {
+  Avatar,
   Box,
+  Button,
   Flex,
   Grid,
   Heading,
   Icon,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -15,6 +18,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Text,
 } from "@chakra-ui/react"
 import Fuse from "fuse.js"
 import Layout from "@components/Layout"
@@ -22,9 +26,11 @@ import SocialIcons from "@components/SocialIcons"
 import { BiSearch } from "react-icons/bi"
 import sanity from "@lib/sanity"
 import { groq } from "next-sanity"
-import PortableText from "@sanity/block-content-to-react"
+import PortableText, { getImageUrl } from "@sanity/block-content-to-react"
 import React from "react"
 import Link from "@components/NextLink"
+import getImageFromUrl from "utils/getImageFromUrl"
+import toPlainText from "utils/getPlainText"
 
 const Artists = ({ artists }) => {
   const [query, setQuery] = useState("")
@@ -61,29 +67,40 @@ const Artists = ({ artists }) => {
       >
         {artistResults.map(artist => {
           const { name, slug, bio, image, pronouns, socials } = artist
+
           return (
-            <Popover isLazy>
-              <PopoverTrigger>
-                <Flex
-                  direction="column"
-                  align="center"
-                  key={slug}
-                  p="3rem"
-                  boxShadow="sm"
-                  border="1px solid black"
-                >
-                  <Link href={`/artists/`} pb="0.25rem">
-                    <Heading textAlign="center">{name}</Heading>
-                  </Link>
-                  <SocialIcons socials={socials} />
-                </Flex>
-              </PopoverTrigger>
+            <Popover key={slug} isLazy>
+              <Flex
+                direction="column"
+                align="center"
+                p="3rem"
+                boxShadow="sm"
+                border="1px solid black"
+              >
+                <Link href={`/artists/${slug}`} pb="0.25rem">
+                  <Heading textAlign="center">{name}</Heading>
+                </Link>
+                <SocialIcons socials={socials} />
+                <PopoverTrigger>
+                  <Button
+                    m="1rem"
+                    size="sm"
+                    colorScheme="blackAlpha"
+                    borderRadius={0}
+                  >
+                    Overview
+                  </Button>
+                </PopoverTrigger>
+              </Flex>
               <PopoverContent>
-                <PopoverHeader>{name}</PopoverHeader>
+                <PopoverHeader>
+                  <Heading size="md">{name}</Heading>
+                </PopoverHeader>
                 <PopoverArrow />
                 <PopoverCloseButton />
                 <PopoverBody>
-                  <PortableText blocks={bio} />
+                  <Avatar size="2xl" src={getImageFromUrl(image?.asset)} />
+                  <Text>{toPlainText(bio).slice(0, 119) + "..."}</Text>
                 </PopoverBody>
               </PopoverContent>
             </Popover>
