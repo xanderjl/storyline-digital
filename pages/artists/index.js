@@ -20,7 +20,7 @@ import Link from "@components/NextLink"
 const Artists = ({ artists }) => {
   const [query, setQuery] = useState("")
   const fuse = new Fuse(artists, {
-    keys: ["name", "bio"],
+    keys: ["name"],
   })
   const results = fuse.search(query)
   const artistResults = query ? results.map(result => result.item) : artists
@@ -29,10 +29,11 @@ const Artists = ({ artists }) => {
       <Box px="1.25rem" pt="3rem">
         <InputGroup size="lg">
           <InputLeftElement>
-            <Icon as={BiSearch} />
+            <Icon as={BiSearch} boxSize={6} />
           </InputLeftElement>
           <Input
-            placeholder="search for an artist or article"
+            placeholder="search for an artist"
+            fontSize="xl"
             value={query}
             onChange={e => setQuery(e.target.value)}
           />
