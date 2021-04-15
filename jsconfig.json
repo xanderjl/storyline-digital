@@ -5,6 +5,15 @@
       "@lib/*": [
         "./lib/*"
       ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ],
       "@theme": [
         "./theme"
       ],
