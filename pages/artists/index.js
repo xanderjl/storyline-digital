@@ -1,20 +1,49 @@
-import { Box, Grid, Heading } from "@chakra-ui/react"
+import { useState } from "react"
+import {
+  Box,
+  Grid,
+  Heading,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react"
+import Fuse from "fuse.js"
 import Layout from "@components/Layout"
 import SocialIcons from "@components/SocialIcons"
+import { BiSearch } from "react-icons/bi"
 import sanity from "@lib/sanity"
 import groq from "groq"
 import React from "react"
 import Link from "@components/NextLink"
 
 const Artists = ({ artists }) => {
+  const [query, setQuery] = useState("")
+  const fuse = new Fuse(artists, {
+    keys: ["name", "bio"],
+  })
+  const results = fuse.search(query)
+  const artistResults = query ? results.map(result => result.item) : artists
   return (
     <Layout>
+      <Box px="1.25rem" pt="3rem">
+        <InputGroup size="lg">
+          <InputLeftElement>
+            <Icon as={BiSearch} />
+          </InputLeftElement>
+          <Input
+            placeholder="search for an artist or article"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+          />
+        </InputGroup>
+      </Box>
       <Grid
         p="3rem 1.25rem"
         templateColumns="repeat(auto-fill, minmax(40ch, 1fr))"
         gap={8}
       >
-        {artists.map(artist => {
+        {artistResults.map(artist => {
           const { name, slug, bio, image, pronouns, socials } = artist
           return (
             <Box key={slug} p="3rem 1.25rem" boxShadow="md">
