@@ -1,15 +1,20 @@
+import { Box } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import sanity from "@lib/sanity"
-import groq from "next-sanity"
+import { groq } from "next-sanity"
 
-const Post = () => {
-  return <Layout></Layout>
+const Post = ({ post }) => {
+  return (
+    <Layout>
+      <Box as="pre">{JSON.stringify(post, null, 2)}</Box>
+    </Layout>
+  )
 }
 
 const postsQuery = groq`*[_type == "post"] { "slug": slug.current }`
 
 const singlePostQuery = groq`
-    *[_type == "post" && slug.current == "test"] {
+    *[_type == "post" && slug.current == $slug] {
       title,
       "slug": slug.current,
       artist->{
@@ -23,7 +28,7 @@ const singlePostQuery = groq`
       categories,
       publishedAt,
       body,
-    }
+    }[0]
   `
 
 export const getStaticPaths = async () => {
