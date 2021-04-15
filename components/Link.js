@@ -1,10 +1,10 @@
 import { Link as NextLink } from "next/link"
-import { Link } from "@chakra-ui/react"
-const Link = ({ href, children }) => {
+import { Link as ChakraLink } from "@chakra-ui/react"
+const Link = ({ href, children, ...rest }) => {
   return (
-    <Link as={NextLink} href={href}>
+    <ChakraLink as={NextLink} href={href} {...rest}>
       {children}
-    </Link>
+    </ChakraLink>
   )
 }
 
