@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa"
 import { SiApplemusic } from "react-icons/si"
 import { FiGlobe } from "react-icons/fi"
-import Link from "./Link"
+import Link from "./NextLink"
 
 const SocialIcons = ({ socials }) => {
   return (

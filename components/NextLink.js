@@ -1,12 +1,12 @@
 import { Link as NLink } from "next/link"
-import { Link } from "@chakra-ui/react"
+import { Link as ChLink } from "@chakra-ui/react"
 
-const NextLink = ({ href, children, ...rest }) => {
+const Link = ({ href, children, ...rest }) => {
   return (
-    <Link as={NLink} href={href ? href : "/"} {...rest}>
+    <ChLink as={NLink} href={href ? href : "/"} {...rest}>
       {children}
-    </Link>
+    </ChLink>
   )
 }
 
-export default NextLink
+export default Link

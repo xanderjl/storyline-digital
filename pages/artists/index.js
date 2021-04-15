@@ -3,8 +3,8 @@ import Layout from "@components/Layout"
 import SocialIcons from "@components/SocialIcons"
 import sanity from "@lib/sanity"
 import groq from "groq"
-import Link from "@components/Link"
 import React from "react"
+import Link from "@components/NextLink"
 
 const Artists = ({ artists }) => {
   return (
