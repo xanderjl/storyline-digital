@@ -1,14 +1,17 @@
-import NextLink from "../NextLink"
+import Link from "../NextLink"
 import { Flex } from "@chakra-ui/layout"
 
-const NavbarLinks = ({ routes }) => {
+const NavbarLinks = ({ routes, isOpen }) => {
   return (
-    <Flex>
+    <Flex
+      display={{ base: isOpen ? "flex" : "none", md: "flex" }}
+      direction={{ base: "column", md: "row" }}
+    >
       {routes &&
         routes.map((route, i) => {
           const { title, slug } = route
           return (
-            <NextLink
+            <Link
               key={i}
               href={slug}
               p="1.25rem"
@@ -16,7 +19,7 @@ const NavbarLinks = ({ routes }) => {
               _hover={{ bg: "gray.50" }}
             >
               {title}
-            </NextLink>
+            </Link>
           )
         })}
     </Flex>

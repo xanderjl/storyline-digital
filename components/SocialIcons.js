@@ -15,9 +15,9 @@ const iconStyles = {
   boxSize: 6,
 }
 
-const SocialIcons = ({ socials }) => {
+const SocialIcons = ({ socials, ...rest }) => {
   return (
-    <HStack spacing={2} wrap="wrap">
+    <HStack spacing={2} wrap="wrap" {...rest}>
       {socials?.website && (
         <Link href={socials?.website} isExternal>
           <Icon as={FiGlobe} {...iconStyles} />
