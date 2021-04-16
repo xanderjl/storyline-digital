@@ -19,7 +19,6 @@ import PortableText from "@sanity/block-content-to-react"
 import getImageFromUrl from "@utils/getImageFromUrl"
 import { groq } from "next-sanity"
 import { FaShareAlt } from "react-icons/fa"
-import { GrAnalytics } from "react-icons/gr"
 
 const Post = ({ post }) => {
   const { title, artist, categories, publishedAt, body } = post
@@ -41,15 +40,17 @@ const Post = ({ post }) => {
               <Heading size="2xl">{title}</Heading>
               <Heading size="lg">By {artist.name}</Heading>
               <Text>{new Date(publishedAt).toLocaleDateString("en-US")}</Text>
-              <Tooltip label={hasCopied ? "copied!" : "click to copy"} bg="gray.500">
+              <Tooltip
+                label={hasCopied ? "copied!" : "click to copy"}
+                bg="gray.500"
+              >
                 <Text
                   as="button"
                   role="group"
                   onClick={onCopy}
                   _hover={{ color: "gray.600" }}
                 >
-                  Share{" "}
-                  <Icon as={FaShareAlt} />
+                  Share <Icon as={FaShareAlt} />
                 </Text>
               </Tooltip>
             </VStack>

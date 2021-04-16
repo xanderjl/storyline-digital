@@ -16,7 +16,7 @@ const NavbarLinks = ({ routes, isOpen }) => {
               href={slug}
               p="1.25rem"
               fontSize="lg"
-              _hover={{ bg: "gray.50" }}
+              _hover={{ bg: "beige.200" }}
             >
               {title}
             </Link>

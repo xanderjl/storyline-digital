@@ -44,7 +44,7 @@ const Artists = ({ artists }) => {
       <Box px="1.25rem" pt="3rem">
         <InputGroup
           size="lg"
-          bg="white"
+          bg="beige.50"
           border="1px solid"
           borderColor="black"
           borderRadius={0}
@@ -55,6 +55,7 @@ const Artists = ({ artists }) => {
           </InputLeftElement>
           <Input
             placeholder="search for an artist"
+            _placeholder={{color: "brown.500"}}
             fontSize="xl"
             value={query}
             border="none"
@@ -85,15 +86,15 @@ const Artists = ({ artists }) => {
                   <Button
                     m="1rem"
                     size="sm"
-                    colorScheme="blackAlpha"
+                    colorScheme="brown"
                     borderRadius={0}
                   >
                     Overview
                   </Button>
                 </PopoverTrigger>
               </Card>
-              <PopoverContent borderRadius={0} borderColor="black">
-                <PopoverHeader borderColor="black">
+              <PopoverContent borderRadius={0} bg="beige.50" borderColor="brown.900">
+                <PopoverHeader borderColor="brown.900">
                   <Link href={`/artists/${slug}`}>
                     <Heading size="md">{name}</Heading>
                   </Link>
