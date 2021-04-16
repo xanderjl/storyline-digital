@@ -1,12 +1,56 @@
-import { Box } from "@chakra-ui/layout"
+import {
+  Avatar,
+  Box,
+  Container,
+  Heading,
+  StackDivider,
+  Text,
+  VStack,
+} from "@chakra-ui/react"
 import Layout from "@components/Layout"
-import sanity from "@lib/sanity"
+import Link from "@components/NextLink"
+import SocialIcons from "@components/SocialIcons"
+import sanity, { serializers } from "@lib/sanity"
+import PortableText from "@sanity/block-content-to-react"
+import getImageFromUrl from "@utils/getImageFromUrl"
 import { groq } from "next-sanity"
 
 const Post = ({ post }) => {
+  const { title, slug, artist, categories, publishedAt, body } = post
   return (
     <Layout>
-      <Box as="pre">{JSON.stringify(post, null, 2)}</Box>
+      <Box p="3rem 1.25rem">
+        <Container maxW="container.md">
+          <VStack
+            align="flex-start"
+            spacing={6}
+            divider={<StackDivider borderColor="gray.500" />}
+          >
+            <Box>
+              <Heading>{title}</Heading>
+              <Heading>{artist.name}</Heading>
+              <Text>{new Date(publishedAt).toLocaleDateString("en-US")}</Text>
+            </Box>
+            <PortableText blocks={body} serializers={serializers} />
+            <VStack align="flex-start">
+              <Link
+                href={`/artists/${artist.slug}`}
+                display="flex"
+                alignItems="center"
+              >
+                <Avatar
+                  size="lg"
+                  src={getImageFromUrl(artist.image.asset)}
+                  mr="1rem"
+                />
+                <Heading>{artist.name}</Heading>
+              </Link>
+              <SocialIcons socials={artist.socials} />
+              <PortableText blocks={artist.bio} serializers={serializers} />
+            </VStack>
+          </VStack>
+        </Container>
+      </Box>
     </Layout>
   )
 }

@@ -5,7 +5,7 @@ const Card = ({ children, ...rest }) => {
     <Flex
       direction="column"
       align="center"
-      p="3rem"
+      p="1.75rem"
       bg="white"
       boxShadow="sm"
       border="1px solid black"
