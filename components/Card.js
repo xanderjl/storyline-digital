@@ -6,6 +6,7 @@ const Card = ({ children, ...rest }) => {
       direction="column"
       align="center"
       p="3rem"
+      bg="white"
       boxShadow="sm"
       border="1px solid black"
       {...rest}

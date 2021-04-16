@@ -44,9 +44,11 @@ const Artists = ({ artists }) => {
       <Box px="1.25rem" pt="3rem">
         <InputGroup
           size="lg"
+          bg="white"
           border="1px solid"
           borderColor="black"
           borderRadius={0}
+          boxShadow="sm"
         >
           <InputLeftElement>
             <Icon as={BiSearch} boxSize={6} />
