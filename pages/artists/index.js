@@ -92,13 +92,12 @@ const Artists = ({ artists }) => {
                   </Button>
                 </PopoverTrigger>
               </Card>
-              <PopoverContent>
-                <PopoverHeader>
+              <PopoverContent borderRadius={0} borderColor="black">
+                <PopoverHeader borderColor="black">
                   <Link href={`/artists/${slug}`}>
                     <Heading size="md">{name}</Heading>
                   </Link>
                 </PopoverHeader>
-                <PopoverArrow />
                 <PopoverCloseButton />
                 <PopoverBody>
                   <VStack spacing={4} align="flex-start">

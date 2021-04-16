@@ -9,9 +9,9 @@ const Layout = ({ children }) => {
       minH="100vh"
       bgImage="url('Background.svg')"
       bgRepeat="no-repeat"
-      bgSize="contain"
+      bgSize="60vh"
       bgAttachment="fixed"
-      bgPosition="right"
+      bgPosition="100% 0"
     >
       <Navbar />
       <Container flex={1} maxW="container.xl">
