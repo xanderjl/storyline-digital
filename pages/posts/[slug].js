@@ -49,7 +49,7 @@ const Post = ({ postData, preview }) => {
           >
             <VStack align="flex-start" spacing={1}>
               <Heading size="2xl">{title}</Heading>
-              <Heading size="lg">By {artist.name}</Heading>
+              <Heading size="lg">By {artist?.name}</Heading>
               <Text>{new Date(publishedAt).toLocaleDateString("en-US")}</Text>
               <Tooltip
                 label={hasCopied ? "copied!" : "click to copy"}
@@ -68,15 +68,19 @@ const Post = ({ postData, preview }) => {
             <PortableText blocks={body} />
             <VStack align="flex-start">
               <Link
-                href={`/artists/${artist.slug}`}
+                href={`/artists/${artist?.slug}`}
                 display="flex"
                 alignItems="center"
               >
-                <Avatar size="lg" src={urlFor(artist.image?.asset)} mr="1rem" />
-                <Heading>{artist.name}</Heading>
+                <Avatar
+                  size="lg"
+                  src={urlFor(artist?.image?.asset)}
+                  mr="1rem"
+                />
+                <Heading>{artist?.name}</Heading>
               </Link>
-              <SocialIcons socials={artist.socials} />
-              <PortableText blocks={artist.bio} />
+              <SocialIcons socials={artist?.socials} />
+              <PortableText blocks={artist?.bio} />
             </VStack>
           </VStack>
         </Container>

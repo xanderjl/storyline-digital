@@ -6,7 +6,8 @@
     "dev": "concurrently \"next\" \"cd studio && sanity start\"",
     "build": "next build",
     "postbuild": "next-sitemap",
-    "build-studio": "echo 'Building Sanity to public/studio…' && cd studio && sanity build ../public/studio -y && cd .. && next build",
+    "build-studio": "cd studio && sanity build ../public/studio -y && cd ..",
+    "build-both": "echo 'Building Sanity to public/studio…' && cd studio && sanity build ../public/studio -y && cd .. && next build",
     "start": "next start"
   },
   "dependencies": {
