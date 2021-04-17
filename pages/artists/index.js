@@ -3,7 +3,6 @@ import {
   Avatar,
   Box,
   Button,
-  Flex,
   Grid,
   Heading,
   Icon,
@@ -11,7 +10,6 @@ import {
   InputGroup,
   InputLeftElement,
   Popover,
-  PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
@@ -23,14 +21,13 @@ import Fuse from "fuse.js"
 import Layout from "@components/Layout"
 import SocialIcons from "@components/SocialIcons"
 import { BiSearch } from "react-icons/bi"
-import sanity from "@lib/sanity"
+import { getClient } from "@lib/sanity"
 import { groq } from "next-sanity"
 import React from "react"
 import Link from "@components/NextLink"
-import getImageFromUrl from "utils/getImageFromUrl"
+import { urlFor } from "@lib/sanity"
 import toPlainText from "utils/getPlainText"
 import Card from "@components/Card"
-import Posts from "pages/posts"
 
 const Artists = ({ artists }) => {
   const [query, setQuery] = useState("")
@@ -55,7 +52,7 @@ const Artists = ({ artists }) => {
           </InputLeftElement>
           <Input
             placeholder="search for an artist"
-            _placeholder={{color: "brown.500"}}
+            _placeholder={{ color: "brown.500" }}
             fontSize="xl"
             value={query}
             border="none"
@@ -93,7 +90,11 @@ const Artists = ({ artists }) => {
                   </Button>
                 </PopoverTrigger>
               </Card>
-              <PopoverContent borderRadius={0} bg="beige.50" borderColor="brown.900">
+              <PopoverContent
+                borderRadius={0}
+                bg="beige.50"
+                borderColor="brown.900"
+              >
                 <PopoverHeader borderColor="brown.900">
                   <Link href={`/artists/${slug}`}>
                     <Heading size="md">{name}</Heading>
@@ -105,7 +106,7 @@ const Artists = ({ artists }) => {
                     <Link href={`/artists/${slug}`}>
                       <Avatar
                         size="xl"
-                        src={getImageFromUrl(image?.asset)}
+                        src={urlFor(image?.asset)}
                         m="0.5rem"
                         float="left"
                       />
@@ -158,7 +159,7 @@ const artistsQuery = groq`*[_type == "artist"] | order(name) {
   }`
 
 export const getStaticProps = async () => {
-  const artists = await sanity.fetch(artistsQuery)
+  const artists = await getClient().fetch(artistsQuery)
 
   return { props: { artists } }
 }

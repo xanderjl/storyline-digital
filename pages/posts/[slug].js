@@ -1,4 +1,5 @@
 import { useRouter } from "next/router"
+import Error from "next/error"
 import {
   Avatar,
   Box,
@@ -14,19 +15,29 @@ import {
 import Layout from "@components/Layout"
 import Link from "@components/NextLink"
 import SocialIcons from "@components/SocialIcons"
-import sanity, { serializers } from "@lib/sanity"
-import PortableText from "@sanity/block-content-to-react"
-import getImageFromUrl from "@utils/getImageFromUrl"
+import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
+import { urlFor } from "@lib/sanity"
 import { groq } from "next-sanity"
 import { FaShareAlt } from "react-icons/fa"
 
-const Post = ({ post }) => {
-  const { title, artist, categories, publishedAt, body } = post
+const Post = ({ postData, preview }) => {
   const router = useRouter()
+  if (!router.isFallback && !postData?.slug) {
+    return <Error statusCode={404} />
+  }
   const shareLink = `${process.env.NEXT_PUBLIC_SITE_URL || "localhost:3000"}${
     router.asPath
   }`
   const { hasCopied, onCopy } = useClipboard(shareLink)
+
+  const { data: post = {} } = usePreviewSubscription(singlePostQuery, {
+    params: { slug: postData?.slug },
+    initialData: postData,
+    enabled: preview || router.query.preview !== null,
+  })
+
+  const { title, artist, categories, publishedAt, body } = post
+
   return (
     <Layout>
       <Box p="3rem 1.25rem">
@@ -54,18 +65,14 @@ const Post = ({ post }) => {
                 </Text>
               </Tooltip>
             </VStack>
-            <PortableText blocks={body} serializers={serializers} />
+            <PortableText blocks={body} />
             <VStack align="flex-start">
               <Link
                 href={`/artists/${artist.slug}`}
                 display="flex"
                 alignItems="center"
               >
-                <Avatar
-                  size="lg"
-                  src={getImageFromUrl(artist.image.asset)}
-                  mr="1rem"
-                />
+                <Avatar size="lg" src={urlFor(artist.image?.asset)} mr="1rem" />
                 <Heading>{artist.name}</Heading>
               </Link>
               <SocialIcons socials={artist.socials} />
@@ -99,18 +106,20 @@ const singlePostQuery = groq`
   `
 
 export const getStaticPaths = async () => {
-  const posts = await sanity.fetch(postsQuery)
+  const posts = await getClient().fetch(postsQuery)
   const paths = posts.map(post => ({
     params: { slug: post.slug },
   }))
 
-  return { paths, fallback: false }
+  return { paths, fallback: true }
 }
 
-export const getStaticProps = async ({ params }) => {
-  const post = await sanity.fetch(singlePostQuery, { slug: params.slug })
+export const getStaticProps = async ({ params, preview = false }) => {
+  const postData = await getClient(preview).fetch(singlePostQuery, {
+    slug: params.slug,
+  })
 
-  return { props: { post } }
+  return { props: { postData, preview } }
 }
 
 export default Post

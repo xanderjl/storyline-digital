@@ -1,6 +1,6 @@
 import { Box, Heading } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
-import sanity from "@lib/sanity"
+import { getClient } from "@lib/sanity"
 import groq from "groq"
 
 const Home = ({ posts }) => {
@@ -10,7 +10,9 @@ const Home = ({ posts }) => {
         p={{ base: "3rem 1.25rem", md: "7rem 1.25rem", xl: "12rem 1.25rem" }}
       >
         <Heading size="4xl">There Will Be Stories Here Soon.</Heading>
-        <Box as="pre" h="600px" overflow="scroll">{JSON.stringify(posts, null, 2)}</Box>
+        <Box as="pre" h="600px" overflow="scroll">
+          {JSON.stringify(posts, null, 2)}
+        </Box>
       </Box>
     </Layout>
   )
@@ -29,7 +31,7 @@ const postsQuery = groq`
 `
 
 export const getStaticProps = async () => {
-  const posts = await sanity.fetch(postsQuery)
+  const posts = await getClient().fetch(postsQuery)
   return { props: { posts } }
 }
 
