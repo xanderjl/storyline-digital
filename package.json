@@ -29,6 +29,7 @@
     "arrowParens": "avoid"
   },
   "devDependencies": {
+    "@sanity/cli": "^2.8.0",
     "concurrently": "^6.0.2"
   }
 }
