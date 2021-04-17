@@ -1,5 +1,7 @@
 import S from "@sanity/desk-tool/structure-builder"
 import ArtistView from "../components/previews/ArtistView"
+import PostView from "../components/previews/PostView"
+import { BsEyeFill } from "react-icons/bs"
 
 const hiddenDocTypes = listItem => ![""].includes(listItem.getId())
 
@@ -21,7 +23,13 @@ export const getDefaultDocumentNode = props => {
   if (schemaType === "artist") {
     return S.document().views([
       S.view.form(),
-      S.view.component(ArtistView).title("Web"),
+      S.view.component(ArtistView).title("Web").icon(BsEyeFill),
+    ])
+  }
+  if (schemaType === "post") {
+    return S.document().views([
+      S.view.form(),
+      S.view.component(PostView).title("Web").icon(BsEyeFill),
     ])
   }
   return S.document().views([S.view.form()])

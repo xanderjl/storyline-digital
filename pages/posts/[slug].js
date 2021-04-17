@@ -76,7 +76,7 @@ const Post = ({ postData, preview }) => {
                 <Heading>{artist.name}</Heading>
               </Link>
               <SocialIcons socials={artist.socials} />
-              <PortableText blocks={artist.bio} serializers={serializers} />
+              <PortableText blocks={artist.bio} />
             </VStack>
           </VStack>
         </Container>
