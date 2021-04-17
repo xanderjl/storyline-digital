@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "concurrently \"next\" \"cd studio && sanity start\"",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "build-studio": "echo 'Building Sanity to public/studio…' && cd studio && sanity build ../public/studio -y && cd .. && next build",
     "start": "next start"
   },
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@sanity/cli": "^2.8.0",
-    "concurrently": "^6.0.2"
+    "concurrently": "^6.0.2",
+    "next-sitemap": "^1.6.25"
   }
 }
