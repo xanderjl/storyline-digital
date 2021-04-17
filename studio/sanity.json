@@ -1,7 +1,8 @@
 {
   "root": true,
   "project": {
-    "name": "storyline-digital"
+    "name": "storyline-digital",
+    "basePath": "/studio"
   },
   "api": {
     "projectId": "s08vs7iv",
@@ -16,9 +17,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
