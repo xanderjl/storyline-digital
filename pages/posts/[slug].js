@@ -11,6 +11,8 @@ import {
   VStack,
   useClipboard,
   Tooltip,
+  HStack,
+  Tag,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import Link from "@components/NextLink"
@@ -47,19 +49,29 @@ const Post = ({ postData, preview }) => {
             spacing={6}
             divider={<StackDivider borderColor="gray.500" />}
           >
-            <VStack align="flex-start" spacing={1}>
-              <Heading size="2xl">{title}</Heading>
-              <Heading size="lg">By {artist?.name}</Heading>
-              <Text>{new Date(publishedAt).toLocaleDateString("en-US")}</Text>
+            <VStack align="flex-start" spacing={2}>
+              <Box>
+                <Heading size="2xl">{title}</Heading>
+                <Heading size="lg">By {artist?.name}</Heading>
+              </Box>
+              <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
+              <HStack spacing={2}>
+                {categories.length > 0 &&
+                  categories.map((category, i) => (
+                    <Tag key={i} colorScheme="brown" size="sm">
+                      {category.title}
+                    </Tag>
+                  ))}
+              </HStack>
               <Tooltip
                 label={hasCopied ? "copied!" : "click to copy"}
-                bg="gray.500"
+                bg="brown.400"
               >
                 <Text
                   as="button"
                   role="group"
                   onClick={onCopy}
-                  _hover={{ color: "gray.600" }}
+                  _hover={{ color: "brown.400" }}
                 >
                   Share <Icon as={FaShareAlt} />
                 </Text>
@@ -103,7 +115,7 @@ const singlePostQuery = groq`
         socials,
         bio
       },
-      categories,
+      categories[]->{title},
       publishedAt,
       body,
     }[0]
