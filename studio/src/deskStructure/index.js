@@ -1,14 +1,26 @@
 import S from "@sanity/desk-tool/structure-builder"
-import ArtistView from "../components/previews/ArtistView"
+import CreatorView from "../components/previews/CreatorView"
 import PostView from "../components/previews/PostView"
 import { BsEyeFill } from "react-icons/bs"
+import { AiOutlineInfoCircle } from "react-icons/ai"
 
-const hiddenDocTypes = listItem => ![""].includes(listItem.getId())
+const hiddenDocTypes = listItem => !["aboutPage"].includes(listItem.getId())
 
 export default () =>
   S.list()
     .title("Pulp Inc.")
-    .items([...S.documentTypeListItems().filter(hiddenDocTypes)])
+    .items([
+      S.listItem()
+        .title("About")
+        .icon(AiOutlineInfoCircle)
+        .child(
+          S.editor()
+            .id("aboutPage")
+            .schemaType("aboutPage")
+            .documentId("aboutPage")
+        ),
+      ...S.documentTypeListItems().filter(hiddenDocTypes),
+    ])
 
 export const getDefaultDocumentNode = props => {
   /**
@@ -20,10 +32,10 @@ export const getDefaultDocumentNode = props => {
    */
   const { schemaType } = props
 
-  if (schemaType === "artist") {
+  if (schemaType === "creator") {
     return S.document().views([
       S.view.form(),
-      S.view.component(ArtistView).title("Web").icon(BsEyeFill),
+      S.view.component(CreatorView).title("Web").icon(BsEyeFill),
     ])
   }
   if (schemaType === "post") {
