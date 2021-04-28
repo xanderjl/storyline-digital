@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  Container,
   Grid,
   Heading,
   Icon,
@@ -38,7 +39,7 @@ const Creators = ({ creators }) => {
   const creatorResults = query ? results.map(result => result.item) : creators
   return (
     <Layout>
-      <Box px="1.25rem" pt="3rem">
+      <Container maxW="container.xl" px="1.25rem" pt="3rem">
         <InputGroup
           size="lg"
           bg="beige.50"
@@ -59,85 +60,85 @@ const Creators = ({ creators }) => {
             onChange={e => setQuery(e.target.value)}
           />
         </InputGroup>
-      </Box>
-      <Grid
-        p="3rem 1.25rem"
-        templateColumns={{
-          base: "minmax(0, 1fr)",
-          md: "repeat(auto-fill, minmax(40ch, 1fr))",
-        }}
-        gap={8}
-      >
-        {creatorResults.map(creator => {
-          const { name, slug, bio, image, pronouns, socials, posts } = creator
-          console.log(bio.length)
-
-          return (
-            <Popover key={slug} isLazy>
-              <Card>
-                <Link href={`/creators/${slug}`} pb="0.25rem">
-                  <Heading textAlign="center">{name}</Heading>
-                </Link>
-                <SocialIcons socials={socials} />
-                <PopoverTrigger>
-                  <Button
-                    m="1rem"
-                    size="sm"
-                    colorScheme="brown"
-                    borderRadius={0}
-                  >
-                    Overview
-                  </Button>
-                </PopoverTrigger>
-              </Card>
-              <PopoverContent
-                borderRadius={0}
-                bg="beige.50"
-                borderColor="brown.900"
-              >
-                <PopoverHeader borderColor="brown.900">
-                  <Link href={`/creators/${slug}`}>
-                    <Heading size="md">{name}</Heading>
+      </Container>
+      <Container maxW="container.xl">
+        <Grid
+          p="3rem 1.25rem"
+          templateColumns={{
+            base: "minmax(0, 1fr)",
+            md: "repeat(auto-fill, minmax(40ch, 1fr))",
+          }}
+          gap={8}
+        >
+          {creatorResults.map(creator => {
+            const { name, slug, bio, image, pronouns, posts } = creator
+            console.log(bio.length)
+            return (
+              <Popover key={slug} isLazy>
+                <Card>
+                  <Link href={`/creators/${slug}`} pb="0.25rem">
+                    <Heading textAlign="center">{name}</Heading>
                   </Link>
-                </PopoverHeader>
-                <PopoverCloseButton />
-                <PopoverBody>
-                  <VStack spacing={4} align="flex-start">
+                  <PopoverTrigger>
+                    <Button
+                      m="1rem"
+                      size="sm"
+                      colorScheme="brown"
+                      borderRadius={0}
+                    >
+                      Overview
+                    </Button>
+                  </PopoverTrigger>
+                </Card>
+                <PopoverContent
+                  borderRadius={0}
+                  bg="beige.50"
+                  borderColor="brown.900"
+                >
+                  <PopoverHeader borderColor="brown.900">
                     <Link href={`/creators/${slug}`}>
-                      <Avatar
-                        size="xl"
-                        src={urlFor(image?.asset)}
-                        m="0.5rem"
-                        float="left"
-                      />
-                      {toPlainText(bio).length > 140
-                        ? toPlainText(bio).slice(0, 139) + "..."
-                        : toPlainText(bio)}
+                      <Heading size="md">{name}</Heading>
                     </Link>
-                    <Box w="100%">
-                      <Heading size="md" pb="0.5rem">
-                        Latest Posts
-                      </Heading>
-                      <VStack spacing={2} align="flex-start">
-                        {posts.map(post => {
-                          const { _id, title, slug } = post
-                          return (
-                            <Link key={_id} href={`/posts/${slug}`} w="100%">
-                              <Card p="1rem" w="100%">
-                                <Heading size="sm">{title}</Heading>
-                              </Card>
-                            </Link>
-                          )
-                        })}
-                      </VStack>
-                    </Box>
-                  </VStack>
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
-          )
-        })}
-      </Grid>
+                  </PopoverHeader>
+                  <PopoverCloseButton />
+                  <PopoverBody>
+                    <VStack spacing={4} align="flex-start">
+                      <Link href={`/creators/${slug}`}>
+                        <Avatar
+                          size="xl"
+                          src={urlFor(image?.asset)}
+                          m="0.5rem"
+                          float="left"
+                        />
+                        {toPlainText(bio).length > 140
+                          ? toPlainText(bio).slice(0, 139) + "..."
+                          : toPlainText(bio)}
+                      </Link>
+                      <Box w="100%">
+                        <Heading size="md" pb="0.5rem">
+                          Latest Posts
+                        </Heading>
+                        <VStack spacing={2} align="flex-start">
+                          {posts.map(post => {
+                            const { _id, title, slug } = post
+                            return (
+                              <Link key={_id} href={`/posts/${slug}`} w="100%">
+                                <Card p="1rem" w="100%">
+                                  <Heading size="sm">{title}</Heading>
+                                </Card>
+                              </Link>
+                            )
+                          })}
+                        </VStack>
+                      </Box>
+                    </VStack>
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
+            )
+          })}
+        </Grid>
+      </Container>
     </Layout>
   )
 }

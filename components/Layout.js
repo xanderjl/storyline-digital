@@ -1,4 +1,4 @@
-import { Container, Flex } from "@chakra-ui/layout"
+import { Box, Flex } from "@chakra-ui/layout"
 import Navbar from "./Navbar"
 
 const Layout = ({ children }) => {
@@ -14,9 +14,7 @@ const Layout = ({ children }) => {
       bgPosition="100% 0"
     >
       <Navbar />
-      <Container flex={1} maxW="container.xl">
-        {children}
-      </Container>
+      <Box flex={1}>{children}</Box>
     </Flex>
   )
 }

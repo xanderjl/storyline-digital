@@ -38,65 +38,59 @@ const Post = ({ postData, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const { title, artist, categories, publishedAt, body } = post
+  const { title, creator, categories, publishedAt, body } = post
 
   return (
     <Layout>
-      <Box p="3rem 1.25rem">
-        <Container maxW="container.md">
-          <VStack
-            align="flex-start"
-            spacing={6}
-            divider={<StackDivider borderColor="gray.500" />}
-          >
-            <VStack align="flex-start" spacing={2}>
-              <Box>
-                <Heading size="2xl">{title}</Heading>
-                <Heading size="lg">By {artist?.name}</Heading>
-              </Box>
-              <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
-              <HStack spacing={2}>
-                {categories.length > 0 &&
-                  categories.map((category, i) => (
-                    <Tag key={i} colorScheme="brown" size="sm">
-                      {category.title}
-                    </Tag>
-                  ))}
-              </HStack>
-              <Tooltip
-                label={hasCopied ? "copied!" : "click to copy"}
-                bg="brown.400"
+      <Container maxW="container.xl" p="3rem 1.25rem">
+        <VStack
+          align="flex-start"
+          spacing={6}
+          divider={<StackDivider borderColor="brown.500" />}
+        >
+          <VStack align="flex-start" spacing={2}>
+            <Box>
+              <Heading size="2xl">{title}</Heading>
+              <Heading size="lg">By {creator?.name}</Heading>
+            </Box>
+            <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
+            <HStack spacing={2}>
+              {categories.length > 0 &&
+                categories.map((category, i) => (
+                  <Tag key={i} colorScheme="brown" size="sm">
+                    {category.title}
+                  </Tag>
+                ))}
+            </HStack>
+            <Tooltip
+              label={hasCopied ? "copied!" : "click to copy"}
+              bg="brown.400"
+            >
+              <Text
+                as="button"
+                role="group"
+                onClick={onCopy}
+                _hover={{ color: "brown.400" }}
               >
-                <Text
-                  as="button"
-                  role="group"
-                  onClick={onCopy}
-                  _hover={{ color: "brown.400" }}
-                >
-                  Share <Icon as={FaShareAlt} />
-                </Text>
-              </Tooltip>
-            </VStack>
-            <PortableText blocks={body} />
-            <VStack align="flex-start">
-              <Link
-                href={`/artists/${artist?.slug}`}
-                display="flex"
-                alignItems="center"
-              >
-                <Avatar
-                  size="lg"
-                  src={urlFor(artist?.image?.asset)}
-                  mr="1rem"
-                />
-                <Heading>{artist?.name}</Heading>
-              </Link>
-              <SocialIcons socials={artist?.socials} />
-              <PortableText blocks={artist?.bio} />
-            </VStack>
+                Share <Icon as={FaShareAlt} />
+              </Text>
+            </Tooltip>
           </VStack>
-        </Container>
-      </Box>
+          <PortableText blocks={body} />
+          <VStack align="flex-start">
+            <Link
+              href={`/artists/${creator?.slug}`}
+              display="flex"
+              alignItems="center"
+            >
+              <Avatar size="lg" src={urlFor(creator?.image?.asset)} mr="1rem" />
+              <Heading>{creator?.name}</Heading>
+            </Link>
+            <SocialIcons socials={creator?.socials} />
+            <PortableText blocks={creator?.bio} />
+          </VStack>
+        </VStack>
+      </Container>
     </Layout>
   )
 }
@@ -107,7 +101,7 @@ const singlePostQuery = groq`
     *[_type == "post" && slug.current == $slug] {
       title,
       "slug": slug.current,
-      artist->{
+      creator->{
         name,
         "slug": slug.current,
         image,

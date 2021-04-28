@@ -23,7 +23,7 @@ const Creators = ({ creatorData, preview }) => {
     return <Error statusCode={404} />
   }
 
-  const { data: creator = {} } = usePreviewSubscription(singleArtistQuery, {
+  const { data: creator = {} } = usePreviewSubscription(singleCreatorQuery, {
     params: { slug: creatorData?.slug },
     initialData: creatorData,
     enabled: preview || router.query.preview !== null,
@@ -67,8 +67,8 @@ const Creators = ({ creatorData, preview }) => {
   )
 }
 
-const artistsQuery = groq`*[_type == "creator"] { "slug": slug.current }`
-const singleArtistQuery = groq`
+const creatorsQuery = groq`*[_type == "creator"] { "slug": slug.current }`
+const singleCreatorQuery = groq`
   *[_type == "creator" && slug.current == $slug] {
     _id,
     name,
@@ -88,8 +88,8 @@ const singleArtistQuery = groq`
 `
 
 export const getStaticPaths = async () => {
-  const artists = await getClient().fetch(artistsQuery)
-  const paths = artists.map(creator => ({
+  const creators = await getClient().fetch(creatorsQuery)
+  const paths = creators.map(creator => ({
     params: { slug: creator.slug },
   }))
 
@@ -97,7 +97,7 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params, preview = false }) => {
-  const creatorData = await getClient(preview).fetch(singleArtistQuery, {
+  const creatorData = await getClient(preview).fetch(singleCreatorQuery, {
     slug: params.slug,
   })
 
