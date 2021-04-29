@@ -18,14 +18,11 @@ import { Image } from "@chakra-ui/image"
 
 const Home = ({ posts }) => {
   const headerPost = testPosts[0]
-  testPosts.shift()
-  useEffect(() => {}, [])
+  const gridPosts = testPosts.filter(post => post !== testPosts[0])
   return (
     <Layout>
       <Box
         h="calc(100vh - 62px)"
-        // pos="relative"
-        // p={{ base: "3rem 1.25rem", md: "7rem 1.25rem", xl: "12rem 1.25rem" }}
         backgroundImage="url(http://www.fillmurray.com/1440/1440)"
         backgroundRepeat="no-repeat"
         backgroundPosition="center"
@@ -36,11 +33,22 @@ const Home = ({ posts }) => {
           pos="relative"
           maxW="container.xl"
           color="white"
-          // p={{ base: "3rem 1.25rem", md: "7rem 1.25rem", xl: "12rem 1.25rem" }}
+          p={{ base: "3rem 1.25rem", md: "7rem 1.25rem", xl: "12rem 1.25rem" }}
         >
-          <Heading size="4xl" pos="absolute" left="1.25rem" bottom="20%">
-            {headerPost.title}
-          </Heading>
+          <Link
+            href={`/posts/${headerPost.slug}`}
+            pos="absolute"
+            left="1.25rem"
+            bottom="20%"
+          >
+            <Heading size="4xl">{headerPost.title}</Heading>
+            <Heading as="h2" size="2xl">
+              {headerPost.creator.name}
+            </Heading>
+            <Text fontSize="xl">
+              {new Date(headerPost.publishedAt).toLocaleDateString("en-CA")}
+            </Text>
+          </Link>
         </Container>
       </Box>
       <Container
@@ -51,20 +59,20 @@ const Home = ({ posts }) => {
           There Will Be Stories Here Soon.
         </Heading>
         <Grid
-          templateColumns={{ base: "minmax(0, 1fr)", md: "repeat(5, 1fr)" }}
+          templateColumns={{ base: "minmax(0, 1fr)", lg: "repeat(12, 1fr)" }}
           gap={8}
+          rowGap="6rem"
         >
-          {testPosts.map((post, i) => {
+          {gridPosts.map((post, i) => {
             const { _id, title, publishedAt, slug, body, creator } = post
             return (
               <GridItem
                 key={_id}
                 colStart={{
                   base: 0,
-                  md: i % 2 === 0 ? 0 : 2,
-                  lg: i % 2 === 0 ? 0 : 3,
+                  lg: i % 2 === 0 ? 0 : 6,
                 }}
-                colSpan={{ base: 1, md: 4, lg: 3 }}
+                colSpan={{ base: 1, lg: 6 }}
               >
                 <Card
                   p={0}
