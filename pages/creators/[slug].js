@@ -5,6 +5,9 @@ import {
   Flex,
   Grid,
   Heading,
+  HStack,
+  Stack,
+  Text,
   VStack,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
@@ -33,20 +36,31 @@ const Creators = ({ creatorData, preview }) => {
 
   return (
     <Layout>
-      <Container maxW="container.xl" p="3rem 1.25rem">
+      <Container
+        minH="calc(100vh - 62px)"
+        maxW="container.lg"
+        p="3rem"
+        bg="beige.50"
+      >
         <VStack spacing={6} align="flex-start">
-          <Flex>
-            <Avatar size="2xl" src={urlFor(image?.asset)} mr="1.25rem" />
-            <Box maxW="70ch">
-              <Heading>{name}</Heading>
-              <PortableText blocks={bio} />
-            </Box>
-          </Flex>
-          <SocialIcons socials={socials} />
+          <Stack
+            direction={{ base: "column", md: "row" }}
+            pb="1rem"
+            align="center"
+            spacing={4}
+          >
+            <Avatar boxSize={400} src={urlFor(image?.asset)} mr="1.25rem" />
+            <VStack maxW="70ch" align="flex-start" spacing={4}>
+              <Heading size="4xl">{name}</Heading>
+              <Heading size="md">{pronouns}</Heading>
+              <SocialIcons socials={socials} />
+              <PortableText pb="1rem" blocks={bio} />
+            </VStack>
+          </Stack>
           <Grid
             templateColumns={{
               base: "minmax(0, 1fr)",
-              md: "repeat(auto-fill, minmax(40ch, 1fr))",
+              md: "repeat(auto-fill, minmax(50ch, 1fr))",
             }}
             gap={8}
           >

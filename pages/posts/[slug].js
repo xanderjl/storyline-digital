@@ -42,7 +42,12 @@ const Post = ({ postData, preview }) => {
 
   return (
     <Layout>
-      <Container maxW="container.xl" p="3rem 1.25rem">
+      <Container
+        maxW="container.lg"
+        minH="calc(100vh - 62px)"
+        p="3rem"
+        bg="beige.50"
+      >
         <VStack
           align="flex-start"
           spacing={6}

@@ -40,20 +40,13 @@ const Creators = ({ creators }) => {
   return (
     <Layout>
       <Container maxW="container.xl" px="1.25rem" pt="3rem">
-        <InputGroup
-          size="lg"
-          bg="beige.50"
-          border="1px solid"
-          borderColor="brown.900"
-          borderRadius={0}
-          boxShadow="sm"
-        >
+        <InputGroup size="lg" bg="white" borderRadius={6} boxShadow="lg">
           <InputLeftElement>
             <Icon as={BiSearch} boxSize={6} />
           </InputLeftElement>
           <Input
             placeholder="search for a creator"
-            _placeholder={{ color: "brown.500" }}
+            // _placeholder={{ color: "brown.500" }}
             fontSize="xl"
             value={query}
             border="none"
@@ -63,7 +56,7 @@ const Creators = ({ creators }) => {
       </Container>
       <Container maxW="container.xl">
         <Grid
-          p="3rem 1.25rem"
+          py="2rem"
           templateColumns={{
             base: "minmax(0, 1fr)",
             md: "repeat(auto-fill, minmax(40ch, 1fr))",
@@ -80,22 +73,13 @@ const Creators = ({ creators }) => {
                     <Heading textAlign="center">{name}</Heading>
                   </Link>
                   <PopoverTrigger>
-                    <Button
-                      m="1rem"
-                      size="sm"
-                      colorScheme="brown"
-                      borderRadius={0}
-                    >
+                    <Button m="1rem" size="sm" colorScheme="blue">
                       Overview
                     </Button>
                   </PopoverTrigger>
                 </Card>
-                <PopoverContent
-                  borderRadius={0}
-                  bg="beige.50"
-                  borderColor="brown.900"
-                >
-                  <PopoverHeader borderColor="brown.900">
+                <PopoverContent>
+                  <PopoverHeader>
                     <Link href={`/creators/${slug}`}>
                       <Heading size="md">{name}</Heading>
                     </Link>

@@ -7,9 +7,10 @@ const Card = ({ children, ...rest }) => {
       align="center"
       p="1.75rem"
       bg="beige.50"
-      boxShadow="sm"
-      border="1px solid"
-      borderColor="brown.900"
+      boxShadow="lg"
+      bg="white"
+      borderRadius={6}
+      overflow="hidden"
       {...rest}
     >
       {children}

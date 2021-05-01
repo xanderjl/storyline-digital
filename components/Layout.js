@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
       direction="column"
       w="100%"
       minH="100vh"
-      bgImage="url('Background.svg')"
+      bgImage="url('/Background.svg')"
       bgRepeat="no-repeat"
       bgSize="60vh"
       bgAttachment="fixed"
