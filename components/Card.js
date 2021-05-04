@@ -9,6 +9,8 @@ const Card = ({ children, ...rest }) => {
       bg="beige.50"
       boxShadow="lg"
       bg="white"
+      border="1px solid"
+      borderColor="warmGray.300"
       borderRadius={6}
       overflow="hidden"
       {...rest}

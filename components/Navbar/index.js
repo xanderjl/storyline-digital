@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <Box boxShadow="md" bg="beige.100">
+    <Box boxShadow="md" bg="primary.50">
       <Container maxW="container.xl">
         <Flex
           direction={{ base: "column", md: "row" }}
@@ -19,7 +19,7 @@ const Navbar = () => {
         >
           <Flex justify="space-between" align="center">
             <Link display="flex" alignItems="center">
-              <Logo color="red.700" />
+              <Logo color="analogous.400" />
               <Heading pl="0.5rem" size="md">
                 Storyline.Digital
               </Heading>

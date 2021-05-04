@@ -40,13 +40,19 @@ const Creators = ({ creators }) => {
   return (
     <Layout>
       <Container maxW="container.xl" px="1.25rem" pt="3rem">
-        <InputGroup size="lg" bg="white" borderRadius={6} boxShadow="lg">
+        <InputGroup
+          size="lg"
+          bg="white"
+          borderRadius={6}
+          border="1px solid"
+          borderColor="warmGray.200"
+          boxShadow="lg"
+        >
           <InputLeftElement>
             <Icon as={BiSearch} boxSize={6} />
           </InputLeftElement>
           <Input
             placeholder="search for a creator"
-            // _placeholder={{ color: "brown.500" }}
             fontSize="xl"
             value={query}
             border="none"
@@ -73,7 +79,7 @@ const Creators = ({ creators }) => {
                     <Heading textAlign="center">{name}</Heading>
                   </Link>
                   <PopoverTrigger>
-                    <Button m="1rem" size="sm" colorScheme="blue">
+                    <Button m="1rem" size="sm" colorScheme="complementary">
                       Overview
                     </Button>
                   </PopoverTrigger>
@@ -107,8 +113,14 @@ const Creators = ({ creators }) => {
                             const { _id, title, slug } = post
                             return (
                               <Link key={_id} href={`/posts/${slug}`} w="100%">
-                                <Card p="1rem" w="100%">
-                                  <Heading size="sm">{title}</Heading>
+                                <Card
+                                  bg="complementary.400"
+                                  color="white"
+                                  _hover={{ bg: "complementary.500" }}
+                                  p="1rem"
+                                  w="100%"
+                                >
+                                  <Heading size="md">{title}</Heading>
                                 </Card>
                               </Link>
                             )

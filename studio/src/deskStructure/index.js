@@ -3,6 +3,7 @@ import CreatorView from "../components/previews/CreatorView"
 import PostView from "../components/previews/PostView"
 import { BsEyeFill } from "react-icons/bs"
 import { AiOutlineInfoCircle } from "react-icons/ai"
+import SocialPreview from "part:social-preview/component"
 
 const hiddenDocTypes = listItem => !["aboutPage"].includes(listItem.getId())
 
@@ -36,12 +37,14 @@ export const getDefaultDocumentNode = props => {
     return S.document().views([
       S.view.form(),
       S.view.component(CreatorView).title("Web").icon(BsEyeFill),
+      S.view.component(SocialPreview()).title("Social & SEO"),
     ])
   }
   if (schemaType === "post") {
     return S.document().views([
       S.view.form(),
       S.view.component(PostView).title("Web").icon(BsEyeFill),
+      S.view.component(SocialPreview()).title("Social & SEO"),
     ])
   }
   return S.document().views([S.view.form()])

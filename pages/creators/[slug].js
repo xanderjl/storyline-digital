@@ -58,6 +58,7 @@ const Creators = ({ creatorData, preview }) => {
             </VStack>
           </Stack>
           <Grid
+            w="100%"
             templateColumns={{
               base: "minmax(0, 1fr)",
               md: "repeat(auto-fill, minmax(50ch, 1fr))",
