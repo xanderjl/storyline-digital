@@ -56,11 +56,13 @@ const Post = ({ postData, preview }) => {
           <VStack align="flex-start" spacing={2}>
             <Box>
               <Heading size="2xl">{title}</Heading>
-              <Heading size="lg">By {creator?.name}</Heading>
+              {creator && <Heading size="lg">By {creator?.name}</Heading>}
             </Box>
-            <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
+            {publishedAt && (
+              <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
+            )}
             <HStack spacing={2}>
-              {categories.length > 0 &&
+              {categories?.length > 0 &&
                 categories.map((category, i) => (
                   <Tag key={i} colorScheme="brown" size="sm">
                     {category.title}
