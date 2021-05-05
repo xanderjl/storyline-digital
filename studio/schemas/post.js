@@ -9,7 +9,6 @@ export default {
   title: "Post",
   icon: BsPencilSquare,
   type: "document",
-  liveEdit: true,
   fields: [
     {
       name: "title",

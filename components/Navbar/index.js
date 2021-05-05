@@ -6,11 +6,11 @@ import Link from "@components/NextLink"
 import ToggleButton from "./ToggleButton"
 import Logo from "@components/Logo"
 
-const Navbar = () => {
+const Navbar = props => {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <Box boxShadow="md" bg="primary.50">
+    <Box boxShadow="md" bg="primary.50" {...props}>
       <Container maxW="container.xl">
         <Flex
           direction={{ base: "column", md: "row" }}

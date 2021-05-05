@@ -47,6 +47,7 @@ const Post = ({ postData, preview }) => {
         minH="calc(100vh - 62px)"
         p="3rem"
         bg="white"
+        boxShadow="md"
       >
         <VStack
           align="flex-start"
@@ -64,7 +65,7 @@ const Post = ({ postData, preview }) => {
             <HStack spacing={2}>
               {categories?.length > 0 &&
                 categories.map((category, i) => (
-                  <Tag key={i} colorScheme="brown" size="sm">
+                  <Tag key={i} colorScheme="complementary" size="sm">
                     {category.title}
                   </Tag>
                 ))}

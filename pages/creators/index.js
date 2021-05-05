@@ -6,6 +6,7 @@ import {
   Container,
   Grid,
   Heading,
+  HStack,
   Icon,
   Input,
   InputGroup,
@@ -16,11 +17,11 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Tag,
   VStack,
 } from "@chakra-ui/react"
 import Fuse from "fuse.js"
 import Layout from "@components/Layout"
-import SocialIcons from "@components/SocialIcons"
 import { BiSearch } from "react-icons/bi"
 import { getClient } from "@lib/sanity"
 import { groq } from "next-sanity"
@@ -30,7 +31,7 @@ import { urlFor } from "@lib/sanity"
 import toPlainText from "utils/getPlainText"
 import Card from "@components/Card"
 
-const Creators = ({ creators }) => {
+const Creators = ({ creators, categories }) => {
   const [query, setQuery] = useState("")
   const fuse = new Fuse(creators, {
     keys: ["name"],
@@ -59,6 +60,17 @@ const Creators = ({ creators }) => {
             onChange={e => setQuery(e.target.value)}
           />
         </InputGroup>
+        <Box pt="2rem">
+          <Heading as="h2" size="lg" pb="0.5rem">
+            Categories
+          </Heading>
+          <HStack>
+            {categories.map(category => {
+              const { title, _id, _rev } = category
+              return <Tag colorScheme="complementary">{title}</Tag>
+            })}
+          </HStack>
+        </Box>
       </Container>
       <Container maxW="container.xl">
         <Grid
@@ -79,7 +91,7 @@ const Creators = ({ creators }) => {
                     <Heading textAlign="center">{name}</Heading>
                   </Link>
                   <PopoverTrigger>
-                    <Button m="1rem" size="sm" colorScheme="complementary">
+                    <Button my="0.5rem" size="sm" colorScheme="complementary">
                       Overview
                     </Button>
                   </PopoverTrigger>
@@ -114,9 +126,9 @@ const Creators = ({ creators }) => {
                             return (
                               <Link key={_id} href={`/posts/${slug}`} w="100%">
                                 <Card
-                                  bg="complementary.400"
+                                  bg="complementary.300"
                                   color="white"
-                                  _hover={{ bg: "complementary.500" }}
+                                  _hover={{ bg: "complementary.400" }}
                                   p="1rem"
                                   w="100%"
                                 >
@@ -153,12 +165,15 @@ const creatorsQuery = groq`*[_type == "creator"] | order(name) {
       "slug": slug.current,
       categories
     }
-  }`
+  }
+  `
+const categoriesQuery = groq`*[_type == "category"]`
 
 export const getStaticProps = async () => {
   const creators = await getClient().fetch(creatorsQuery)
+  const categories = await getClient().fetch(categoriesQuery)
 
-  return { props: { creators } }
+  return { props: { creators, categories } }
 }
 
 export default Creators

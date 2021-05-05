@@ -13,6 +13,9 @@ import Link from "./NextLink"
 
 const iconStyles = {
   boxSize: 6,
+  _hover: {
+    color: "complementary.400",
+  },
 }
 
 const SocialIcons = ({ socials, ...rest }) => {

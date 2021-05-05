@@ -13,8 +13,10 @@ const Layout = ({ children }) => {
       // bgAttachment="fixed"
       // bgPosition="100% 0"
     >
-      <Navbar />
-      <Box flex={1}>{children}</Box>
+      <Navbar position="fixed" w="100%" />
+      <Box flex={1} mt="67px">
+        {children}
+      </Box>
     </Flex>
   )
 }
