@@ -128,6 +128,8 @@ export const getStaticPaths = async () => {
     params: { slug: post.slug },
   }))
 
+  // TODO: troubleshoot the fallback not working in production
+
   return { paths, fallback: true }
 }
 
