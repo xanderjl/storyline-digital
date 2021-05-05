@@ -24,7 +24,7 @@ import { FaShareAlt } from "react-icons/fa"
 
 const Post = ({ postData, preview }) => {
   const router = useRouter()
-  if (!router.isFallback && !postData?.slug) {
+  if (!postData?.slug) {
     return <Error statusCode={404} />
   }
   const shareLink = `${process.env.NEXT_PUBLIC_SITE_URL || "localhost:3000"}${
