@@ -2,6 +2,7 @@ import { useState } from "react"
 import {
   Box,
   Container,
+  Flex,
   Grid,
   GridItem,
   Heading,
@@ -65,20 +66,13 @@ const Home = ({ posts }) => {
       </Box>
       <Container
         maxW="container.xl"
-        maxH={{ base: "calc(100vh - 52px)", md: "calc(100vh - 57px)" }}
         p={{ base: "3rem 1.25rem", md: "7rem 1.25rem", xl: "12rem 1.25rem" }}
       >
-        <Grid
-          templateColumns={{ base: "minmax(0, 1fr)", md: "5fr 1fr" }}
-          gap={10}
-        >
+        <Flex alignItems="flex-start">
           <Grid
             templateColumns={{ base: "minmax(0, 1fr)", lg: "repeat(12, 1fr)" }}
             gap={8}
             rowGap="6rem"
-            overflow="auto"
-            autoRows="100%"
-            maxH="90%"
           >
             {gridPosts.map((post, i) => {
               const { _id, title, publishedAt, slug, mainImage, creator } = post
@@ -127,7 +121,7 @@ const Home = ({ posts }) => {
               )
             })}
           </Grid>
-          <Box display="fixed" right={0}>
+          <Box position="sticky" top={24} pl="1rem">
             <VStack spacing={4}>
               <Heading as="h3" size="lg">
                 Dates
@@ -140,7 +134,7 @@ const Home = ({ posts }) => {
               />
             </VStack>
           </Box>
-        </Grid>
+        </Flex>
       </Container>
     </Layout>
   )
