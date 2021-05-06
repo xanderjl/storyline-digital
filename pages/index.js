@@ -1,3 +1,4 @@
+import { useRef, useState } from "react"
 import {
   Box,
   Container,
@@ -14,10 +15,14 @@ import { getClient, urlFor } from "@lib/sanity"
 import groq from "groq"
 
 import { Image } from "@chakra-ui/image"
+import DateSlider from "@components/DateSlider"
 
 const Home = ({ posts }) => {
   const headerPost = posts[0]
   const gridPosts = posts.filter(post => post !== posts[0])
+  const targetPostRef = useRef(null)
+  const [targetPost, setTargetPost] = useState(gridPosts[gridPosts.length - 1])
+
   return (
     <Layout>
       <Box
@@ -114,17 +119,15 @@ const Home = ({ posts }) => {
               )
             })}
           </Grid>
-          <VStack display={{ base: "none", md: "flex" }}>
-            {gridPosts.map(post => {
-              const { _id, publishedAt } = post
-              return (
-                <Link key={_id} href={`#${_id}`}>
-                  <Text>
-                    {new Date(publishedAt).toLocaleDateString("en-CA")}
-                  </Text>
-                </Link>
-              )
-            })}
+          <VStack spacing={4}>
+            <Heading as="h3" size="lg">
+              Dates
+            </Heading>
+            <DateSlider
+              display={{ base: "none", md: "inline-block" }}
+              posts={gridPosts}
+              targetPost={targetPost}
+            />
           </VStack>
         </Grid>
       </Container>
