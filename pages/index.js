@@ -146,7 +146,7 @@ const Home = ({ posts }) => {
                 Entries
               </Heading>
               <DateSlider
-                posts={gridPosts.reverse()}
+                posts={gridPosts}
                 targetPost={targetPost}
                 onChange={e => {
                   postRefs.current[e].current.scrollIntoView({

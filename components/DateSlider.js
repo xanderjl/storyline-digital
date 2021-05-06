@@ -27,8 +27,8 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
           onChange={onChange}
           isReversed
         >
-          <SliderTrack bg="complementary.400">
-            <SliderFilledTrack bg="complementary.50" />
+          <SliderTrack bg="complementary.50">
+            <SliderFilledTrack bg="complementary.400" />
           </SliderTrack>
           <SliderThumb w={2} h="max-content" bg="complementary.400">
             <Box position="relative" left="60px">
