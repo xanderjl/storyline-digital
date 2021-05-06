@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useRef, createRef } from "react"
+import { InView } from "react-intersection-observer"
 import {
   Box,
   Container,
@@ -6,24 +7,22 @@ import {
   Grid,
   GridItem,
   Heading,
+  Image,
   Text,
   VStack,
-} from "@chakra-ui/layout"
+} from "@chakra-ui/react"
 import Card from "@components/Card"
 import Layout from "@components/Layout"
 import Link from "@components/NextLink"
+import DateSlider from "@components/DateSlider"
 import { getClient, urlFor } from "@lib/sanity"
 import groq from "groq"
-
-import { Image } from "@chakra-ui/image"
-import DateSlider from "@components/DateSlider"
 
 const Home = ({ posts }) => {
   const headerPost = posts[0]
   const gridPosts = posts.filter(post => post !== posts[0])
   const [targetPost, setTargetPost] = useState(gridPosts[0])
-
-  // TODO: integrate intersectionObserver with side scroll
+  const postRefs = useRef(gridPosts.map(() => createRef()))
 
   return (
     <Layout>
@@ -71,66 +70,91 @@ const Home = ({ posts }) => {
         <Flex alignItems="flex-start">
           <Grid
             templateColumns={{ base: "minmax(0, 1fr)", lg: "repeat(12, 1fr)" }}
-            gap={8}
-            rowGap="6rem"
+            gap={12}
           >
             {gridPosts.map((post, i) => {
               const { _id, title, publishedAt, slug, mainImage, creator } = post
               return (
-                <GridItem
-                  key={_id}
-                  id={`#${_id}`}
-                  colStart={{
-                    base: 0,
-                    lg: i % 2 === 0 ? 0 : 6,
+                <InView key={i} rootMargin="0px 0px -80% 0px">
+                  {({ inView }) => {
+                    // TODO: figure out how to update target post with inView
+                    if (inView) {
+                      setTargetPost(
+                        gridPosts[gridPosts.findIndex(item => item._id === _id)]
+                      )
+                    }
+                    return (
+                      <GridItem
+                        id={`#${_id}`}
+                        ref={postRefs.current[i]}
+                        minH={{ base: "max-content", md: "calc(60vh - 57px)" }}
+                        colStart={{
+                          base: 0,
+                          lg: i % 2 === 0 ? 0 : 6,
+                        }}
+                        colSpan={{ base: 1, lg: 6 }}
+                      >
+                        <Card
+                          p={0}
+                          direction={{ base: "column", md: "row" }}
+                          justifyContent="flex-start"
+                          alignItems="stretch"
+                        >
+                          <Link
+                            href={`/posts/${slug}`}
+                            maxW={{ base: "100%", md: "40%" }}
+                          >
+                            <Image
+                              objectFit="cover"
+                              h={{ base: "300px", md: "100%" }}
+                              w="100%"
+                              src={urlFor(mainImage)}
+                              fallbackSrc="https://via.placeholder.com/400"
+                            />
+                          </Link>
+                          <Box flex={1} p="2rem">
+                            <Link href={`/posts/${slug}`} mb="1rem">
+                              <Heading>{title}</Heading>
+                            </Link>
+                            <Link href={`/artists/${creator?.slug}`}>
+                              <Heading as="h2" size="md">
+                                {creator?.name}
+                              </Heading>
+                            </Link>
+                            <Text>
+                              {new Date(publishedAt).toLocaleDateString(
+                                "en-CA"
+                              )}
+                            </Text>
+                          </Box>
+                        </Card>
+                      </GridItem>
+                    )
                   }}
-                  colSpan={{ base: 1, lg: 6 }}
-                >
-                  <Card
-                    p={0}
-                    direction={{ base: "column", md: "row" }}
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                  >
-                    <Link
-                      maxW={{ base: "100%", md: "50%" }}
-                      maxH="100%"
-                      href={`/posts/${slug}`}
-                    >
-                      <Image
-                        objectFit="cover"
-                        src={urlFor(mainImage)}
-                        fallbackSrc="https://via.placeholder.com/400"
-                      />
-                    </Link>
-                    <Box flex={1} p="2rem">
-                      <Link href={`/posts/${slug}`} mb="1rem">
-                        <Heading>{title}</Heading>
-                      </Link>
-                      <Link href={`/artists/${creator?.slug}`}>
-                        <Heading as="h2" size="md">
-                          {creator?.name}
-                        </Heading>
-                      </Link>
-                      <Text>
-                        {new Date(publishedAt).toLocaleDateString("en-CA")}
-                      </Text>
-                    </Box>
-                  </Card>
-                </GridItem>
+                </InView>
               )
             })}
           </Grid>
-          <Box position="sticky" top={24} pl="1rem">
+          <Box
+            display={{ base: "none", md: "inline-block" }}
+            position="sticky"
+            top={24}
+            pl="1rem"
+          >
             <VStack spacing={4}>
               <Heading as="h3" size="lg">
-                Dates
+                Entries
               </Heading>
               <DateSlider
-                display={{ base: "none", md: "inline-block" }}
                 posts={gridPosts.reverse()}
                 targetPost={targetPost}
-                onChange={e => setTargetPost(gridPosts[e])}
+                onChange={e => {
+                  postRefs.current[e].current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  })
+                  setTargetPost(gridPosts[e])
+                }}
               />
             </VStack>
           </Box>

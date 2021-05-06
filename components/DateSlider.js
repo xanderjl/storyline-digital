@@ -11,7 +11,7 @@ import {
 const DateSlider = ({ posts, targetPost, onChange }) => {
   return (
     <VStack spacing={6}>
-      <Text>
+      <Text whiteSpace="nowrap">
         {new Date(posts[posts?.length - 1]?.publishedAt).toLocaleDateString(
           "en-CA"
         )}
@@ -25,6 +25,7 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
           step={1}
           value={posts.indexOf(targetPost)}
           onChange={onChange}
+          isReversed
         >
           <SliderTrack bg="complementary.400">
             <SliderFilledTrack bg="complementary.50" />
@@ -41,7 +42,9 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
           </SliderThumb>
         </Slider>
       </Box>
-      <Text>{new Date(posts[0]?.publishedAt).toLocaleDateString("en-CA")}</Text>
+      <Text whiteSpace="nowrap">
+        {new Date(posts[0]?.publishedAt).toLocaleDateString("en-CA")}
+      </Text>
     </VStack>
   )
 }
