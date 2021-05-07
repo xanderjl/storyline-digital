@@ -1,4 +1,4 @@
-import { useState, useRef, createRef } from "react"
+import { useState, createRef } from "react"
 import { InView } from "react-intersection-observer"
 import {
   Box,
@@ -22,7 +22,7 @@ const Home = ({ posts }) => {
   const headerPost = posts[0]
   const gridPosts = posts.filter(post => post !== posts[0])
   const [targetPost, setTargetPost] = useState(gridPosts[0])
-  const postRefs = useRef(gridPosts.map(() => createRef()))
+  const postRefs = gridPosts.map(() => createRef())
 
   return (
     <Layout>
@@ -75,9 +75,8 @@ const Home = ({ posts }) => {
             {gridPosts.map((post, i) => {
               const { _id, title, publishedAt, slug, mainImage, creator } = post
               return (
-                <InView key={i} rootMargin="0px 0px -80% 0px">
-                  {({ inView }) => {
-                    // TODO: figure out how to update target post with inView
+                <InView key={_id} rootMargin="0px 0px -75% 0px">
+                  {({ inView, ref }) => {
                     if (inView) {
                       setTargetPost(
                         gridPosts[gridPosts.findIndex(item => item._id === _id)]
@@ -85,9 +84,11 @@ const Home = ({ posts }) => {
                     }
                     return (
                       <GridItem
-                        id={`#${_id}`}
-                        ref={postRefs.current[i]}
-                        minH={{ base: "max-content", md: "calc(60vh - 57px)" }}
+                        ref={ref}
+                        minH={{
+                          base: "max-content",
+                          md: "calc(60vh - 57px)",
+                        }}
                         colStart={{
                           base: 0,
                           lg: i % 2 === 0 ? 0 : 6,
@@ -149,10 +150,11 @@ const Home = ({ posts }) => {
                 posts={gridPosts}
                 targetPost={targetPost}
                 onChange={e => {
-                  postRefs.current[e].current.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  })
+                  // postRefs[e].current.scrollIntoView({
+                  //   behavior: "smooth",
+                  //   block: "center",
+                  // })
+                  console.log({ e, postRefs })
                   setTargetPost(gridPosts[e])
                 }}
               />
