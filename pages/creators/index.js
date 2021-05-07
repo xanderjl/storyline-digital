@@ -83,7 +83,6 @@ const Creators = ({ creators, categories }) => {
         >
           {creatorResults.map(creator => {
             const { name, slug, bio, image, pronouns, posts } = creator
-            console.log(bio.length)
             return (
               <Popover key={slug} isLazy>
                 <Card>
@@ -126,9 +125,13 @@ const Creators = ({ creators, categories }) => {
                             return (
                               <Link key={_id} href={`/posts/${slug}`} w="100%">
                                 <Card
-                                  bg="complementary.300"
-                                  color="white"
-                                  _hover={{ bg: "complementary.400" }}
+                                  borderColor="complementary.100"
+                                  color="gray.700"
+                                  _hover={{
+                                    borderColor: "complementary.300",
+                                    bg: "complementary.300",
+                                    color: "white",
+                                  }}
                                   p="1rem"
                                   w="100%"
                                 >
@@ -158,7 +161,7 @@ const creatorsQuery = groq`*[_type == "creator"] | order(name) {
     image,
     pronouns,
     socials,
-    "posts": *[_type == "post" && references(^._id)] | order(publishedAt) {
+    "posts": *[_type == "post" && references(^._id)][0...3] | order(publishedAt) {
       _id,
       title,
       publishedAt,

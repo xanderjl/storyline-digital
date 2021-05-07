@@ -52,6 +52,10 @@ const Home = ({ posts }) => {
             bg="complementary.200"
             p="1.75rem 3rem"
             borderRadius={6}
+            _hover={{
+              bg: "complementary.500",
+              color: "white",
+            }}
           >
             <Heading size="4xl">{headerPost.title}</Heading>
             <Heading as="h2" size="2xl">
