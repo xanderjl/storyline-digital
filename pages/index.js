@@ -75,64 +75,69 @@ const Home = ({ posts }) => {
             {gridPosts.map((post, i) => {
               const { _id, title, publishedAt, slug, mainImage, creator } = post
               return (
-                <InView key={_id} rootMargin="0px 0px -75% 0px">
-                  {({ inView, ref }) => {
-                    if (inView) {
-                      setTargetPost(
-                        gridPosts[gridPosts.findIndex(item => item._id === _id)]
-                      )
-                    }
-                    return (
-                      <GridItem
-                        ref={ref}
-                        minH={{
-                          base: "max-content",
-                          md: "calc(60vh - 57px)",
-                        }}
-                        colStart={{
-                          base: 0,
-                          lg: i % 2 === 0 ? 0 : 6,
-                        }}
-                        colSpan={{ base: 1, lg: 6 }}
-                      >
-                        <Card
-                          p={0}
-                          direction={{ base: "column", md: "row" }}
-                          justifyContent="flex-start"
-                          alignItems="stretch"
-                        >
-                          <Link
-                            href={`/posts/${slug}`}
-                            maxW={{ base: "100%", md: "40%" }}
-                          >
-                            <Image
-                              objectFit="cover"
-                              h={{ base: "300px", md: "100%" }}
-                              w="100%"
-                              src={urlFor(mainImage)}
-                              fallbackSrc="https://via.placeholder.com/400"
-                            />
-                          </Link>
-                          <Box flex={1} p="2rem">
-                            <Link href={`/posts/${slug}`} mb="1rem">
-                              <Heading>{title}</Heading>
-                            </Link>
-                            <Link href={`/artists/${creator?.slug}`}>
-                              <Heading as="h2" size="md">
-                                {creator?.name}
-                              </Heading>
-                            </Link>
-                            <Text>
-                              {new Date(publishedAt).toLocaleDateString(
-                                "en-CA"
-                              )}
-                            </Text>
-                          </Box>
-                        </Card>
-                      </GridItem>
-                    )
+                <GridItem
+                  key={_id}
+                  ref={postRefs[i]}
+                  minH={{
+                    base: "max-content",
+                    md: "calc(60vh - 57px)",
                   }}
-                </InView>
+                  colStart={{
+                    base: 0,
+                    lg: i % 2 === 0 ? 0 : 6,
+                  }}
+                  colSpan={{ base: 1, lg: 6 }}
+                >
+                  <InView rootMargin="0px 0px -75% 0px">
+                    {({ inView, ref }) => {
+                      if (inView) {
+                        setTargetPost(
+                          gridPosts[
+                            gridPosts.findIndex(item => item._id === _id)
+                          ]
+                        )
+                      }
+                      return (
+                        <Box ref={ref} minH="inherit">
+                          <Card
+                            p={0}
+                            direction={{ base: "column", md: "row" }}
+                            justifyContent="flex-start"
+                            alignItems="stretch"
+                          >
+                            <Link
+                              href={`/posts/${slug}`}
+                              maxW={{ base: "100%", md: "40%" }}
+                            >
+                              <Image
+                                objectFit="cover"
+                                h={{ base: "300px", md: "100%" }}
+                                w="100%"
+                                src={urlFor(mainImage)}
+                                fallbackSrc="https://via.placeholder.com/400"
+                              />
+                            </Link>
+                            <Box flex={1} p="2rem">
+                              <Link href={`/posts/${slug}`} mb="1rem">
+                                <Heading>{title}</Heading>
+                              </Link>
+                              <Link href={`/artists/${creator?.slug}`}>
+                                <Heading as="h2" size="md">
+                                  {creator?.name}
+                                </Heading>
+                              </Link>
+                              <Text>
+                                {new Date(publishedAt).toLocaleDateString(
+                                  "en-CA"
+                                )}
+                              </Text>
+                            </Box>
+                          </Card>
+                        </Box>
+                      )
+                    }}
+                  </InView>
+                </GridItem>
               )
             })}
           </Grid>
@@ -150,11 +155,10 @@ const Home = ({ posts }) => {
                 posts={gridPosts}
                 targetPost={targetPost}
                 onChange={e => {
-                  // postRefs[e].current.scrollIntoView({
-                  //   behavior: "smooth",
-                  //   block: "center",
-                  // })
-                  console.log({ e, postRefs })
+                  postRefs[e].current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  })
                   setTargetPost(gridPosts[e])
                 }}
               />
