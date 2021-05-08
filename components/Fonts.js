@@ -4,9 +4,9 @@ const Fonts = () => {
   return (
     <Global
       styles={css`
-        /* Beguiat Bold */
+        /* Benguiat Bold */
         @font-face {
-          font-family: "Beguiat Bold";
+          font-family: "Benguiat Bold";
           font-style: normal;
           font-weight: 600;
           font-display: swap;
@@ -14,7 +14,7 @@ const Fonts = () => {
         }
         /* Benguait Book */
         @font-face {
-          font-family: "Benguait Book";
+          font-family: "Benguiat Book";
           font-style: normal;
           font-weight: 400;
           font-display: swap;
