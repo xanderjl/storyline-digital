@@ -28,44 +28,56 @@ const Home = ({ posts }) => {
     <Layout>
       <Box
         h="calc(100vh - 67px)"
-        backgroundImage={`url(${
-          headerPost?.mainImage
-            ? urlFor(headerPost.mainImage)
-            : "https://via.placeholder.com/1440"
-        })`}
-        backgroundRepeat="no-repeat"
-        backgroundPosition="center"
-        backgroundSize="cover"
+        bgImage={`url(${headerPost?.mainImage?.metadata?.lqip})`}
+        bgRepeat="no-repeat"
+        bgPosition="center"
+        bgSize="cover"
       >
-        <Container
-          h="100%"
-          pos="relative"
-          maxW="container.xl"
-          color="white"
-          p={{ base: "3rem 1.25rem", md: "7rem 1.25rem", xl: "12rem 1.25rem" }}
+        <Box
+          h="inherit"
+          backgroundImage={`url(${
+            headerPost?.mainImage
+              ? urlFor(headerPost?.mainImage?.url)
+              : "https://via.placeholder.com/1440"
+          })`}
+          backgroundRepeat="no-repeat"
+          backgroundPosition="center"
+          backgroundSize="cover"
         >
-          <Link
-            href={`/posts/${headerPost.slug}`}
-            pos="absolute"
-            left="1.25rem"
-            bottom="20%"
-            bg="complementary.200"
-            p="1.75rem 3rem"
-            borderRadius={6}
-            _hover={{
-              bg: "complementary.500",
-              color: "white",
+          <Container
+            h="100%"
+            pos="relative"
+            maxW="container.xl"
+            color="white"
+            p={{
+              base: "3rem 1.25rem",
+              md: "7rem 1.25rem",
+              xl: "12rem 1.25rem",
             }}
           >
-            <Heading size="4xl">{headerPost.title}</Heading>
-            <Heading as="h2" size="2xl">
-              {headerPost.creator.name}
-            </Heading>
-            <Text fontSize="xl">
-              {new Date(headerPost.publishedAt).toLocaleDateString("en-CA")}
-            </Text>
-          </Link>
-        </Container>
+            <Link
+              href={`/posts/${headerPost.slug}`}
+              pos="absolute"
+              left="1.25rem"
+              bottom="20%"
+              bg="complementary.200"
+              p="1.75rem 3rem"
+              borderRadius={6}
+              _hover={{
+                bg: "complementary.500",
+                color: "white",
+              }}
+            >
+              <Heading size="4xl">{headerPost.title}</Heading>
+              <Heading as="h2" size="2xl">
+                {headerPost.creator.name}
+              </Heading>
+              <Text fontSize="xl">
+                {new Date(headerPost.publishedAt).toLocaleDateString("en-CA")}
+              </Text>
+            </Link>
+          </Container>
+        </Box>
       </Box>
       <Container
         maxW="container.xl"
@@ -117,7 +129,12 @@ const Home = ({ posts }) => {
                                 objectFit="cover"
                                 h={{ base: "300px", md: "100%" }}
                                 w="100%"
-                                src={urlFor(mainImage)}
+                                objectFit="cover"
+                                bgImage={`url(${mainImage?.metadata?.lqip})`}
+                                bgRepeat="no-repeat"
+                                bgPosition="center"
+                                bgSize="cover"
+                                src={urlFor(mainImage?.url)}
                                 fallbackSrc="https://via.placeholder.com/400"
                               />
                             </Link>
@@ -125,7 +142,7 @@ const Home = ({ posts }) => {
                               <Link href={`/posts/${slug}`} mb="1rem">
                                 <Heading>{title}</Heading>
                               </Link>
-                              <Link href={`/artists/${creator?.slug}`}>
+                              <Link href={`/creators/${creator?.slug}`}>
                                 <Heading as="h2" size="md">
                                   {creator?.name}
                                 </Heading>
@@ -181,7 +198,7 @@ const postsQuery = groq`
       name,
       "slug": slug.current,
     },
-    mainImage,
+    "mainImage": mainImage.asset->,
     body,
     categories,
     publishedAt,

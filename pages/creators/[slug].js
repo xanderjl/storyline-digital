@@ -1,13 +1,9 @@
 import {
-  Avatar,
-  Box,
   Container,
-  Flex,
   Grid,
   Heading,
-  HStack,
+  Image,
   Stack,
-  Text,
   VStack,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
@@ -32,7 +28,7 @@ const Creators = ({ creatorData, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const { name, slug, bio, image, pronouns, socials, posts } = creator
+  const { name, bio, image, pronouns, socials, posts } = creator
 
   return (
     <Layout>
@@ -49,12 +45,22 @@ const Creators = ({ creatorData, preview }) => {
             align="center"
             spacing={4}
           >
-            <Avatar boxSize={400} src={urlFor(image?.asset)} mr="1.25rem" />
+            <Image
+              boxSize={400}
+              borderRadius="50%"
+              objectFit="cover"
+              bgImage={`url(${image?.metadata?.lqip})`}
+              bgRepeat="no-repeat"
+              bgPosition="center"
+              bgSize="cover"
+              src={urlFor(image?.url).width(400).height(400)}
+              mr="1.25rem"
+            />
             <VStack maxW="70ch" align="flex-start" spacing={4}>
               <Heading size="4xl">{name}</Heading>
               <Heading size="md">{pronouns}</Heading>
               <SocialIcons socials={socials} />
-              <PortableText pb="1rem" blocks={bio} />
+              {bio && <PortableText pb="1rem" blocks={bio} />}
             </VStack>
           </Stack>
           <Grid
@@ -66,10 +72,10 @@ const Creators = ({ creatorData, preview }) => {
             gap={8}
           >
             {posts?.map(post => {
-              const { _id, title, slug, pushlishedAt, categories } = post
+              const { _id, title, slug } = post
               return (
                 <Link key={_id} href={`/posts/${slug}`}>
-                  <Card>
+                  <Card h="100%">
                     <Heading>{title}</Heading>
                   </Card>
                 </Link>
@@ -89,7 +95,7 @@ const singleCreatorQuery = groq`
     name,
     "slug": slug.current,
     bio,
-    image,
+    "image": image.asset->,
     pronouns,
     socials,
     "posts": *[_type == "post" && references(^._id)] | order(publishedAt) {
