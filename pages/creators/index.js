@@ -60,17 +60,6 @@ const Creators = ({ creators, categories }) => {
             onChange={e => setQuery(e.target.value)}
           />
         </InputGroup>
-        <Box pt="2rem">
-          <Heading as="h2" size="lg" pb="0.5rem">
-            Categories
-          </Heading>
-          <HStack>
-            {categories.map(category => {
-              const { title, _id, _rev } = category
-              return <Tag colorScheme="complementary">{title}</Tag>
-            })}
-          </HStack>
-        </Box>
       </Container>
       <Container maxW="container.xl">
         <Grid

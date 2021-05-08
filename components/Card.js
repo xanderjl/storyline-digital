@@ -13,6 +13,9 @@ const Card = ({ children, ...rest }) => {
       borderColor="warmGray.300"
       borderRadius={6}
       overflow="hidden"
+      _hover={{
+        borderColor: "warmGray.500",
+      }}
       {...rest}
     >
       {children}

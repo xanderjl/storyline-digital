@@ -1,10 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import { DefaultSeo } from "next-seo"
 import theme from "@theme"
+import Fonts from "@components/Fonts"
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
+      <Fonts />
       <DefaultSeo
         description="Storyline Digital"
         defaultTitle="Storyline Digital"

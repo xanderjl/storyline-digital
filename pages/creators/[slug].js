@@ -1,4 +1,5 @@
 import {
+  Box,
   Container,
   Grid,
   Heading,
@@ -45,17 +46,23 @@ const Creators = ({ creatorData, preview }) => {
             align="center"
             spacing={4}
           >
-            <Image
-              boxSize={400}
+            <Box
+              boxSize={{ base: 250, md: 400 }}
               borderRadius="50%"
-              objectFit="cover"
               bgImage={`url(${image?.metadata?.lqip})`}
               bgRepeat="no-repeat"
               bgPosition="center"
               bgSize="cover"
-              src={urlFor(image?.url).width(400).height(400)}
               mr="1.25rem"
-            />
+            >
+              <Image
+                maxW="initial"
+                boxSize="inherit"
+                borderRadius="inherit"
+                objectFit="cover"
+                src={urlFor(image?.url).width(400).height(400)}
+              />
+            </Box>
             <VStack maxW="70ch" align="flex-start" spacing={4}>
               <Heading size="4xl">{name}</Heading>
               <Heading size="md">{pronouns}</Heading>

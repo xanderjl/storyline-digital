@@ -69,7 +69,7 @@ const Home = ({ posts }) => {
               }}
             >
               <Heading size="4xl">{headerPost.title}</Heading>
-              <Heading as="h2" size="2xl">
+              <Heading as="h2" fontFamily="body" size="2xl">
                 {headerPost.creator.name}
               </Heading>
               <Text fontSize="xl">
@@ -143,7 +143,7 @@ const Home = ({ posts }) => {
                                 <Heading>{title}</Heading>
                               </Link>
                               <Link href={`/creators/${creator?.slug}`}>
-                                <Heading as="h2" size="md">
+                                <Heading as="h2" fontFamily="body" size="md">
                                   {creator?.name}
                                 </Heading>
                               </Link>
