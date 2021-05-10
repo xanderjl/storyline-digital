@@ -46,7 +46,6 @@ const Post = ({ postData, preview }) => {
         maxW="container.lg"
         minH="calc(100vh - 62px)"
         p="3rem"
-        bg="white"
         boxShadow="md"
       >
         <VStack

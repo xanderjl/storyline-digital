@@ -1,6 +1,5 @@
 import { useState } from "react"
 import {
-  Avatar,
   Box,
   Button,
   Container,
@@ -8,6 +7,7 @@ import {
   Heading,
   HStack,
   Icon,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -15,9 +15,8 @@ import {
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverHeader,
   PopoverTrigger,
-  Tag,
+  Text,
   VStack,
 } from "@chakra-ui/react"
 import Fuse from "fuse.js"
@@ -30,6 +29,7 @@ import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
 import toPlainText from "utils/getPlainText"
 import Card from "@components/Card"
+import { IoPerson, IoPersonCircleSharp } from "react-icons/io5"
 
 const Creators = ({ creators, categories }) => {
   const [query, setQuery] = useState("")
@@ -71,66 +71,92 @@ const Creators = ({ creators, categories }) => {
           gap={8}
         >
           {creatorResults.map(creator => {
-            const { name, slug, bio, image, pronouns, posts } = creator
+            const { name, slug, bio, image, posts } = creator
+
             return (
               <Popover key={slug} isLazy>
-                <Card>
-                  <Link href={`/creators/${slug}`} pb="0.25rem">
-                    <Heading textAlign="center">{name}</Heading>
-                  </Link>
-                  <PopoverTrigger>
-                    <Button my="0.5rem" size="sm" colorScheme="complementary">
-                      Overview
-                    </Button>
-                  </PopoverTrigger>
+                <Card alignItems="flex-start">
+                  <HStack align="flex-start" spacing={4}>
+                    <Box
+                      display="inline-block"
+                      boxSize={120}
+                      bgPosition="center"
+                      color="warmGray.500"
+                      bgImage={`url(${image?.metadata?.lqip})`}
+                      as={!image?.metadata?.lqip && IoPersonCircleSharp}
+                      verticalAlign="baseline"
+                      bgSize="cover"
+                      bgRepeat="no-repeat"
+                      borderRadius="50%"
+                    >
+                      <Image
+                        display="inherit"
+                        boxSize="inherit"
+                        borderRadius="inherit"
+                        src={image?.url}
+                        objectFit="cover"
+                        float="left"
+                      />
+                      <Box w="120px" h="120px" />
+                    </Box>
+                    <Box>
+                      <Link href={`/creators/`} pb="0.25rem">
+                        <Heading>{name}</Heading>
+                      </Link>
+                      <PopoverTrigger>
+                        <Button
+                          my="0.5rem"
+                          size="sm"
+                          colorScheme="complementary"
+                        >
+                          Overview
+                        </Button>
+                      </PopoverTrigger>
+                    </Box>
+                  </HStack>
                 </Card>
                 <PopoverContent>
-                  <PopoverHeader>
-                    <Link href={`/creators/${slug}`}>
-                      <Heading size="md">{name}</Heading>
-                    </Link>
-                  </PopoverHeader>
                   <PopoverCloseButton />
                   <PopoverBody>
                     <VStack spacing={4} align="flex-start">
                       <Link href={`/creators/${slug}`}>
-                        <Avatar
-                          size="xl"
-                          src={urlFor(image?.asset)}
-                          m="0.5rem"
-                          float="left"
-                        />
                         {toPlainText(bio).length > 140
                           ? toPlainText(bio).slice(0, 139) + "..."
                           : toPlainText(bio)}
                       </Link>
-                      <Box w="100%">
-                        <Heading size="md" pb="0.5rem">
-                          Latest Posts
-                        </Heading>
-                        <VStack spacing={2} align="flex-start">
-                          {posts.map(post => {
-                            const { _id, title, slug } = post
-                            return (
-                              <Link key={_id} href={`/posts/${slug}`} w="100%">
-                                <Card
-                                  borderColor="complementary.100"
-                                  color="gray.700"
-                                  _hover={{
-                                    borderColor: "complementary.300",
-                                    bg: "complementary.300",
-                                    color: "white",
-                                  }}
-                                  p="1rem"
+                      {posts.length > 0 && (
+                        <Box w="100%">
+                          <Heading size="md" pb="0.5rem">
+                            Latest Posts
+                          </Heading>
+                          <VStack spacing={2} align="flex-start">
+                            {posts.map(post => {
+                              const { _id, title, slug } = post
+                              return (
+                                <Link
+                                  key={_id}
+                                  href={`/posts/${slug}`}
                                   w="100%"
                                 >
-                                  <Heading size="md">{title}</Heading>
-                                </Card>
-                              </Link>
-                            )
-                          })}
-                        </VStack>
-                      </Box>
+                                  <Card
+                                    borderColor="complementary.100"
+                                    color="gray.700"
+                                    _hover={{
+                                      borderColor: "complementary.300",
+                                      bg: "complementary.300",
+                                      color: "white",
+                                    }}
+                                    p="1rem"
+                                    w="100%"
+                                  >
+                                    <Text>{title}</Text>
+                                  </Card>
+                                </Link>
+                              )
+                            })}
+                          </VStack>
+                        </Box>
+                      )}
                     </VStack>
                   </PopoverBody>
                 </PopoverContent>
@@ -147,16 +173,16 @@ const creatorsQuery = groq`*[_type == "creator"] | order(name) {
     name,
     "slug": slug.current,
     bio,
-    image,
+    "image": image.asset->,
     pronouns,
     socials,
-    "posts": *[_type == "post" && references(^._id)][0...3] | order(publishedAt) {
+    "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {
       _id,
       title,
       publishedAt,
       "slug": slug.current,
       categories
-    }
+    }[0...3]
   }
   `
 const categoriesQuery = groq`*[_type == "category"]`

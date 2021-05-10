@@ -1,4 +1,4 @@
 export default {
-  body: "Loto, sans-serif",
+  body: "IBM Plex Mono, Loto, sans-serif",
   heading: "Benguiat Bold, serif",
 }

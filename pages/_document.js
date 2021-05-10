@@ -15,6 +15,11 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
             rel="stylesheet"
           />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap"
+            rel="stylesheet"
+          />
           <link rel="icon" type="image/svg" href="logo.svg" />
         </Head>
         <body>
