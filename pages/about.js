@@ -9,10 +9,13 @@ import Logo from "@components/Logo"
 const About = ({ aboutBody, preview }) => {
   const router = useRouter()
 
-  const { data: post = {} } = usePreviewSubscription(aboutBodyQuery, {
+  const { data: bod = {} } = usePreviewSubscription(aboutBodyQuery, {
     initialData: aboutBody,
     enabled: preview || router.query.preview !== null,
   })
+
+  const { body } = bod
+
   return (
     <Layout>
       <Container
@@ -55,7 +58,7 @@ const About = ({ aboutBody, preview }) => {
             transform: "translate(70px, 70px) rotate(45deg)",
           }}
         >
-          <PortableText blocks={aboutBody.body} />
+          <PortableText blocks={body} />
           <Logo
             position="absolute"
             bottom={0}
