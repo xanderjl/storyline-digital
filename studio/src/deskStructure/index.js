@@ -1,6 +1,7 @@
 import S from "@sanity/desk-tool/structure-builder"
 import CreatorView from "../components/previews/CreatorView"
 import PostView from "../components/previews/PostView"
+import AboutView from "../components/previews/AboutView"
 import { BsEyeFill } from "react-icons/bs"
 import { AiOutlineInfoCircle } from "react-icons/ai"
 import SocialPreview from "part:social-preview/component"
@@ -19,6 +20,10 @@ export default () =>
             .id("aboutPage")
             .schemaType("aboutPage")
             .documentId("aboutPage")
+            .views([
+              S.view.form(),
+              S.view.component(AboutView).title("Web").icon(BsEyeFill),
+            ])
         ),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
     ])
