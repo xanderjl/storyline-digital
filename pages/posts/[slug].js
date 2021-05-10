@@ -55,8 +55,14 @@ const Post = ({ postData, preview }) => {
         >
           <VStack align="flex-start" spacing={2}>
             <Box>
-              <Heading size="2xl">{title}</Heading>
-              {creator && <Heading size="lg">By {creator?.name}</Heading>}
+              <Heading size="2xl" textTransform="uppercase">
+                {title}
+              </Heading>
+              {creator && (
+                <Heading size="lg" textTransform="uppercase">
+                  By {creator?.name}
+                </Heading>
+              )}
             </Box>
             {publishedAt && (
               <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
@@ -91,7 +97,7 @@ const Post = ({ postData, preview }) => {
               alignItems="center"
             >
               <Avatar size="lg" src={urlFor(creator?.image?.asset)} mr="1rem" />
-              <Heading>{creator?.name}</Heading>
+              <Heading textTransform="uppercase">{creator?.name}</Heading>
             </Link>
             <SocialIcons socials={creator?.socials} />
             <PortableText blocks={creator?.bio} />

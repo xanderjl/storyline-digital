@@ -27,7 +27,7 @@ const Home = ({ posts }) => {
   return (
     <Layout>
       <Box
-        h="calc(100vh - 67px)"
+        h="calc(80vh - 67px)"
         bgImage={`url(${headerPost?.mainImage?.metadata?.lqip})`}
         bgRepeat="no-repeat"
         bgPosition="center"
@@ -58,9 +58,10 @@ const Home = ({ posts }) => {
             <Link
               href={`/posts/${headerPost.slug}`}
               pos="absolute"
-              left="1.25rem"
-              bottom="20%"
-              bg="complementary.200"
+              right="1.25rem"
+              bottom="5%"
+              bg="black"
+              maxW="60ch"
               p="1.75rem 3rem"
               borderRadius={6}
               _hover={{
@@ -120,6 +121,8 @@ const Home = ({ posts }) => {
                             direction={{ base: "column", md: "row" }}
                             justifyContent="flex-start"
                             alignItems="stretch"
+                            color="complementary.100"
+                            bg="black"
                           >
                             <Link
                               href={`/posts/${slug}`}
@@ -140,17 +143,20 @@ const Home = ({ posts }) => {
                             </Link>
                             <Box flex={1} p="2rem">
                               <Link href={`/posts/${slug}`} mb="1rem">
-                                <Heading>{title}</Heading>
+                                <Heading
+                                  size="lg"
+                                  fontFamily="mono"
+                                >{`<title>${title}</title>`}</Heading>
                               </Link>
                               <Link href={`/creators/${creator?.slug}`}>
                                 <Heading as="h2" fontFamily="body" size="md">
-                                  {creator?.name}
+                                  {`<name="${creator?.name}" />`}
                                 </Heading>
                               </Link>
                               <Text>
-                                {new Date(publishedAt).toLocaleDateString(
-                                  "en-CA"
-                                )}
+                                {`<date="${new Date(
+                                  publishedAt
+                                ).toLocaleDateString("en-CA")}" />`}
                               </Text>
                             </Box>
                           </Card>

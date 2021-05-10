@@ -26,10 +26,9 @@ import { getClient } from "@lib/sanity"
 import { groq } from "next-sanity"
 import React from "react"
 import Link from "@components/NextLink"
-import { urlFor } from "@lib/sanity"
 import toPlainText from "utils/getPlainText"
 import Card from "@components/Card"
-import { IoPerson, IoPersonCircleSharp } from "react-icons/io5"
+import { IoPersonCircleSharp } from "react-icons/io5"
 
 const Creators = ({ creators, categories }) => {
   const [query, setQuery] = useState("")
