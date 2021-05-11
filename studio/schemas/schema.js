@@ -9,11 +9,14 @@ import socials from "./creator/socials"
 import youtube from "./blockContent/youtube"
 import soundcloud from "./blockContent/soundcloud"
 import aboutPage from "./pages/aboutPage"
+import donatePage from "./pages/donatePage"
+import pricingTier from "./pricingTier"
 
 export default createSchema({
   name: "default",
   types: schemaTypes.concat([
     aboutPage,
+    donatePage,
     post,
     creator,
     socials,
@@ -21,5 +24,6 @@ export default createSchema({
     blockContent,
     youtube,
     soundcloud,
+    pricingTier,
   ]),
 })

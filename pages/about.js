@@ -14,7 +14,7 @@ const About = ({ aboutBody, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const { body } = bod
+  const { title, body } = bod
 
   return (
     <Layout>
@@ -28,13 +28,14 @@ const About = ({ aboutBody, preview }) => {
         <Heading
           flex={1}
           textTransform="uppercase"
+          textAlign="center"
           pt="1rem"
-          color="analogous.700"
+          color="analogous.600"
           borderTop="4px solid"
           borderBottom="4px solid"
-          borderColor="analogous.700"
+          borderColor="analogous.600"
         >
-          <Textfit mode="single">Storyline.Digital</Textfit>
+          <Textfit mode="single">{title}</Textfit>
         </Heading>
         <Container
           display="flex"
@@ -47,7 +48,7 @@ const About = ({ aboutBody, preview }) => {
           borderLeft="4px solid"
           borderRight="4px solid"
           borderBottom="4px solid"
-          borderColor="analogous.700"
+          borderColor="analogous.600"
           _after={{
             content: "''",
             display: "block",
@@ -56,7 +57,7 @@ const About = ({ aboutBody, preview }) => {
             right: 0,
             w: 140,
             h: 140,
-            bg: "analogous.700",
+            bg: "analogous.600",
             transform: "translate(70px, 70px) rotate(45deg)",
           }}
         >

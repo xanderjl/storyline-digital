@@ -1,12 +1,15 @@
 import S from "@sanity/desk-tool/structure-builder"
-import CreatorView from "../components/previews/CreatorView"
-import PostView from "../components/previews/PostView"
 import AboutView from "../components/previews/AboutView"
+import CreatorView from "../components/previews/CreatorView"
+import DonateView from "../components/previews/DonateView"
+import PostView from "../components/previews/PostView"
+import SocialPreview from "part:social-preview/component"
 import { BsEyeFill } from "react-icons/bs"
 import { AiOutlineInfoCircle } from "react-icons/ai"
-import SocialPreview from "part:social-preview/component"
+import { FaMoneyBillWaveAlt } from "react-icons/fa"
 
-const hiddenDocTypes = listItem => !["aboutPage"].includes(listItem.getId())
+const hiddenDocTypes = listItem =>
+  !["aboutPage", "donatePage"].includes(listItem.getId())
 
 export default () =>
   S.list()
@@ -23,6 +26,19 @@ export default () =>
             .views([
               S.view.form(),
               S.view.component(AboutView).title("Web").icon(BsEyeFill),
+            ])
+        ),
+      S.listItem()
+        .title("Donate")
+        .icon(FaMoneyBillWaveAlt)
+        .child(
+          S.editor()
+            .id("donatePage")
+            .schemaType("donatePage")
+            .documentId("donatePage")
+            .views([
+              S.view.form(),
+              S.view.component(DonateView).title("Web").icon(BsEyeFill),
             ])
         ),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
