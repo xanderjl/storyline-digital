@@ -11,6 +11,7 @@ import {
   InputLeftElement,
   NumberInput,
   NumberInputField,
+  Box,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import Textfit from "react-textfit/lib/Textfit"
@@ -49,7 +50,11 @@ const Donate = ({ donateBody, preview }) => {
         >
           <Textfit mode="single">{title}</Textfit>
         </Heading>
-        {body && <PortableText blocks={body} />}
+        {body && (
+          <Box py={{ base: "3rem", md: "5rem" }}>
+            <PortableText blocks={body} />
+          </Box>
+        )}
         <Grid
           py="2rem"
           templateColumns={{
@@ -63,7 +68,7 @@ const Donate = ({ donateBody, preview }) => {
             return (
               <VStack
                 key={_key}
-                minH="18em"
+                minH={{ base: "12em", md: "18em" }}
                 py="2rem"
                 spacing={4}
                 borderTop="4px solid"
@@ -96,15 +101,19 @@ const Donate = ({ donateBody, preview }) => {
               Set Your Own Price
             </Heading>
             <NumberInput
-              variant="flushed"
-              maxW="9ch"
+              variant="unstyled"
               precision={2}
               borderColor="analogous.600"
               fontSize="4xl"
               value={format(customPrice)}
               onChange={e => setCustomPrice(parse(e))}
             >
-              <NumberInputField fontSize="4xl" fontWeight={600} />
+              <NumberInputField
+                p="0"
+                textAlign="center"
+                fontSize="4xl"
+                fontWeight={600}
+              />
             </NumberInput>
             <Button
               colorScheme="analogous"
