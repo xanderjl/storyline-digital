@@ -40,13 +40,12 @@ const Creators = ({ creators, categories }) => {
   const creatorResults = query ? results.map(result => result.item) : creators
   return (
     <Layout>
-      <PageContent>
+      <PageContent title="Meet the Creators">
         <InputGroup
           size="lg"
-          bg="white"
-          borderRadius={0}
+          borderRadius={14}
           border="2px solid"
-          borderColor="analogous.600"
+          borderColor="auburn.800"
           boxShadow="lg"
         >
           <InputLeftElement>
@@ -54,10 +53,11 @@ const Creators = ({ creators, categories }) => {
           </InputLeftElement>
           <Input
             placeholder="search for a creator"
+            _placeholder={{ color: "warmGray.700" }}
             fontSize="xl"
             value={query}
             border="none"
-            borderRadius={0}
+            borderRadius={14}
             onChange={e => setQuery(e.target.value)}
           />
         </InputGroup>

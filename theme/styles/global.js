@@ -1,6 +1,6 @@
 const global = {
   body: {
-    bg: "warmGray.50",
+    bg: "orange.50",
     color: "warmGray.900",
   },
   a: {

@@ -27,21 +27,8 @@ const Creators = ({ creatorData, preview }) => {
 
   return (
     <Layout>
-      <PageContent>
-        <Heading
-          flex={1}
-          textTransform="uppercase"
-          textAlign="center"
-          pt="1rem"
-          mb="1rem"
-          color="analogous.600"
-          borderTop="4px solid"
-          borderBottom="4px solid"
-          borderColor="analogous.600"
-        >
-          <Textfit mode="single">{name}</Textfit>
-        </Heading>
-        <VStack spacing={6} align="flex-start">
+      <PageContent title={name}>
+        <VStack p="10rem 1.25rem" spacing={6} align="flex-start">
           <Stack
             direction={{ base: "column", md: "row" }}
             pb="1rem"

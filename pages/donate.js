@@ -6,14 +6,13 @@ import {
   Button,
   Grid,
   Heading,
-  VStack,
   NumberInput,
   NumberInputField,
   Box,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
-import Textfit from "react-textfit/lib/Textfit"
 import PageContent from "@components/PageContent"
+import RetroCard from "@components/RetroCard"
 
 const Donate = ({ donateBody, preview }) => {
   const router = useRouter()
@@ -30,63 +29,35 @@ const Donate = ({ donateBody, preview }) => {
 
   return (
     <Layout>
-      <PageContent>
-        <Heading
-          flex={1}
-          textTransform="uppercase"
-          textAlign="center"
-          pt="1rem"
-          color="analogous.600"
-          borderTop="4px solid"
-          borderBottom="4px solid"
-          borderColor="analogous.600"
-        >
-          <Textfit mode="single">{title}</Textfit>
-        </Heading>
+      <PageContent title={title}>
         {body && (
-          <Box py={{ base: "3rem", md: "5rem" }}>
+          <Box
+            maxW="70ch"
+            m="0 auto"
+            p={{ base: "6rem 1rem 3rem 1rem", md: "8rem 1rem 3rem 1rem" }}
+          >
             <PortableText blocks={body} />
           </Box>
         )}
         <Grid
-          py="2rem"
+          p="2rem 1rem"
           templateColumns={{
             base: "minmax(0, 1fr)",
             md: "repeat(auto-fill, minmax(250px, 1fr))",
           }}
-          gap={8}
+          gap={10}
+          rowGap={14}
         >
           {pricingTiers.map(tier => {
             const { _key, title, price } = tier
             return (
-              <VStack
-                key={_key}
-                minH={{ base: "12em", md: "18em" }}
-                py="2rem"
-                spacing={4}
-                borderTop="4px solid"
-                borderBottom="4px solid"
-                borderColor="analogous.600"
-              >
-                <Heading textTransform="uppercase" textAlign="center">
-                  {title}
-                </Heading>
+              <RetroCard key={_key} title={title} minH="18em">
                 <Heading fontFamily="body">{`$${price.toFixed(2)}`}</Heading>
                 <Button>DONATE</Button>
-              </VStack>
+              </RetroCard>
             )
           })}
-          <VStack
-            minH="18em"
-            py="2rem"
-            spacing={4}
-            borderTop="4px solid"
-            borderBottom="4px solid"
-            borderColor="analogous.600"
-          >
-            <Heading textTransform="uppercase" textAlign="center">
-              Set Your Own Price
-            </Heading>
+          <RetroCard title="Set Your Own Price">
             <NumberInput
               variant="unstyled"
               precision={2}
@@ -103,7 +74,7 @@ const Donate = ({ donateBody, preview }) => {
               />
             </NumberInput>
             <Button>DONATE</Button>
-          </VStack>
+          </RetroCard>
         </Grid>
       </PageContent>
     </Layout>
