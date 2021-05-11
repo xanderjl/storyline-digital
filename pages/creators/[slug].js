@@ -71,11 +71,20 @@ const Creators = ({ creatorData, preview }) => {
               return (
                 <Link key={_id} href={`/posts/${slug}`}>
                   <Card
+                    role="group"
                     border="4px solid"
                     bg="warmGray.50"
                     borderColor="auburn.800"
+                    _hover={{
+                      borderColor: "auburn.400",
+                    }}
                   >
-                    <Heading textAlign="center">{title}</Heading>
+                    <Heading
+                      textAlign="center"
+                      _groupHover={{ color: "warmGray.700" }}
+                    >
+                      {title}
+                    </Heading>
                   </Card>
                 </Link>
               )

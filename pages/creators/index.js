@@ -30,8 +30,9 @@ import toPlainText from "utils/getPlainText"
 import Card from "@components/Card"
 import { IoPersonCircleSharp } from "react-icons/io5"
 import PageContent from "@components/PageContent"
+import RetroCard from "@components/RetroCard"
 
-const Creators = ({ creators, categories }) => {
+const Creators = ({ creators }) => {
   const [query, setQuery] = useState("")
   const fuse = new Fuse(creators, {
     keys: ["name"],
@@ -74,13 +75,8 @@ const Creators = ({ creators, categories }) => {
 
             return (
               <Popover key={slug} isLazy>
-                <Flex
-                  justifyContent="center"
-                  borderTop="4px solid"
-                  borderBottom="4px solid"
-                  borderColor="analogous.600"
-                >
-                  <HStack p="3rem 1.25rem" align="flex-start" spacing={4}>
+                <RetroCard>
+                  <HStack p="1.25rem" align="flex-start" spacing={4}>
                     <Box
                       href={`/creators/${slug}`}
                       display="inline-block"
@@ -114,7 +110,7 @@ const Creators = ({ creators, categories }) => {
                       </PopoverTrigger>
                     </VStack>
                   </HStack>
-                </Flex>
+                </RetroCard>
                 <PopoverContent
                   border="4px solid"
                   borderColor="analogous.600"
@@ -192,13 +188,11 @@ const creatorsQuery = groq`*[_type == "creator"] | order(name) {
     }[0...3]
   }
   `
-const categoriesQuery = groq`*[_type == "category"]`
 
 export const getStaticProps = async () => {
   const creators = await getClient().fetch(creatorsQuery)
-  const categories = await getClient().fetch(categoriesQuery)
 
-  return { props: { creators, categories } }
+  return { props: { creators } }
 }
 
 export default Creators

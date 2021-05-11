@@ -11,24 +11,26 @@ const PageContent = ({ title, children, ...rest }) => {
       bg="warmGray.50"
       boxShadow="md"
     >
-      <Heading
-        w={{ base: "80%", md: "66%" }}
-        m="0 auto"
-        position="relative"
-        top={0}
-        transform="translateY(50%)"
-        textTransform="uppercase"
-        textAlign="center"
-        p={{ base: "0.5rem 0.5rem 0 0.5rem", md: "1rem 2rem 0 2rem" }}
-        color="primary.700"
-        bg="warmGray.50"
-        border="4px solid"
-        borderColor="auburn.800"
-        borderRadius={14}
-        zIndex={2}
-      >
-        <Textfit mode="single">{title}</Textfit>
-      </Heading>
+      {title && (
+        <Heading
+          w={{ base: "80%", md: "66%" }}
+          m="0 auto"
+          position="relative"
+          top={0}
+          transform="translateY(50%)"
+          textTransform="uppercase"
+          textAlign="center"
+          p={{ base: "0.5rem 0.5rem 0 0.5rem", md: "1rem 2rem 0 2rem" }}
+          color="primary.700"
+          bg="warmGray.50"
+          border="4px solid"
+          borderColor="auburn.800"
+          borderRadius={14}
+          zIndex={2}
+        >
+          <Textfit mode="single">{title}</Textfit>
+        </Heading>
+      )}
       <Container
         p={{ base: "3rem 1.25rem", md: "6rem 1.25rem" }}
         display="flex"
