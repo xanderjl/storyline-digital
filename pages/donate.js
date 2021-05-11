@@ -4,17 +4,16 @@ import { groq } from "next-sanity"
 import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
 import {
   Button,
-  Container,
   Grid,
   Heading,
   VStack,
-  InputLeftElement,
   NumberInput,
   NumberInputField,
   Box,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import Textfit from "react-textfit/lib/Textfit"
+import PageContent from "@components/PageContent"
 
 const Donate = ({ donateBody, preview }) => {
   const router = useRouter()
@@ -31,13 +30,7 @@ const Donate = ({ donateBody, preview }) => {
 
   return (
     <Layout>
-      <Container
-        minH="calc(100vh - 57px)"
-        p="3rem 1.25rem"
-        maxW="container.lg"
-        bg="white"
-        boxShadow="md"
-      >
+      <PageContent>
         <Heading
           flex={1}
           textTransform="uppercase"
@@ -79,13 +72,7 @@ const Donate = ({ donateBody, preview }) => {
                   {title}
                 </Heading>
                 <Heading fontFamily="body">{`$${price.toFixed(2)}`}</Heading>
-                <Button
-                  colorScheme="analogous"
-                  borderRadius="none"
-                  fontFamily="heading"
-                >
-                  DONATE
-                </Button>
+                <Button>DONATE</Button>
               </VStack>
             )
           })}
@@ -115,16 +102,10 @@ const Donate = ({ donateBody, preview }) => {
                 fontWeight={600}
               />
             </NumberInput>
-            <Button
-              colorScheme="analogous"
-              borderRadius="none"
-              fontFamily="heading"
-            >
-              DONATE
-            </Button>
+            <Button>DONATE</Button>
           </VStack>
         </Grid>
-      </Container>
+      </PageContent>
     </Layout>
   )
 }

@@ -5,6 +5,7 @@ import { Box, Container, Heading } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import Textfit from "react-textfit"
 import Logo from "@components/Logo"
+import PageContent from "@components/PageContent"
 
 const About = ({ aboutBody, preview }) => {
   const router = useRouter()
@@ -18,13 +19,7 @@ const About = ({ aboutBody, preview }) => {
 
   return (
     <Layout>
-      <Container
-        minH="calc(100vh - 57px)"
-        p="3rem 1.25rem"
-        maxW="container.lg"
-        bg="white"
-        boxShadow="md"
-      >
+      <PageContent>
         <Heading
           flex={1}
           textTransform="uppercase"
@@ -61,7 +56,7 @@ const About = ({ aboutBody, preview }) => {
             transform: "translate(70px, 70px) rotate(45deg)",
           }}
         >
-          <Box p="10rem 1.25rem" maxW="70ch">
+          <Box p={{ base: "3rem 1.25rem", md: "9rem 1.25rem" }} maxW="70ch">
             <PortableText blocks={body} />
           </Box>
           <Logo
@@ -74,7 +69,7 @@ const About = ({ aboutBody, preview }) => {
             mb="8px"
           />
         </Container>
-      </Container>
+      </PageContent>
     </Layout>
   )
 }

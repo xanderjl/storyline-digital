@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Heading,
-  Image,
-  Stack,
-  VStack,
-} from "@chakra-ui/react"
+import { Box, Grid, Heading, Image, Stack, VStack } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
 import { groq } from "next-sanity"
@@ -16,6 +8,8 @@ import Card from "@components/Card"
 import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
 import SocialIcons from "@components/SocialIcons"
+import Textfit from "react-textfit/lib/Textfit"
+import PageContent from "@components/PageContent"
 
 const Creators = ({ creatorData, preview }) => {
   const router = useRouter()
@@ -33,12 +27,20 @@ const Creators = ({ creatorData, preview }) => {
 
   return (
     <Layout>
-      <Container
-        minH="calc(100vh - 62px)"
-        maxW="container.lg"
-        p="3rem"
-        bg="beige.50"
-      >
+      <PageContent>
+        <Heading
+          flex={1}
+          textTransform="uppercase"
+          textAlign="center"
+          pt="1rem"
+          mb="1rem"
+          color="analogous.600"
+          borderTop="4px solid"
+          borderBottom="4px solid"
+          borderColor="analogous.600"
+        >
+          <Textfit mode="single">{name}</Textfit>
+        </Heading>
         <VStack spacing={6} align="flex-start">
           <Stack
             direction={{ base: "column", md: "row" }}
@@ -64,7 +66,6 @@ const Creators = ({ creatorData, preview }) => {
               />
             </Box>
             <VStack maxW="70ch" align="flex-start" spacing={4}>
-              <Heading size="4xl">{name}</Heading>
               <Heading size="md">{pronouns}</Heading>
               <SocialIcons socials={socials} />
               {bio && <PortableText pb="1rem" blocks={bio} />}
@@ -90,7 +91,7 @@ const Creators = ({ creatorData, preview }) => {
             })}
           </Grid>
         </VStack>
-      </Container>
+      </PageContent>
     </Layout>
   )
 }

@@ -3,7 +3,6 @@ import Error from "next/error"
 import {
   Avatar,
   Box,
-  Container,
   Heading,
   Icon,
   StackDivider,
@@ -21,6 +20,8 @@ import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
 import { urlFor } from "@lib/sanity"
 import { groq } from "next-sanity"
 import { FaShareAlt } from "react-icons/fa"
+import Textfit from "react-textfit/lib/Textfit"
+import PageContent from "@components/PageContent"
 
 const Post = ({ postData, preview }) => {
   const router = useRouter()
@@ -42,24 +43,34 @@ const Post = ({ postData, preview }) => {
 
   return (
     <Layout>
-      <Container
-        maxW="container.lg"
-        minH="calc(100vh - 62px)"
-        p="3rem"
-        boxShadow="md"
-      >
+      <PageContent>
+        <Heading
+          flex={1}
+          textTransform="uppercase"
+          textAlign="center"
+          pt="1rem"
+          mb="1rem"
+          color="analogous.600"
+          borderTop="4px solid"
+          borderBottom="4px solid"
+          borderColor="analogous.600"
+        >
+          <Textfit mode="single">{title}</Textfit>
+        </Heading>
         <VStack
           align="flex-start"
           spacing={6}
           divider={<StackDivider borderColor="brown.500" />}
         >
-          <VStack align="flex-start" spacing={2}>
+          <VStack w="100%" align="center" spacing={2}>
             <Box>
-              <Heading size="2xl" textTransform="uppercase">
-                {title}
-              </Heading>
               {creator && (
-                <Heading size="lg" textTransform="uppercase">
+                <Heading
+                  size="lg"
+                  mb="1rem"
+                  textTransform="uppercase"
+                  color="analogous.600"
+                >
                   By {creator?.name}
                 </Heading>
               )}
@@ -77,13 +88,13 @@ const Post = ({ postData, preview }) => {
             </HStack>
             <Tooltip
               label={hasCopied ? "copied!" : "click to copy"}
-              bg="brown.400"
+              bg="analogous.600"
             >
               <Text
                 as="button"
                 role="group"
                 onClick={onCopy}
-                _hover={{ color: "brown.400" }}
+                _hover={{ color: "analogous.600" }}
               >
                 Share <Icon as={FaShareAlt} />
               </Text>
@@ -103,7 +114,7 @@ const Post = ({ postData, preview }) => {
             <PortableText blocks={creator?.bio} />
           </VStack>
         </VStack>
-      </Container>
+      </PageContent>
     </Layout>
   )
 }

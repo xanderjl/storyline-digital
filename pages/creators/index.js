@@ -2,7 +2,7 @@ import { useState } from "react"
 import {
   Box,
   Button,
-  Container,
+  Flex,
   Grid,
   Heading,
   HStack,
@@ -29,6 +29,7 @@ import Link from "@components/NextLink"
 import toPlainText from "utils/getPlainText"
 import Card from "@components/Card"
 import { IoPersonCircleSharp } from "react-icons/io5"
+import PageContent from "@components/PageContent"
 
 const Creators = ({ creators, categories }) => {
   const [query, setQuery] = useState("")
@@ -39,13 +40,13 @@ const Creators = ({ creators, categories }) => {
   const creatorResults = query ? results.map(result => result.item) : creators
   return (
     <Layout>
-      <Container maxW="container.xl" px="1.25rem" pt="3rem">
+      <PageContent>
         <InputGroup
           size="lg"
           bg="white"
-          borderRadius={6}
-          border="1px solid"
-          borderColor="warmGray.200"
+          borderRadius={0}
+          border="2px solid"
+          borderColor="analogous.600"
           boxShadow="lg"
         >
           <InputLeftElement>
@@ -56,29 +57,34 @@ const Creators = ({ creators, categories }) => {
             fontSize="xl"
             value={query}
             border="none"
+            borderRadius={0}
             onChange={e => setQuery(e.target.value)}
           />
         </InputGroup>
-      </Container>
-      <Container maxW="container.xl">
         <Grid
           py="2rem"
           templateColumns={{
             base: "minmax(0, 1fr)",
             md: "repeat(auto-fill, minmax(40ch, 1fr))",
           }}
-          gap={8}
+          gap={12}
         >
           {creatorResults.map(creator => {
             const { name, slug, bio, image, posts } = creator
 
             return (
               <Popover key={slug} isLazy>
-                <Card alignItems="flex-start">
-                  <HStack align="flex-start" spacing={4}>
+                <Flex
+                  justifyContent="center"
+                  borderTop="4px solid"
+                  borderBottom="4px solid"
+                  borderColor="analogous.600"
+                >
+                  <HStack p="3rem 1.25rem" align="flex-start" spacing={4}>
                     <Box
+                      href={`/creators/${slug}`}
                       display="inline-block"
-                      boxSize={120}
+                      boxSize={140}
                       bgPosition="center"
                       color="warmGray.500"
                       bgImage={`url(${image?.metadata?.lqip})`}
@@ -89,6 +95,8 @@ const Creators = ({ creators, categories }) => {
                       borderRadius="50%"
                     >
                       <Image
+                        minW={140}
+                        minH={140}
                         display="inherit"
                         boxSize="inherit"
                         borderRadius="inherit"
@@ -96,26 +104,24 @@ const Creators = ({ creators, categories }) => {
                         objectFit="cover"
                         float="left"
                       />
-                      <Box w="120px" h="120px" />
                     </Box>
-                    <Box>
-                      <Link href={`/creators/`} pb="0.25rem">
+                    <VStack align="flex-start" spacing={2}>
+                      <Link href={`/creators/${slug}`} pb="0.25rem">
                         <Heading>{name}</Heading>
                       </Link>
                       <PopoverTrigger>
-                        <Button
-                          my="0.5rem"
-                          size="sm"
-                          colorScheme="complementary"
-                        >
-                          Overview
-                        </Button>
+                        <Button my="0.5rem">Overview</Button>
                       </PopoverTrigger>
-                    </Box>
+                    </VStack>
                   </HStack>
-                </Card>
-                <PopoverContent>
-                  <PopoverCloseButton />
+                </Flex>
+                <PopoverContent
+                  border="4px solid"
+                  borderColor="analogous.600"
+                  borderRadius={0}
+                  p="1rem"
+                >
+                  <PopoverCloseButton color="analogous.800" />
                   <PopoverBody>
                     <VStack spacing={4} align="flex-start">
                       <Link href={`/creators/${slug}`}>
@@ -138,11 +144,13 @@ const Creators = ({ creators, categories }) => {
                                   w="100%"
                                 >
                                   <Card
-                                    borderColor="complementary.100"
+                                    borderRadius={0}
+                                    border="2px solid"
+                                    borderColor="analogous.600"
                                     color="gray.700"
                                     _hover={{
-                                      borderColor: "complementary.300",
-                                      bg: "complementary.300",
+                                      borderColor: "analogous.600",
+                                      bg: "analogous.600",
                                       color: "white",
                                     }}
                                     p="1rem"
@@ -163,7 +171,7 @@ const Creators = ({ creators, categories }) => {
             )
           })}
         </Grid>
-      </Container>
+      </PageContent>
     </Layout>
   )
 }

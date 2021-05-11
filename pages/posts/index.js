@@ -1,11 +1,11 @@
-import { Container } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
+import PageContent from "@components/PageContent"
 import React from "react"
 
 const Posts = () => {
   return (
     <Layout>
-      <Container maxW="container.xl"></Container>
+      <PageContent></PageContent>
     </Layout>
   )
 }
