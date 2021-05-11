@@ -28,10 +28,10 @@ const Creators = ({ creatorData, preview }) => {
   return (
     <Layout>
       <PageContent title={name}>
-        <VStack p="10rem 1.25rem" spacing={6} align="flex-start">
+        <VStack px="1rem" spacing={6} align="center">
           <Stack
-            direction={{ base: "column", md: "row" }}
-            pb="1rem"
+            direction={{ base: "column", lg: "row" }}
+            pb="2rem"
             align="center"
             spacing={4}
           >
@@ -59,7 +59,7 @@ const Creators = ({ creatorData, preview }) => {
             </VStack>
           </Stack>
           <Grid
-            w="100%"
+            maxW="70ch"
             templateColumns={{
               base: "minmax(0, 1fr)",
               md: "repeat(auto-fill, minmax(50ch, 1fr))",
@@ -70,8 +70,12 @@ const Creators = ({ creatorData, preview }) => {
               const { _id, title, slug } = post
               return (
                 <Link key={_id} href={`/posts/${slug}`}>
-                  <Card h="100%">
-                    <Heading>{title}</Heading>
+                  <Card
+                    border="4px solid"
+                    bg="warmGray.50"
+                    borderColor="auburn.800"
+                  >
+                    <Heading textAlign="center">{title}</Heading>
                   </Card>
                 </Link>
               )
