@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { groq } from "next-sanity"
 import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
-import { Container, Heading } from "@chakra-ui/layout"
+import { Box, Container, Heading } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import Textfit from "react-textfit"
 import Logo from "@components/Logo"
@@ -37,6 +37,9 @@ const About = ({ aboutBody, preview }) => {
           <Textfit mode="single">Storyline.Digital</Textfit>
         </Heading>
         <Container
+          display="flex"
+          justifyContent="center"
+          // alignItems="center"
           mt="1rem"
           position="relative"
           overflow="hidden"
@@ -58,7 +61,9 @@ const About = ({ aboutBody, preview }) => {
             transform: "translate(70px, 70px) rotate(45deg)",
           }}
         >
-          <PortableText blocks={body} />
+          <Box p="10rem 1.25rem" maxW="70ch">
+            <PortableText blocks={body} />
+          </Box>
           <Logo
             position="absolute"
             bottom={0}
