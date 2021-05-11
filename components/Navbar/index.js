@@ -20,7 +20,6 @@ const Navbar = props => {
           <Flex justify="space-between" align="center">
             <Link display="flex" alignItems="center">
               <Logo color="auburn.700" />
-              
             </Link>
             <ToggleButton
               isOpen={isOpen}
