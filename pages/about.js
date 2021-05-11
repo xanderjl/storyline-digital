@@ -39,7 +39,6 @@ const About = ({ aboutBody, preview }) => {
         <Container
           display="flex"
           justifyContent="center"
-          // alignItems="center"
           mt="1rem"
           position="relative"
           overflow="hidden"
