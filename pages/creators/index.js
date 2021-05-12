@@ -41,7 +41,7 @@ const Creators = ({ creators }) => {
   const creatorResults = query ? results.map(result => result.item) : creators
   return (
     <Layout>
-      <PageContent title="Meet the Creators">
+      <PageContent title="Meet the Creators" p="6rem 1.25rem">
         <InputGroup
           size="lg"
           borderRadius={14}

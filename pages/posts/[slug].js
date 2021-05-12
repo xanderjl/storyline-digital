@@ -61,7 +61,9 @@ const Post = ({ postData, preview }) => {
               )}
             </Box>
             {publishedAt && (
-              <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
+              <Text fontFamily="mono">
+                Published: {new Date(publishedAt).toLocaleDateString("en-CA")}
+              </Text>
             )}
             <Tooltip
               label={hasCopied ? "copied!" : "click to copy"}
@@ -69,6 +71,7 @@ const Post = ({ postData, preview }) => {
             >
               <Text
                 as="button"
+                fontFamily="mono"
                 role="group"
                 onClick={onCopy}
                 _hover={{ color: "complementary.400" }}

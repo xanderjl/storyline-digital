@@ -9,44 +9,44 @@ const Logo = props => {
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M63.1932 103.491C67.9234 103.491 71.7653 107.311 71.7653 112.015C71.7653 116.72 67.9234 120.539 63.1932 120.539C58.4614 120.539 54.6204 116.72 54.6204 112.015C54.6204 107.311 58.4614 103.491 63.1932 103.491ZM63.1932 107.753C65.5573 107.753 67.4793 109.663 67.4793 112.015C67.4793 114.367 65.5573 116.277 63.1932 116.277C60.8271 116.277 58.9066 114.367 58.9066 112.015C58.9066 109.663 60.8271 107.753 63.1932 107.753Z"
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M63.147 6.64581C67.8772 6.64581 71.7191 10.4653 71.7191 15.1699C71.7191 19.8745 67.8772 23.694 63.147 23.694C58.4152 23.694 54.5742 19.8745 54.5742 15.1699C54.5742 10.4653 58.4152 6.64581 63.147 6.64581ZM63.147 10.9079C65.5111 10.9079 67.4331 12.8177 67.4331 15.1699C67.4331 17.5221 65.5111 19.432 63.147 19.432C60.7809 19.432 58.8604 17.5221 58.8604 15.1699C58.8604 12.8177 60.7809 10.9079 63.147 10.9079Z"
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M60.1967 19.6133L60.3854 107.467L65.9611 107.469L66.2062 19.6153L60.1967 19.6133Z"
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M61.3937 43.9755L32.1445 67.9284L32.134 69.2898L31.9656 104.387L37.541 104.431C37.541 104.431 37.8368 77.1855 37.907 70.706C43.0376 66.5557 65.1869 48.6358 65.1869 48.6358L61.3937 43.9755Z"
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M45.9608 57.8132L46.1416 104.174L51.717 104.178L51.9699 57.8181L45.9608 57.8132Z"
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M61.7899 60.6326L88.6964 75.3207L88.8793 104.294L94.4546 104.279L94.4674 71.885L92.974 71.0632L64.6873 55.3679L61.7899 60.6326Z"
         fill="white"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M74.3401 65.7767L74.7187 104.228L80.294 104.205L80.3483 65.7509L74.3401 65.7767Z"
         fill="white"
       />

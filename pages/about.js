@@ -3,7 +3,6 @@ import { groq } from "next-sanity"
 import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
 import { Box } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
-import Logo from "@components/Logo"
 import PageContent from "@components/PageContent"
 
 const About = ({ aboutBody, preview }) => {
@@ -18,7 +17,11 @@ const About = ({ aboutBody, preview }) => {
 
   return (
     <Layout>
-      <PageContent title={title} alignItems="center">
+      <PageContent
+        title={title}
+        alignItems="center"
+        p={{ base: "6rem 1.25rem 6rem 1.25rem" }}
+      >
         <Box maxW="70ch">
           <PortableText blocks={body} />
         </Box>
