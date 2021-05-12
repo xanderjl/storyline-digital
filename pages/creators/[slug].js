@@ -8,7 +8,6 @@ import Card from "@components/Card"
 import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
 import SocialIcons from "@components/SocialIcons"
-import Textfit from "react-textfit/lib/Textfit"
 import PageContent from "@components/PageContent"
 
 const Creators = ({ creatorData, preview }) => {
@@ -23,7 +22,7 @@ const Creators = ({ creatorData, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const { name, bio, image, pronouns, socials, posts } = creator
+  const { name, bio, image, socials, posts } = creator
 
   return (
     <Layout>
@@ -53,7 +52,6 @@ const Creators = ({ creatorData, preview }) => {
               />
             </Box>
             <VStack maxW="70ch" align="flex-start" spacing={4}>
-              <Heading size="md">{pronouns}</Heading>
               <SocialIcons socials={socials} />
               {bio && <PortableText pb="1rem" blocks={bio} />}
             </VStack>
@@ -104,7 +102,6 @@ const singleCreatorQuery = groq`
     "slug": slug.current,
     bio,
     "image": image.asset->,
-    pronouns,
     socials,
     "posts": *[_type == "post" && references(^._id)] | order(publishedAt) {
       _id,

@@ -10,8 +10,7 @@ import {
   VStack,
   useClipboard,
   Tooltip,
-  HStack,
-  Tag,
+  Flex,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import Link from "@components/NextLink"
@@ -20,7 +19,6 @@ import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
 import { urlFor } from "@lib/sanity"
 import { groq } from "next-sanity"
 import { FaShareAlt } from "react-icons/fa"
-import Textfit from "react-textfit/lib/Textfit"
 import PageContent from "@components/PageContent"
 
 const Post = ({ postData, preview }) => {
@@ -39,24 +37,11 @@ const Post = ({ postData, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const { title, creator, categories, publishedAt, body } = post
+  const { title, creator, publishedAt, body } = post
 
   return (
     <Layout>
-      <PageContent>
-        <Heading
-          flex={1}
-          textTransform="uppercase"
-          textAlign="center"
-          pt="1rem"
-          mb="1rem"
-          color="analogous.600"
-          borderTop="4px solid"
-          borderBottom="4px solid"
-          borderColor="analogous.600"
-        >
-          <Textfit mode="single">{title}</Textfit>
-        </Heading>
+      <PageContent title={title}>
         <VStack
           align="flex-start"
           spacing={6}
@@ -69,7 +54,7 @@ const Post = ({ postData, preview }) => {
                   size="lg"
                   mb="1rem"
                   textTransform="uppercase"
-                  color="analogous.600"
+                  color="primary.700"
                 >
                   By {creator?.name}
                 </Heading>
@@ -78,39 +63,40 @@ const Post = ({ postData, preview }) => {
             {publishedAt && (
               <Text>{new Date(publishedAt).toLocaleDateString("en-CA")}</Text>
             )}
-            <HStack spacing={2}>
-              {categories?.length > 0 &&
-                categories.map((category, i) => (
-                  <Tag key={i} colorScheme="complementary" size="sm">
-                    {category.title}
-                  </Tag>
-                ))}
-            </HStack>
             <Tooltip
               label={hasCopied ? "copied!" : "click to copy"}
-              bg="analogous.600"
+              bg="complementary.400"
             >
               <Text
                 as="button"
                 role="group"
                 onClick={onCopy}
-                _hover={{ color: "analogous.600" }}
+                _hover={{ color: "complementary.400" }}
               >
                 Share <Icon as={FaShareAlt} />
               </Text>
             </Tooltip>
           </VStack>
-          <PortableText blocks={body} />
+          <Box flex={1} w="100%">
+            <PortableText blocks={body} />
+          </Box>
           <VStack align="flex-start">
-            <Link
-              href={`/artists/${creator?.slug}`}
-              display="flex"
-              alignItems="center"
-            >
-              <Avatar size="lg" src={urlFor(creator?.image?.asset)} mr="1rem" />
-              <Heading textTransform="uppercase">{creator?.name}</Heading>
-            </Link>
-            <SocialIcons socials={creator?.socials} />
+            <Flex align="center">
+              <Link href={`/artists/${creator?.slug}`}>
+                <Avatar
+                  size="xl"
+                  src={urlFor(creator?.image?.asset)}
+                  mr="1rem"
+                  _hover={{ opacity: 0.8 }}
+                />
+              </Link>
+              <Flex direction="column">
+                <Link href={`/artists/${creator?.slug}`}>
+                  <Heading textTransform="uppercase">{creator?.name}</Heading>
+                </Link>
+                <SocialIcons socials={creator?.socials} />
+              </Flex>
+            </Flex>
             <PortableText blocks={creator?.bio} />
           </VStack>
         </VStack>

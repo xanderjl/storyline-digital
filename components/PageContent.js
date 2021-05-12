@@ -1,5 +1,4 @@
 import { Container, Heading } from "@chakra-ui/layout"
-import Textfit from "react-textfit/lib/Textfit"
 import Logo from "./Logo"
 
 const PageContent = ({ title, children, ...rest }) => {
@@ -13,7 +12,9 @@ const PageContent = ({ title, children, ...rest }) => {
     >
       {title && (
         <Heading
-          w={{ base: "80%", md: "66%" }}
+          size="2xl"
+          w="max-content"
+          maxW={{ base: "80%", md: "66%" }}
           m="0 auto"
           position="relative"
           top={0}
@@ -26,9 +27,10 @@ const PageContent = ({ title, children, ...rest }) => {
           border="4px solid"
           borderColor="auburn.800"
           borderRadius={14}
+          boxShadow="md"
           zIndex={2}
         >
-          <Textfit mode="single">{title}</Textfit>
+          {title}
         </Heading>
       )}
       <Container
@@ -53,6 +55,7 @@ const PageContent = ({ title, children, ...rest }) => {
           bg: "auburn.800",
           transform: "translate(70px, 70px) rotate(45deg)",
         }}
+        boxShadow="lg"
         {...rest}
       >
         {children}

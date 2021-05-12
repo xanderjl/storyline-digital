@@ -77,30 +77,33 @@ const Creators = ({ creators }) => {
               <Popover key={slug} isLazy>
                 <RetroCard>
                   <HStack p="1.25rem" align="flex-start" spacing={4}>
-                    <Box
-                      href={`/creators/${slug}`}
-                      display="inline-block"
-                      boxSize={140}
-                      bgPosition="center"
-                      color="warmGray.500"
-                      bgImage={`url(${image?.metadata?.lqip})`}
-                      as={!image?.metadata?.lqip && IoPersonCircleSharp}
-                      verticalAlign="baseline"
-                      bgSize="cover"
-                      bgRepeat="no-repeat"
-                      borderRadius="50%"
-                    >
-                      <Image
-                        minW={140}
-                        minH={140}
-                        display="inherit"
-                        boxSize="inherit"
-                        borderRadius="inherit"
-                        src={image?.url}
-                        objectFit="cover"
-                        float="left"
-                      />
-                    </Box>
+                    <Link href={`/creators/${slug}`}>
+                      <Box
+                        href={`/creators/${slug}`}
+                        display="inline-block"
+                        boxSize={140}
+                        bgPosition="center"
+                        color="warmGray.500"
+                        bgImage={`url(${image?.metadata?.lqip})`}
+                        as={!image?.metadata?.lqip && IoPersonCircleSharp}
+                        verticalAlign="baseline"
+                        bgSize="cover"
+                        bgRepeat="no-repeat"
+                        borderRadius="50%"
+                        _hover={{ opacity: 0.8 }}
+                      >
+                        <Image
+                          minW={140}
+                          minH={140}
+                          display="inherit"
+                          boxSize="inherit"
+                          borderRadius="inherit"
+                          src={image?.url}
+                          objectFit="cover"
+                          float="left"
+                        />
+                      </Box>
+                    </Link>
                     <VStack align="flex-start" spacing={2}>
                       <Link href={`/creators/${slug}`} pb="0.25rem">
                         <Heading>{name}</Heading>
@@ -113,9 +116,10 @@ const Creators = ({ creators }) => {
                 </RetroCard>
                 <PopoverContent
                   border="4px solid"
-                  borderColor="analogous.600"
-                  borderRadius={0}
+                  borderColor="auburn.800"
+                  borderRadius={14}
                   p="1rem"
+                  bg="warmGray.50"
                 >
                   <PopoverCloseButton color="analogous.800" />
                   <PopoverBody>
@@ -140,14 +144,15 @@ const Creators = ({ creators }) => {
                                   w="100%"
                                 >
                                   <Card
-                                    borderRadius={0}
-                                    border="2px solid"
-                                    borderColor="analogous.600"
+                                    borderRadius={12}
+                                    border="3px solid"
+                                    borderColor="auburn.800"
                                     color="gray.700"
+                                    bg="warmGray.50"
                                     _hover={{
-                                      borderColor: "analogous.600",
-                                      bg: "analogous.600",
-                                      color: "white",
+                                      borderColor: "auburn.800",
+                                      bg: "auburn.800",
+                                      color: "warmGray.50",
                                     }}
                                     p="1rem"
                                     w="100%"
