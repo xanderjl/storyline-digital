@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { loadStripe } from "@stripe/stripe-js"
 import { useRouter } from "next/router"
 import { groq } from "next-sanity"
 import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
@@ -15,6 +16,10 @@ import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
 import RetroCard from "@components/RetroCard"
 
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY
+)
+
 const Donate = ({ donateBody, preview }) => {
   const router = useRouter()
   const format = val => `$` + val
@@ -27,6 +32,31 @@ const Donate = ({ donateBody, preview }) => {
   })
 
   const { title, body, pricingTiers } = donate
+
+  const stripeHandler = async (name, unit_amount) => {
+    const { sessionId } = await fetch("/api/create-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        line_items: [
+          {
+            price_data: {
+              currency: "cad",
+              product_data: {
+                name,
+              },
+              unit_amount,
+            },
+            quantity: 1,
+          },
+        ],
+      }),
+    }).then(res => res.json())
+    const stripe = await stripePromise
+    const { error } = await stripe.redirectToCheckout({
+      sessionId,
+    })
+  }
 
   return (
     <Layout>
@@ -62,7 +92,9 @@ const Donate = ({ donateBody, preview }) => {
                   spacing={4}
                 >
                   <Heading fontFamily="body">{`$${price.toFixed(2)}`}</Heading>
-                  <Button>DONATE</Button>
+                  <Button onClick={() => stripeHandler(title, price * 100)}>
+                    DONATE
+                  </Button>
                 </VStack>
               </RetroCard>
             )
@@ -90,7 +122,16 @@ const Donate = ({ donateBody, preview }) => {
                   fontWeight={600}
                 />
               </NumberInput>
-              <Button>DONATE</Button>
+              <Button
+                onClick={() =>
+                  stripeHandler(
+                    "Custom Donation Amount",
+                    parseFloat(customPrice) * 100
+                  )
+                }
+              >
+                DONATE
+              </Button>
             </VStack>
           </RetroCard>
         </Grid>

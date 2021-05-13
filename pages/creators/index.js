@@ -44,8 +44,8 @@ const Creators = ({ creators }) => {
       <PageContent title="Meet the Creators" p="6rem 1.25rem">
         <InputGroup
           size="lg"
-          borderRadius={14}
-          border="2px solid"
+          borderRadius={12}
+          border="3px solid"
           borderColor="auburn.800"
           boxShadow="lg"
         >
@@ -54,7 +54,7 @@ const Creators = ({ creators }) => {
           </InputLeftElement>
           <Input
             placeholder="search for a creator"
-            _placeholder={{ color: "warmGray.700" }}
+            _placeholder={{ color: "primary.700" }}
             fontSize="xl"
             value={query}
             border="none"
@@ -68,7 +68,7 @@ const Creators = ({ creators }) => {
             base: "minmax(0, 1fr)",
             md: "repeat(auto-fill, minmax(40ch, 1fr))",
           }}
-          gap={12}
+          gap={6}
         >
           {creatorResults.map(creator => {
             const { name, slug, bio, image, posts } = creator

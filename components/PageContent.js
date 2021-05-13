@@ -12,7 +12,7 @@ const PageContent = ({ title, children, ...rest }) => {
     >
       {title && (
         <Heading
-          size="2xl"
+          size={title.length > 24 ? "xl" : "2xl"}
           w="max-content"
           maxW={{ base: "80%", md: "66%" }}
           m="0 auto"
