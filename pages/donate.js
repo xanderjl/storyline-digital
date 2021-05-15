@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
-import RetroCard from "@components/RetroCard"
+import RetroCard from "@components/Cards/RetroCard"
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY

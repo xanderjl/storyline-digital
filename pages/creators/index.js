@@ -2,7 +2,6 @@ import { useState } from "react"
 import {
   Box,
   Button,
-  Flex,
   Grid,
   Heading,
   HStack,
@@ -27,10 +26,10 @@ import { groq } from "next-sanity"
 import React from "react"
 import Link from "@components/NextLink"
 import toPlainText from "utils/getPlainText"
-import Card from "@components/Card"
+import Card from "@components/Cards/Card"
 import { IoPersonCircleSharp } from "react-icons/io5"
 import PageContent from "@components/PageContent"
-import RetroCard from "@components/RetroCard"
+import RetroCard from "@components/Cards/RetroCard"
 
 const Creators = ({ creators }) => {
   const [query, setQuery] = useState("")
