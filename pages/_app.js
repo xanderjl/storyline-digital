@@ -8,13 +8,14 @@ function MyApp({ Component, pageProps }) {
     <ChakraProvider theme={theme}>
       <Fonts />
       <DefaultSeo
-        description="Storyline Digital"
-        defaultTitle="Storyline Digital"
+        title="Storyline.Digital"
+        description="Storyline.Digital"
+        defaultTitle="Storyline.Digital"
         openGraph={{
           type: "website",
           locale: "en_CA",
           url: "https://www.storyline.digital/",
-          site_name: "Storyline Digital",
+          site_name: "Storyline.Digital",
         }}
         twitter={{
           handle: "@handle",

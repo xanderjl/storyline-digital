@@ -21,6 +21,7 @@ import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
 import RetroCard from "@components/Cards/RetroCard"
 import { NextSeo } from "next-seo"
+import SEO from "@components/SEO"
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY
@@ -66,18 +67,9 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
 
   return (
     <>
-      <NextSeo
-        openGraph={{
-          description: siteSettings.metaDescription,
-          images: [
-            {
-              url: urlFor(siteSettings.ogImage.asset),
-              width: 1200,
-              height: 636,
-              alt: "Storyline.Digital",
-            },
-          ],
-        }}
+      <SEO
+        description={siteSettings.metaDescription}
+        ogImageURL={urlFor(siteSettings.ogImage.asset)}
       />
       <Layout>
         <PageContent title={title} p={{ base: "3rem 1.25rem 6rem 1.25rem" }}>

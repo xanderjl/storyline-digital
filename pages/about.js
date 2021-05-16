@@ -9,7 +9,7 @@ import {
 import { Box } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
-import { NextSeo } from "next-seo"
+import SEO from "@components/SEO"
 
 const About = ({ siteSettings, aboutBody, preview }) => {
   const router = useRouter()
@@ -23,18 +23,9 @@ const About = ({ siteSettings, aboutBody, preview }) => {
 
   return (
     <>
-      <NextSeo
-        openGraph={{
-          description: siteSettings.metaDescription,
-          images: [
-            {
-              url: urlFor(siteSettings.ogImage.asset),
-              width: 1200,
-              height: 636,
-              alt: "Storyline.Digital",
-            },
-          ],
-        }}
+      <SEO
+        description={siteSettings.metaDescription}
+        ogImageURL={urlFor(siteSettings.ogImage.asset)}
       />
       <Layout>
         <PageContent

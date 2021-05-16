@@ -9,7 +9,7 @@ import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
 import SocialIcons from "@components/SocialIcons"
 import PageContent from "@components/PageContent"
-import { NextSeo } from "next-seo"
+import SEO from "@components/SEO"
 
 const Creators = ({ data, preview }) => {
   const router = useRouter()
@@ -27,19 +27,7 @@ const Creators = ({ data, preview }) => {
 
   return (
     <>
-      <NextSeo
-        openGraph={{
-          description: metaDescription,
-          images: [
-            {
-              url: urlFor(ogImage?.asset),
-              width: 1200,
-              height: 636,
-              alt: "Storyline.Digital",
-            },
-          ],
-        }}
-      />
+      <SEO description={metaDescription} ogImageURL={urlFor(ogImage?.asset)} />
       <Layout>
         <PageContent title={name}>
           <VStack px="1rem" spacing={6} align="center">

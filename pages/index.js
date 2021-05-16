@@ -16,7 +16,7 @@ import DateSlider from "@components/DateSlider"
 import { getClient, urlFor } from "@lib/sanity"
 import groq from "groq"
 import CodeBlockCard from "@components/Cards/CodeBlockCard"
-import { NextSeo } from "next-seo"
+import SEO from "@components/SEO"
 
 const Home = ({ siteSettings, posts }) => {
   const theme = useTheme()
@@ -34,18 +34,9 @@ const Home = ({ siteSettings, posts }) => {
 
   return (
     <>
-      <NextSeo
-        openGraph={{
-          description: siteSettings.metaDescription,
-          images: [
-            {
-              url: urlFor(siteSettings.ogImage.asset),
-              width: 1200,
-              height: 636,
-              alt: "Storyline.Digital",
-            },
-          ],
-        }}
+      <SEO
+        description={siteSettings.metaDescription}
+        ogImageURL={urlFor(siteSettings.ogImage.asset)}
       />
       <Layout>
         <Box

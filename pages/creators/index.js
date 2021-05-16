@@ -30,7 +30,7 @@ import Card from "@components/Cards/Card"
 import { IoPersonCircleSharp } from "react-icons/io5"
 import PageContent from "@components/PageContent"
 import RetroCard from "@components/Cards/RetroCard"
-import { NextSeo } from "next-seo"
+import SEO from "@components/SEO"
 
 const Creators = ({ siteSettings, creators }) => {
   const [query, setQuery] = useState("")
@@ -41,18 +41,9 @@ const Creators = ({ siteSettings, creators }) => {
   const creatorResults = query ? results.map(result => result.item) : creators
   return (
     <>
-      <NextSeo
-        openGraph={{
-          description: siteSettings.metaDescription,
-          images: [
-            {
-              url: urlFor(siteSettings.ogImage.asset),
-              width: 1200,
-              height: 636,
-              alt: "Storyline.Digital",
-            },
-          ],
-        }}
+      <SEO
+        description={siteSettings.metaDescription}
+        ogImageURL={urlFor(siteSettings.ogImage.asset)}
       />
       <Layout>
         <PageContent title="Meet the Creators" p="6rem 1.25rem">
