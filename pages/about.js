@@ -1,11 +1,17 @@
 import { useRouter } from "next/router"
 import { groq } from "next-sanity"
-import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
+import {
+  getClient,
+  usePreviewSubscription,
+  PortableText,
+  urlFor,
+} from "@lib/sanity"
 import { Box } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
+import { NextSeo } from "next-seo"
 
-const About = ({ aboutBody, preview }) => {
+const About = ({ siteSettings, aboutBody, preview }) => {
   const router = useRouter()
 
   const { data: bod = {} } = usePreviewSubscription(aboutBodyQuery, {
@@ -16,26 +22,45 @@ const About = ({ aboutBody, preview }) => {
   const { title, body } = bod
 
   return (
-    <Layout>
-      <PageContent
-        title={title}
-        alignItems="center"
-        p={{ base: "6rem 1.25rem 6rem 1.25rem" }}
-      >
-        <Box maxW="70ch">
-          <PortableText blocks={body} />
-        </Box>
-      </PageContent>
-    </Layout>
+    <>
+      <NextSeo
+        openGraph={{
+          description: siteSettings.metaDescription,
+          images: [
+            {
+              url: urlFor(siteSettings.ogImage.asset),
+              width: 1200,
+              height: 636,
+              alt: "Storyline.Digital",
+            },
+          ],
+        }}
+      />
+      <Layout>
+        <PageContent
+          title={title}
+          alignItems="center"
+          p={{ base: "6rem 1.25rem 6rem 1.25rem" }}
+        >
+          <Box maxW="70ch">
+            <PortableText blocks={body} />
+          </Box>
+        </PageContent>
+      </Layout>
+    </>
   )
 }
 
 const aboutBodyQuery = groq`*[_type == "aboutPage"][0]`
 
 export const getStaticProps = async () => {
+  const siteSettings = await getClient().fetch(groq`*[_type == "siteSettings"]{
+    metaDescription,
+    ogImage
+  }[0]`)
   const aboutBody = await getClient().fetch(aboutBodyQuery)
 
-  return { props: { aboutBody } }
+  return { props: { siteSettings, aboutBody } }
 }
 
 export default About

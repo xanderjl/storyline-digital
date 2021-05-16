@@ -10,10 +10,12 @@ import soundcloud from "./blockContent/soundcloud"
 import aboutPage from "./pages/aboutPage"
 import donatePage from "./pages/donatePage"
 import pricingTier from "./pricingTier"
+import siteSettings from "./siteSettings"
 
 export default createSchema({
   name: "default",
   types: schemaTypes.concat([
+    siteSettings,
     aboutPage,
     donatePage,
     post,

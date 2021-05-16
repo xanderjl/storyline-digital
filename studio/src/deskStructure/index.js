@@ -9,18 +9,29 @@ import { AiOutlineInfoCircle } from "react-icons/ai"
 import { FaMoneyBillWaveAlt } from "react-icons/fa"
 
 const hiddenDocTypes = listItem =>
-  !["aboutPage", "donatePage"].includes(listItem.getId())
+  !["siteSettings", "aboutPage", "donatePage"].includes(listItem.getId())
 
 export default () =>
   S.list()
     .title("Pulp Inc.")
     .items([
       S.listItem()
+        .title("Site Settings")
+        .icon(AiOutlineInfoCircle)
+        .child(
+          S.editor()
+            .id("siteSettings")
+            .title("Site Settings")
+            .schemaType("siteSettings")
+            .documentId("siteSettings")
+        ),
+      S.listItem()
         .title("About")
         .icon(AiOutlineInfoCircle)
         .child(
           S.editor()
             .id("aboutPage")
+            .title("About")
             .schemaType("aboutPage")
             .documentId("aboutPage")
             .views([
@@ -34,6 +45,7 @@ export default () =>
         .child(
           S.editor()
             .id("donatePage")
+            .title("Donate")
             .schemaType("donatePage")
             .documentId("donatePage")
             .views([
