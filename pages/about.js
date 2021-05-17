@@ -11,23 +11,42 @@ import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
 import SEO from "@components/SEO"
 
-const About = ({ siteSettings, aboutBody, preview }) => {
+const About = ({ data, preview }) => {
   const router = useRouter()
 
   const { data: bod = {} } = usePreviewSubscription(aboutBodyQuery, {
-    initialData: aboutBody,
+    initialData: data,
     enabled: preview || router.query.preview !== null,
   })
 
-  const { title, body } = bod
+  const { metaDescription, ogImage, title, image, body } = bod
+  console.log(image)
 
   return (
     <>
-      <SEO
-        description={siteSettings.metaDescription}
-        ogImageURL={urlFor(siteSettings.ogImage.asset)}
-      />
+      <SEO description={metaDescription} ogImageURL={urlFor(ogImage.asset)} />
       <Layout>
+        <Box
+          position="absolute"
+          w="100%"
+          h="100%"
+          bgImage={`url(${image?.metadata?.lqip})`}
+          bgRepeat="no-repeat"
+          bgSize="cover"
+          bgPosition="center"
+          zIndex={-1}
+        >
+          <Box
+            position="absolute"
+            w="100%"
+            h="100%"
+            bgImage={`url(${urlFor(image?.url)})`}
+            bgRepeat="no-repeat"
+            bgSize="cover"
+            bgPosition="center"
+            zIndex={-1}
+          />
+        </Box>
         <PageContent
           title={title}
           alignItems="center"
@@ -42,7 +61,11 @@ const About = ({ siteSettings, aboutBody, preview }) => {
   )
 }
 
-const aboutBodyQuery = groq`*[_type == "aboutPage"][0]`
+const aboutBodyQuery = groq`*[_type == "aboutPage"]{
+  title,
+  "image": image.asset->,
+  body,
+}[0]`
 
 export const getStaticProps = async () => {
   const siteSettings = await getClient().fetch(groq`*[_type == "siteSettings"]{
@@ -51,7 +74,7 @@ export const getStaticProps = async () => {
   }[0]`)
   const aboutBody = await getClient().fetch(aboutBodyQuery)
 
-  return { props: { siteSettings, aboutBody } }
+  return { props: { data: { ...siteSettings, ...aboutBody } } }
 }
 
 export default About
