@@ -1,10 +1,10 @@
 import S from "@sanity/desk-tool/structure-builder"
-import AboutView from "../components/previews/AboutView"
-import CreatorView from "../components/previews/CreatorView"
-import DonateView from "../components/previews/DonateView"
-import PostView from "../components/previews/PostView"
+import AboutView from "./components/previews/AboutView"
+import CreatorView from "./components/previews/CreatorView"
+import DonateView from "./components/previews/DonateView"
+import PostView from "./components/previews/PostView"
 import SocialPreview from "part:social-preview/component"
-import { BsEyeFill } from "react-icons/bs"
+import { BsEyeFill, BsGearFill } from "react-icons/bs"
 import { AiOutlineInfoCircle } from "react-icons/ai"
 import { FaMoneyBillWaveAlt } from "react-icons/fa"
 
@@ -17,7 +17,7 @@ export default () =>
     .items([
       S.listItem()
         .title("Site Settings")
-        .icon(AiOutlineInfoCircle)
+        .icon(BsGearFill)
         .child(
           S.editor()
             .id("siteSettings")
@@ -53,6 +53,7 @@ export default () =>
               S.view.component(DonateView).title("Web").icon(BsEyeFill),
             ])
         ),
+      S.divider(),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
     ])
 

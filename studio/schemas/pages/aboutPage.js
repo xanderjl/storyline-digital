@@ -9,6 +9,14 @@ export default {
       type: "string",
     },
     {
+      name: "image",
+      title: "Background Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    },
+    {
       name: "body",
       title: "Body",
       type: "blockContent",
