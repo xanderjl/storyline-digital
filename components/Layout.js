@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
       // bgRepeat="no-repeat"
       // bgSize="60vh"
       // bgAttachment="fixed"
-      // bgPosition="100% 0"
+      // bgPosition="50% 0"
     >
       <Navbar position="fixed" w="100%" zIndex={10} />
       <Box flex={1} mt={{ base: "56px", md: "67px" }}>

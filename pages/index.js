@@ -10,6 +10,7 @@ import {
   Text,
   VStack,
   useTheme,
+  Icon,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import DateSlider from "@components/DateSlider"
@@ -17,6 +18,7 @@ import { getClient, urlFor } from "@lib/sanity"
 import groq from "groq"
 import CodeBlockCard from "@components/Cards/CodeBlockCard"
 import SEO from "@components/SEO"
+import { BsCursorText } from "react-icons/bs"
 
 const Home = ({ siteSettings, posts }) => {
   const theme = useTheme()
@@ -43,6 +45,10 @@ const Home = ({ siteSettings, posts }) => {
           maxW={{ base: "container.xl", "2xl": "80vw" }}
           m={{ base: "5rem 1.25rem", md: "7rem auto 1.25rem auto" }}
         >
+          <Heading size="xl" pl="1.25rem" pb="6rem">
+            Entering Archive
+            {/* <Icon as={BsCursorText} /> */}
+          </Heading>
           <Box
             h={headerPostHeight}
             m={{ base: 0, md: "0 1.25rem" }}
@@ -166,7 +172,7 @@ const Home = ({ siteSettings, posts }) => {
                               componentName="Entry"
                               image={mainImage?.url}
                               placeholder={mainImage?.metadata?.lqip}
-                              href={`/creators/${slug}`}
+                              href={`/posts/${slug}`}
                               title={title}
                               creatorName={creator?.name}
                               date={publishedAt}

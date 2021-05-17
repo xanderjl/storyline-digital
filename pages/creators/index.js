@@ -2,6 +2,8 @@ import { useState } from "react"
 import {
   Box,
   Button,
+  Container,
+  Flex,
   Grid,
   Heading,
   HStack,
@@ -47,27 +49,35 @@ const Creators = ({ siteSettings, creators }) => {
         ogImageURL={urlFor(siteSettings.ogImage.asset)}
       />
       <Layout>
-        <PageContent title="Meet the Creators" p="6rem 1.25rem">
-          <InputGroup
-            size="lg"
-            borderRadius={12}
-            border="3px solid"
-            borderColor="auburn.800"
-            boxShadow="lg"
-          >
-            <InputLeftElement>
-              <Icon as={BiSearch} boxSize={6} />
-            </InputLeftElement>
-            <Input
-              placeholder="search for a creator"
-              _placeholder={{ color: "primary.700" }}
-              fontSize="xl"
-              value={query}
-              border="none"
-              borderRadius={14}
-              onChange={e => setQuery(e.target.value)}
-            />
-          </InputGroup>
+        <Container maxW="container.xl">
+          <Flex>
+            <Heading flex={1} p="1rem 1.25rem">
+              Meet the Creators
+            </Heading>
+            {/* <PageContent p="6rem 1.25rem"> */}
+            <InputGroup
+              flex={1}
+              size="lg"
+              borderRadius={12}
+              border="3px solid"
+              borderColor="auburn.800"
+              boxShadow="lg"
+              bg="white"
+            >
+              <InputLeftElement>
+                <Icon as={BiSearch} boxSize={6} />
+              </InputLeftElement>
+              <Input
+                placeholder="search for a creator"
+                _placeholder={{ color: "primary.700" }}
+                fontSize="xl"
+                value={query}
+                border="none"
+                borderRadius={14}
+                onChange={e => setQuery(e.target.value)}
+              />
+            </InputGroup>
+          </Flex>
           <Grid
             py="2rem"
             templateColumns={{
@@ -92,43 +102,43 @@ const Creators = ({ siteSettings, creators }) => {
                   />
                   {/* <RetroCard>
                     <HStack p="1.25rem" align="flex-start" spacing={4}>
-                      <Link href={`/creators/${slug}`}>
-                        <Box
-                          href={`/creators/${slug}`}
-                          display="inline-block"
-                          boxSize={140}
-                          bgPosition="center"
-                          color="warmGray.500"
-                          bgImage={`url(${image?.metadata?.lqip})`}
-                          as={!image?.metadata?.lqip && IoPersonCircleSharp}
-                          verticalAlign="baseline"
-                          bgSize="cover"
-                          bgRepeat="no-repeat"
+                    <Link href={`/creators/${slug}`}>
+                    <Box
+                    href={`/creators/${slug}`}
+                    display="inline-block"
+                    boxSize={140}
+                    bgPosition="center"
+                    color="warmGray.500"
+                    bgImage={`url(${image?.metadata?.lqip})`}
+                    as={!image?.metadata?.lqip && IoPersonCircleSharp}
+                    verticalAlign="baseline"
+                    bgSize="cover"
+                    bgRepeat="no-repeat"
                           borderRadius="50%"
                           _hover={{ opacity: 0.8 }}
-                        >
+                          >
                           <Image
-                            minW={140}
-                            minH={140}
-                            display="inherit"
-                            boxSize="inherit"
-                            borderRadius="inherit"
-                            src={image?.url}
-                            objectFit="cover"
-                            float="left"
+                          minW={140}
+                          minH={140}
+                          display="inherit"
+                          boxSize="inherit"
+                          borderRadius="inherit"
+                          src={image?.url}
+                          objectFit="cover"
+                          float="left"
                           />
-                        </Box>
-                      </Link>
-                      <VStack align="flex-start" spacing={2}>
-                        <Link href={`/creators/${slug}`} pb="0.25rem">
+                          </Box>
+                          </Link>
+                          <VStack align="flex-start" spacing={2}>
+                          <Link href={`/creators/${slug}`} pb="0.25rem">
                           <Heading>{name}</Heading>
-                        </Link>
-                        <PopoverTrigger>
+                          </Link>
+                          <PopoverTrigger>
                           <Button my="0.5rem">Overview</Button>
-                        </PopoverTrigger>
-                      </VStack>
-                    </HStack>
-                  </RetroCard> */}
+                          </PopoverTrigger>
+                          </VStack>
+                          </HStack>
+                        </RetroCard> */}
                   <PopoverContent
                     border="4px solid"
                     borderColor="auburn.800"
@@ -187,7 +197,8 @@ const Creators = ({ siteSettings, creators }) => {
               )
             })}
           </Grid>
-        </PageContent>
+          {/* </PageContent> */}
+        </Container>
       </Layout>
     </>
   )

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Box, Container, Flex, Heading } from "@chakra-ui/layout"
+import { Box, Container, Flex } from "@chakra-ui/layout"
 import NavbarLinks from "./NavbarLinks"
 import navRoutes from "@lib/navRoutes"
 import Link from "@components/NextLink"
@@ -10,7 +10,7 @@ const Navbar = props => {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <Box boxShadow="md" bg="primary.50" {...props}>
+    <Box boxShadow="md" bg="coolGray.800" color="white" {...props}>
       <Container maxW="container.xl">
         <Flex
           direction={{ base: "column", md: "row" }}

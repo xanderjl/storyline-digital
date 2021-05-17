@@ -10,6 +10,7 @@ import { urlFor } from "@lib/sanity"
 import SocialIcons from "@components/SocialIcons"
 import PageContent from "@components/PageContent"
 import SEO from "@components/SEO"
+import CodeBlockCard from "@components/Cards/CodeBlockCard"
 
 const Creators = ({ data, preview }) => {
   const router = useRouter()
@@ -23,18 +24,27 @@ const Creators = ({ data, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const { name, bio, image, socials, posts, metaDescription, ogImage } = creator
+  const {
+    name,
+    bio,
+    image,
+    socials,
+    posts,
+    metaDescription,
+    ogImage,
+    postImage,
+  } = creator
 
   return (
     <>
       <SEO description={metaDescription} ogImageURL={urlFor(ogImage?.asset)} />
       <Layout>
-        <PageContent title={name}>
+        <PageContent>
           <VStack px="1rem" spacing={6} align="center">
             <Stack
               direction={{ base: "column", lg: "row" }}
               pb="2rem"
-              align="center"
+              align="flex-start"
               spacing={4}
             >
               <Box
@@ -55,6 +65,7 @@ const Creators = ({ data, preview }) => {
                 />
               </Box>
               <VStack maxW="70ch" align="flex-start" spacing={4}>
+                <Heading>{name}</Heading>
                 <SocialIcons socials={socials} />
                 {bio && <PortableText pb="1rem" blocks={bio} />}
               </VStack>
@@ -71,22 +82,11 @@ const Creators = ({ data, preview }) => {
                 const { _id, title, slug } = post
                 return (
                   <Link key={_id} href={`/posts/${slug}`}>
-                    <Card
-                      role="group"
-                      border="4px solid"
-                      bg="warmGray.50"
-                      borderColor="auburn.800"
-                      _hover={{
-                        borderColor: "auburn.400",
-                      }}
-                    >
-                      <Heading
-                        textAlign="center"
-                        _groupHover={{ color: "warmGray.700" }}
-                      >
-                        {title}
-                      </Heading>
-                    </Card>
+                    <CodeBlockCard
+                      componentName="Entry"
+                      image={postImage?.url}
+                      title={title}
+                    />
                   </Link>
                 )
               })}
@@ -110,6 +110,7 @@ const singleCreatorQuery = groq`
     "posts": *[_type == "post" && references(^._id)] | order(publishedAt) {
       _id,
       title,
+      "postImage": mainImage.asset->,
       publishedAt,
       "slug": slug.current,
       categories

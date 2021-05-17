@@ -18,80 +18,82 @@ const CodeBlockCard = ({
   const theme = useTheme()
 
   return (
-    <Card
-      role="group"
-      p={0}
-      direction={{ base: "column", md: "row" }}
-      justifyContent="center"
-      alignItems="stretch"
-      color="complementary.100"
-      bg="black"
-      _hover={{ bg: "warmGray.900" }}
-      boxShadow="md"
-      {...rest}
-    >
-      <Link
-        href={href}
-        maxW={{ base: "100%", md: "40%" }}
-        bgColor="warmGray.50"
+    <Box p="8px" border="4px solid" borderColor="auburn.800" borderRadius={12}>
+      <Card
+        role="group"
+        p={0}
+        direction={{ base: "column", md: "row" }}
+        justifyContent="center"
+        alignItems="stretch"
+        color="complementary.100"
+        bg="coolGray.900"
+        _hover={{ bg: "warmGray.900" }}
+        boxShadow="md"
+        {...rest}
       >
-        <Image
-          objectFit="cover"
-          h={{ base: "300px", md: "100%" }}
-          w="100%"
-          objectFit="cover"
-          bgImage={`url(${placeholder})`}
-          bgRepeat="no-repeat"
-          bgPosition="center"
-          bgSize="cover"
-          src={urlFor(image)}
-          fallbackSrc="https://via.placeholder.com/400"
-          _groupHover={{ opacity: 0.8 }}
-        />
-      </Link>
-      <Box flex={1} p="2rem">
         <Link
           href={href}
-          mb="1rem"
-          fontFamily="mono"
-          color="complementary.200"
-          _groupHover={{ color: "complementary.100" }}
+          maxW={{ base: "100%", md: "40%" }}
+          bgColor="warmGray.50"
         >
-          <Box as="span" fontWeight={600}>{`<${componentName}`}</Box>
-          <Box
-            pl="1rem"
-            borderLeft="1px solid"
-            borderColor={`${theme.colors.complementary[50]}40`}
-          >
-            {title && (
-              <Text size="md" color="primary.100">
-                title=
-                <Box as="span" color="white">
-                  "{title}"
-                </Box>
-              </Text>
-            )}
-            {creatorName && (
-              <Text as="h2" size="md" color="primary.100">
-                name=
-                <Box as="span" color="white">
-                  "{creatorName}"
-                </Box>
-              </Text>
-            )}
-            {date && (
-              <Text color="primary.100">
-                date=
-                <Box as="span" color="white">
-                  "{new Date(date).toLocaleDateString("en-CA")}"
-                </Box>
-              </Text>
-            )}
-          </Box>
-          <Box as="span" fontWeight={600}>{` />`}</Box>
+          <Image
+            objectFit="cover"
+            h={{ base: "300px", md: "100%" }}
+            w="100%"
+            objectFit="cover"
+            bgImage={`url()`}
+            bgRepeat="no-repeat"
+            bgPosition="center"
+            bgSize="cover"
+            src={urlFor(image)}
+            fallbackSrc="https://via.placeholder.com/400"
+            _groupHover={{ opacity: 0.8 }}
+          />
         </Link>
-      </Box>
-    </Card>
+        <Box flex={1} p="2rem">
+          <Link
+            href={href}
+            mb="1rem"
+            fontFamily="mono"
+            color="complementary.400"
+            _groupHover={{ color: "complementary.100" }}
+          >
+            <Box as="span" fontWeight={600}>{`<`}</Box>
+            <Box
+              pl="1rem"
+              borderLeft="1px solid"
+              borderColor={`${theme.colors.complementary[50]}40`}
+            >
+              {title && (
+                <Text size="md" color="primary.100">
+                  title=
+                  <Box as="span" color="white">
+                    "{title}"
+                  </Box>
+                </Text>
+              )}
+              {creatorName && (
+                <Text as="h2" size="md" color="primary.100">
+                  name=
+                  <Box as="span" color="white">
+                    "{creatorName}"
+                  </Box>
+                </Text>
+              )}
+              {date && (
+                <Text color="primary.100">
+                  date=
+                  <Box as="span" color="white">
+                    "{new Date(date).toLocaleDateString("en-CA")}"
+                  </Box>
+                </Text>
+              )}
+            </Box>
+            <Box as="span" fontWeight={600}>{` />`}</Box>
+          </Link>
+        </Box>
+      </Card>
+    </Box>
   )
 }
 

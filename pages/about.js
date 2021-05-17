@@ -6,7 +6,7 @@ import {
   PortableText,
   urlFor,
 } from "@lib/sanity"
-import { Box } from "@chakra-ui/layout"
+import { Box, Container, Heading } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
 import SEO from "@components/SEO"
@@ -19,42 +19,52 @@ const About = ({ data, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const { metaDescription, ogImage, title, image, body } = bod
+  const { metaDescription, ogImage, title, tagline, image, body } = bod
 
   return (
     <>
       <SEO description={metaDescription} ogImageURL={urlFor(ogImage.asset)} />
       <Layout>
-        <Box
-          position="absolute"
-          w="100%"
-          h="100%"
-          bgImage={`url(${image?.metadata?.lqip})`}
-          bgRepeat="no-repeat"
-          bgSize="cover"
-          bgPosition="center"
-          zIndex={-1}
-        >
+        <Container maxW="container.xl" color="white">
           <Box
             position="absolute"
             w="100%"
             h="100%"
-            bgImage={`url(${urlFor(image?.url)})`}
+            bgImage={`url(${image?.metadata?.lqip})`}
             bgRepeat="no-repeat"
             bgSize="cover"
             bgPosition="center"
             zIndex={-1}
-          />
-        </Box>
-        <PageContent
-          title={title}
-          alignItems="center"
-          p={{ base: "6rem 1.25rem 6rem 1.25rem" }}
-        >
-          <Box maxW="70ch">
+          >
+            <Box
+              position="absolute"
+              w="100%"
+              h="100%"
+              bgImage={`url(${urlFor(image?.url)})`}
+              bgRepeat="no-repeat"
+              bgSize="cover"
+              bgPosition="center"
+              zIndex={-1}
+            />
+          </Box>
+          <Heading
+            size="4xl"
+            p="1rem"
+            border="4px solid"
+            borderColor="white"
+            borderRadius={12}
+            maxW="max-content"
+            textTransform="uppercase"
+          >
+            {title}
+          </Heading>
+          <Box maxW="70ch" textAlign="center">
+            <PortableText blocks={tagline} />
+          </Box>
+          <Box maxW="70ch" textAlign="center">
             <PortableText blocks={body} />
           </Box>
-        </PageContent>
+        </Container>
       </Layout>
     </>
   )
@@ -62,6 +72,7 @@ const About = ({ data, preview }) => {
 
 const aboutBodyQuery = groq`*[_type == "aboutPage"]{
   title,
+  tagline,
   "image": image.asset->,
   body,
 }[0]`

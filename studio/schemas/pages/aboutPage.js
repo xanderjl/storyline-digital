@@ -9,6 +9,12 @@ export default {
       type: "string",
     },
     {
+      name: "tagline",
+      title: "Tagline",
+      type: "text",
+      rows: 5,
+    },
+    {
       name: "image",
       title: "Background Image",
       type: "image",

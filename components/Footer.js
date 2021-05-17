@@ -4,7 +4,7 @@ import Link from "./NextLink"
 
 const Footer = () => {
   return (
-    <Box bg="primary.50">
+    <Box bg="coolGray.800" color="white">
       <Container p="3rem 1.25rem 0.25rem 1.25rem" maxW="container.xl">
         <Stack
           direction={{ base: "column", md: "row" }}

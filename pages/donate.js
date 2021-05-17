@@ -113,7 +113,7 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
                 </RetroCard>
               )
             })}
-            <RetroCard title="Set Your Own Price">
+            <RetroCard title="Custom Amount">
               <VStack
                 flex={1}
                 direction="column"

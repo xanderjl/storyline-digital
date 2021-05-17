@@ -1,9 +1,6 @@
 const Button = {
-  baseStyle: {
-    borderRadius: 0,
-  },
   defaultProps: {
-    colorScheme: "analogous",
+    colorScheme: "complementary",
   },
 }
 

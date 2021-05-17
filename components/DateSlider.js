@@ -28,9 +28,9 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
           isReversed
         >
           <SliderTrack bg="complementary.50">
-            <SliderFilledTrack bg="complementary.400" />
+            <SliderFilledTrack bg="complementary.800" />
           </SliderTrack>
-          <SliderThumb w={2} h="max-content" bg="complementary.400">
+          <SliderThumb w={2} h="max-content" bg="complementary.800">
             <Box position="relative" left="60px">
               <Text fontFamily="mono">{`${posts.indexOf(targetPost) + 1} / ${
                 posts.length
