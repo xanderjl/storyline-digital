@@ -20,10 +20,11 @@ import { urlFor } from "@lib/sanity"
 import { groq } from "next-sanity"
 import { FaShareAlt } from "react-icons/fa"
 import PageContent from "@components/PageContent"
+import SEO from "@components/SEO"
 
-const Post = ({ postData, preview }) => {
+const Post = ({ data, preview }) => {
   const router = useRouter()
-  if (!postData?.slug) {
+  if (!data?.slug) {
     return <Error statusCode={404} />
   }
   const shareLink = `${process.env.NEXT_PUBLIC_SITE_URL || "localhost:3000"}${
@@ -32,79 +33,82 @@ const Post = ({ postData, preview }) => {
   const { hasCopied, onCopy } = useClipboard(shareLink)
 
   const { data: post = {} } = usePreviewSubscription(singlePostQuery, {
-    params: { slug: postData?.slug },
-    initialData: postData,
+    params: { slug: data?.slug },
+    initialData: data,
     enabled: preview || router.query.preview !== null,
   })
 
-  const { title, creator, publishedAt, body } = post
+  const { metaDescription, ogImage, title, creator, publishedAt, body } = post
 
   return (
-    <Layout>
-      <PageContent title={title}>
-        <VStack
-          align="flex-start"
-          spacing={6}
-          divider={<StackDivider borderColor="brown.500" />}
-        >
-          <VStack w="100%" align="center" spacing={2}>
-            <Box>
-              {creator && (
-                <Heading
-                  size="lg"
-                  mb="1rem"
-                  textTransform="uppercase"
-                  color="primary.700"
-                >
-                  By {creator?.name}
-                </Heading>
+    <>
+      <SEO description={metaDescription} ogImageURL={urlFor(ogImage.asset)} />
+      <Layout>
+        <PageContent title={title}>
+          <VStack
+            align="flex-start"
+            spacing={6}
+            divider={<StackDivider borderColor="brown.500" />}
+          >
+            <VStack w="100%" align="center" spacing={2}>
+              <Box>
+                {creator && (
+                  <Heading
+                    size="lg"
+                    mb="1rem"
+                    textTransform="uppercase"
+                    color="primary.700"
+                  >
+                    By {creator?.name}
+                  </Heading>
+                )}
+              </Box>
+              {publishedAt && (
+                <Text fontFamily="mono">
+                  Published: {new Date(publishedAt).toLocaleDateString("en-CA")}
+                </Text>
               )}
-            </Box>
-            {publishedAt && (
-              <Text fontFamily="mono">
-                Published: {new Date(publishedAt).toLocaleDateString("en-CA")}
-              </Text>
-            )}
-            <Tooltip
-              label={hasCopied ? "copied!" : "click to copy"}
-              bg="complementary.400"
-            >
-              <Text
-                as="button"
-                fontFamily="mono"
-                role="group"
-                onClick={onCopy}
-                _hover={{ color: "complementary.400" }}
+              <Tooltip
+                label={hasCopied ? "copied!" : "click to copy"}
+                bg="complementary.400"
               >
-                Share <Icon as={FaShareAlt} />
-              </Text>
-            </Tooltip>
-          </VStack>
-          <Box flex={1} w="100%">
-            <PortableText blocks={body} />
-          </Box>
-          <VStack align="flex-start">
-            <Flex align="center">
-              <Link href={`/artists/${creator?.slug}`}>
-                <Avatar
-                  size="xl"
-                  src={urlFor(creator?.image?.asset)}
-                  mr="1rem"
-                  _hover={{ opacity: 0.8 }}
-                />
-              </Link>
-              <Flex direction="column">
-                <Link href={`/artists/${creator?.slug}`}>
-                  <Heading textTransform="uppercase">{creator?.name}</Heading>
+                <Text
+                  as="button"
+                  fontFamily="mono"
+                  role="group"
+                  onClick={onCopy}
+                  _hover={{ color: "complementary.400" }}
+                >
+                  Share <Icon as={FaShareAlt} />
+                </Text>
+              </Tooltip>
+            </VStack>
+            <Box flex={1} w="100%">
+              <PortableText blocks={body} />
+            </Box>
+            <VStack align="flex-start">
+              <Flex align="center">
+                <Link href={`/creators/${creator?.slug}`}>
+                  <Avatar
+                    size="xl"
+                    src={urlFor(creator?.image?.asset)}
+                    mr="1rem"
+                    _hover={{ opacity: 0.8 }}
+                  />
                 </Link>
-                <SocialIcons socials={creator?.socials} />
+                <Flex direction="column">
+                  <Link href={`/creators/${creator?.slug}`}>
+                    <Heading textTransform="uppercase">{creator?.name}</Heading>
+                  </Link>
+                  <SocialIcons socials={creator?.socials} />
+                </Flex>
               </Flex>
-            </Flex>
-            <PortableText blocks={creator?.bio} />
+              <PortableText blocks={creator?.bio} />
+            </VStack>
           </VStack>
-        </VStack>
-      </PageContent>
-    </Layout>
+        </PageContent>
+      </Layout>
+    </>
   )
 }
 
@@ -140,11 +144,15 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params, preview = false }) => {
+  const siteSettings = await getClient().fetch(groq`*[_type == "siteSettings"]{
+    metaDescription,
+    ogImage
+  }[0]`)
   const postData = await getClient(preview).fetch(singlePostQuery, {
     slug: params.slug,
   })
 
-  return { props: { postData, preview } }
+  return { props: { data: { ...siteSettings, ...postData }, preview } }
 }
 
 export default Post

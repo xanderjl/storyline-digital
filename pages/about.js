@@ -20,7 +20,6 @@ const About = ({ data, preview }) => {
   })
 
   const { metaDescription, ogImage, title, image, body } = bod
-  console.log(image)
 
   return (
     <>

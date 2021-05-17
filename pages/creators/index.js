@@ -31,6 +31,7 @@ import { IoPersonCircleSharp } from "react-icons/io5"
 import PageContent from "@components/PageContent"
 import RetroCard from "@components/Cards/RetroCard"
 import SEO from "@components/SEO"
+import CodeBlockCard from "@components/Cards/CodeBlockCard"
 
 const Creators = ({ siteSettings, creators }) => {
   const [query, setQuery] = useState("")
@@ -74,13 +75,22 @@ const Creators = ({ siteSettings, creators }) => {
               md: "repeat(auto-fill, minmax(40ch, 1fr))",
             }}
             gap={6}
+            autoRows="200px"
           >
             {creatorResults.map(creator => {
               const { name, slug, bio, image, posts } = creator
 
               return (
                 <Popover key={slug} isLazy>
-                  <RetroCard>
+                  <CodeBlockCard
+                    href={`/creators/${slug}`}
+                    componentName="Creator"
+                    image={image?.url}
+                    placeholder={image?.metadata.lqip}
+                    creatorName={name}
+                    borderRadius={10}
+                  />
+                  {/* <RetroCard>
                     <HStack p="1.25rem" align="flex-start" spacing={4}>
                       <Link href={`/creators/${slug}`}>
                         <Box
@@ -118,7 +128,7 @@ const Creators = ({ siteSettings, creators }) => {
                         </PopoverTrigger>
                       </VStack>
                     </HStack>
-                  </RetroCard>
+                  </RetroCard> */}
                   <PopoverContent
                     border="4px solid"
                     borderColor="auburn.800"

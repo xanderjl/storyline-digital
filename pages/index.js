@@ -28,7 +28,7 @@ const Home = ({ siteSettings, posts }) => {
   const headerPostHeight = adjustment => {
     return {
       base: `calc(40vh - 67px ${adjustment})`,
-      md: `calc(70vh - 67px ${adjustment})`,
+      md: `calc(75vh - 67px ${adjustment})`,
     }
   }
 
@@ -40,7 +40,7 @@ const Home = ({ siteSettings, posts }) => {
       />
       <Layout>
         <Box
-          maxW="container.xl"
+          maxW={{ base: "container.xl", "2xl": "80vw" }}
           m={{ base: "5rem 1.25rem", md: "7rem auto 1.25rem auto" }}
         >
           <Box
@@ -92,7 +92,7 @@ const Home = ({ siteSettings, posts }) => {
                   {headerPost.title}
                 </Heading>
                 <Box
-                  transform="translateY(-2rem)"
+                  transform="translateY(-1rem)"
                   textShadow={`2px 3px ${theme.colors.primary[800]}`}
                 >
                   <Heading as="h2" size="xl">
@@ -163,11 +163,12 @@ const Home = ({ siteSettings, posts }) => {
                         return (
                           <Box ref={ref} minH="inherit">
                             <CodeBlockCard
+                              componentName="Entry"
                               image={mainImage?.url}
                               placeholder={mainImage?.metadata?.lqip}
-                              slug={slug}
+                              href={`/creators/${slug}`}
                               title={title}
-                              creator={creator}
+                              creatorName={creator?.name}
                               date={publishedAt}
                             />
                           </Box>

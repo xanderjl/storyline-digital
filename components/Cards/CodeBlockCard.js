@@ -5,7 +5,16 @@ import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
 import Card from "./Card"
 
-const CodeBlockCard = ({ image, placeholder, slug, title, creator, date }) => {
+const CodeBlockCard = ({
+  componentName,
+  image,
+  placeholder,
+  href,
+  title,
+  creatorName,
+  date,
+  ...rest
+}) => {
   const theme = useTheme()
 
   return (
@@ -18,9 +27,11 @@ const CodeBlockCard = ({ image, placeholder, slug, title, creator, date }) => {
       color="complementary.100"
       bg="black"
       _hover={{ bg: "warmGray.900" }}
+      boxShadow="md"
+      {...rest}
     >
       <Link
-        href={`/posts/${slug}`}
+        href={href}
         maxW={{ base: "100%", md: "40%" }}
         bgColor="warmGray.50"
       >
@@ -40,36 +51,42 @@ const CodeBlockCard = ({ image, placeholder, slug, title, creator, date }) => {
       </Link>
       <Box flex={1} p="2rem">
         <Link
-          href={`/posts/${slug}`}
+          href={href}
           mb="1rem"
           fontFamily="mono"
           color="complementary.200"
           _groupHover={{ color: "complementary.100" }}
         >
-          <Box as="span" fontWeight={600}>{`<Entry`}</Box>
+          <Box as="span" fontWeight={600}>{`<${componentName}`}</Box>
           <Box
             pl="1rem"
             borderLeft="1px solid"
             borderColor={`${theme.colors.complementary[50]}40`}
           >
-            <Text size="md" color="primary.100">
-              title=
-              <Box as="span" color="white">
-                "{title}"
-              </Box>
-            </Text>
-            <Text as="h2" size="md" color="primary.100">
-              name=
-              <Box as="span" color="white">
-                "{creator?.name}"
-              </Box>
-            </Text>
-            <Text color="primary.100">
-              date=
-              <Box as="span" color="white">
-                "{new Date(date).toLocaleDateString("en-CA")}"
-              </Box>
-            </Text>
+            {title && (
+              <Text size="md" color="primary.100">
+                title=
+                <Box as="span" color="white">
+                  "{title}"
+                </Box>
+              </Text>
+            )}
+            {creatorName && (
+              <Text as="h2" size="md" color="primary.100">
+                name=
+                <Box as="span" color="white">
+                  "{creatorName}"
+                </Box>
+              </Text>
+            )}
+            {date && (
+              <Text color="primary.100">
+                date=
+                <Box as="span" color="white">
+                  "{new Date(date).toLocaleDateString("en-CA")}"
+                </Box>
+              </Text>
+            )}
           </Box>
           <Box as="span" fontWeight={600}>{` />`}</Box>
         </Link>
