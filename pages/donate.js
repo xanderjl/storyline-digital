@@ -114,7 +114,7 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
                     <Heading>{title}</Heading>
                     <Heading
                       as="h2"
-                      size="lg"
+                      fontSize="3xl"
                       fontFamily="body"
                     >{`$${price.toFixed(2)}`}</Heading>
                     <Button onClick={() => stripeHandler(title, price * 100)}>
@@ -142,7 +142,7 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
                   variant="unstyled"
                   precision={2}
                   borderColor="analogous.600"
-                  fontSize="4xl"
+                  fontSize="3xl"
                   value={format(customPrice)}
                   onChange={e => setCustomPrice(parse(e))}
                 >
@@ -150,7 +150,7 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
                     textDecoration="underline"
                     p="0"
                     textAlign="center"
-                    fontSize="4xl"
+                    fontSize="inherit"
                     fontWeight={600}
                   />
                 </NumberInput>

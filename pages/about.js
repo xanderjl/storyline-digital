@@ -16,6 +16,7 @@ const About = ({ data, preview }) => {
   })
 
   const { metaDescription, ogImage, title, tagline, image, body } = bod
+  console.log(bod)
 
   return (
     <>
