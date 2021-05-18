@@ -1,7 +1,7 @@
 const global = {
   body: {
     bg: "white",
-    color: "warmGray.900",
+    color: "coolGray.900",
   },
   a: {
     textDecoration: "none",

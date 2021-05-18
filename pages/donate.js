@@ -19,8 +19,7 @@ import {
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
-import RetroCard from "@components/Cards/RetroCard"
-import { NextSeo } from "next-seo"
+import Card from "@components/Cards/Card"
 import SEO from "@components/SEO"
 
 const stripePromise = loadStripe(
@@ -72,9 +71,17 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
         ogImageURL={urlFor(siteSettings.ogImage.asset)}
       />
       <Layout>
-        <PageContent title={title} p={{ base: "3rem 1.25rem 6rem 1.25rem" }}>
+        <PageContent>
+          <Heading
+            size="2xl"
+            px={{ base: 0, md: "1rem" }}
+            pb="2rem"
+            textTransform="uppercase"
+          >
+            {title}
+          </Heading>
           {body && (
-            <Box maxW="70ch" m="0 auto" p={{ base: "3rem 0", md: "3rem 1rem" }}>
+            <Box maxW="70ch" px={{ base: 0, md: "1rem" }}>
               <PortableText blocks={body} />
             </Box>
           )}
@@ -90,37 +97,49 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
             {pricingTiers.map(tier => {
               const { _key, title, price } = tier
               return (
-                <RetroCard
+                <Card
                   key={_key}
-                  title={title}
                   minH="18em"
                   alignItems="center"
+                  bg="coolGray.900"
+                  color="white"
+                  _hover={{ bg: "coolGray.800" }}
                 >
                   <VStack
                     flex={1}
                     direction="column"
                     align="center"
                     justify="center"
+                    textAlign="center"
                     spacing={4}
                   >
-                    <Heading fontFamily="body">{`$${price.toFixed(
-                      2
-                    )}`}</Heading>
+                    <Heading>{title}</Heading>
+                    <Heading
+                      as="h2"
+                      size="lg"
+                      fontFamily="body"
+                    >{`$${price.toFixed(2)}`}</Heading>
                     <Button onClick={() => stripeHandler(title, price * 100)}>
                       DONATE
                     </Button>
                   </VStack>
-                </RetroCard>
+                </Card>
               )
             })}
-            <RetroCard title="Custom Amount">
+            <Card
+              bg="coolGray.900"
+              color="white"
+              _hover={{ bg: "coolGray.800" }}
+            >
               <VStack
                 flex={1}
                 direction="column"
                 align="center"
                 justify="center"
                 spacing={4}
+                textAlign="center"
               >
+                <Heading>Custom Amount</Heading>
                 <NumberInput
                   variant="unstyled"
                   precision={2}
@@ -130,6 +149,7 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
                   onChange={e => setCustomPrice(parse(e))}
                 >
                   <NumberInputField
+                    textDecoration="underline"
                     p="0"
                     textAlign="center"
                     fontSize="4xl"
@@ -147,7 +167,7 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
                   DONATE
                 </Button>
               </VStack>
-            </RetroCard>
+            </Card>
           </Grid>
         </PageContent>
       </Layout>

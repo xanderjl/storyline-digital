@@ -18,28 +18,26 @@ const CodeBlockCard = ({
   const theme = useTheme()
 
   return (
-    <Box p="8px" border="4px solid" borderColor="auburn.800" borderRadius={12}>
-      <Card
-        role="group"
-        p={0}
-        direction={{ base: "column", md: "row" }}
-        justifyContent="center"
-        alignItems="stretch"
-        color="complementary.100"
-        bg="coolGray.900"
-        _hover={{ bg: "warmGray.900" }}
-        boxShadow="md"
-        {...rest}
-      >
-        <Link
-          href={href}
-          maxW={{ base: "100%", md: "40%" }}
-          bgColor="warmGray.50"
+    <Box p="2px" border="4px solid" borderColor="auburn.800" borderRadius={12}>
+      <Link href={href} bgColor="warmGray.50">
+        <Card
+          role="group"
+          p={0}
+          direction={{ base: "column", md: "row" }}
+          justifyContent="center"
+          alignItems="stretch"
+          color="complementary.400"
+          bg="coolGray.900"
+          _hover={{ bg: "warmGray.900", color: "complementary.100" }}
+          boxShadow="md"
+          {...rest}
         >
           <Image
             objectFit="cover"
-            h={{ base: "300px", md: "100%" }}
+            maxH={{ base: "auto", md: "250px" }}
+            h={{ base: "300px", md: "auto" }}
             w="100%"
+            maxW={{ base: "100%", md: "40%" }}
             objectFit="cover"
             bgImage={`url()`}
             bgRepeat="no-repeat"
@@ -49,16 +47,13 @@ const CodeBlockCard = ({
             fallbackSrc="https://via.placeholder.com/400"
             _groupHover={{ opacity: 0.8 }}
           />
-        </Link>
-        <Box flex={1} p="2rem">
-          <Link
-            href={href}
-            mb="1rem"
-            fontFamily="mono"
-            color="complementary.400"
-            _groupHover={{ color: "complementary.100" }}
-          >
-            <Box as="span" fontWeight={600}>{`<`}</Box>
+          <Box flex={1} p="2rem">
+            <Box
+              as="span"
+              fontWeight={600}
+              mb="1rem"
+              fontFamily="mono"
+            >{`<${componentName}`}</Box>
             <Box
               pl="1rem"
               borderLeft="1px solid"
@@ -90,9 +85,9 @@ const CodeBlockCard = ({
               )}
             </Box>
             <Box as="span" fontWeight={600}>{` />`}</Box>
-          </Link>
-        </Box>
-      </Card>
+          </Box>
+        </Card>
+      </Link>
     </Box>
   )
 }

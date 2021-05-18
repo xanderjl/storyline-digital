@@ -4,7 +4,6 @@ import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
 import { groq } from "next-sanity"
 import { useRouter } from "next/router"
 import Error from "next/error"
-import Card from "@components/Cards/Card"
 import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
 import SocialIcons from "@components/SocialIcons"
@@ -24,16 +23,7 @@ const Creators = ({ data, preview }) => {
     enabled: preview || router.query.preview !== null,
   })
 
-  const {
-    name,
-    bio,
-    image,
-    socials,
-    posts,
-    metaDescription,
-    ogImage,
-    postImage,
-  } = creator
+  const { name, bio, image, socials, posts, metaDescription, ogImage } = creator
 
   return (
     <>
@@ -65,7 +55,7 @@ const Creators = ({ data, preview }) => {
                 />
               </Box>
               <VStack maxW="70ch" align="flex-start" spacing={4}>
-                <Heading>{name}</Heading>
+                <Heading textTransform="uppercase">{name}</Heading>
                 <SocialIcons socials={socials} />
                 {bio && <PortableText pb="1rem" blocks={bio} />}
               </VStack>
@@ -79,7 +69,7 @@ const Creators = ({ data, preview }) => {
               gap={8}
             >
               {posts?.map(post => {
-                const { _id, title, slug } = post
+                const { _id, title, slug, postImage } = post
                 return (
                   <Link key={_id} href={`/posts/${slug}`}>
                     <CodeBlockCard

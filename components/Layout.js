@@ -4,16 +4,7 @@ import Navbar from "./Navbar"
 
 const Layout = ({ children }) => {
   return (
-    <Flex
-      direction="column"
-      w="100%"
-      minH="100vh"
-      // bgImage="url('/Background.svg')"
-      // bgRepeat="no-repeat"
-      // bgSize="60vh"
-      // bgAttachment="fixed"
-      // bgPosition="50% 0"
-    >
+    <Flex direction="column" w="100%" minH="100vh">
       <Navbar position="fixed" w="100%" zIndex={10} />
       <Box flex={1} mt={{ base: "56px", md: "67px" }}>
         {children}

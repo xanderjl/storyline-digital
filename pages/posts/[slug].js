@@ -1,16 +1,15 @@
 import { useRouter } from "next/router"
 import Error from "next/error"
 import {
-  Avatar,
   Box,
   Heading,
   Icon,
-  StackDivider,
   Text,
   VStack,
   useClipboard,
   Tooltip,
-  Flex,
+  HStack,
+  Stack,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import Link from "@components/NextLink"
@@ -44,67 +43,61 @@ const Post = ({ data, preview }) => {
     <>
       <SEO description={metaDescription} ogImageURL={urlFor(ogImage.asset)} />
       <Layout>
-        <PageContent title={title}>
+        <PageContent>
           <VStack
             align="flex-start"
+            textAlign={{ base: "center", md: "left" }}
             spacing={6}
-            divider={<StackDivider borderColor="brown.500" />}
           >
-            <VStack w="100%" align="center" spacing={2}>
-              <Box>
+            <Heading size="2xl" textTransform="uppercase">
+              {title}
+            </Heading>
+            <Stack
+              direction={{ base: "column", md: "row" }}
+              w="100%"
+              align={{ base: "center", md: "flex-start" }}
+              justify="space-between"
+              spacing={6}
+            >
+              <VStack align={{ base: "center", md: "flex-start" }} spacing={0}>
                 {creator && (
-                  <Heading
-                    size="lg"
-                    mb="1rem"
-                    textTransform="uppercase"
-                    color="primary.700"
-                  >
-                    By {creator?.name}
-                  </Heading>
+                  <>
+                    <Heading size="lg" mb="1rem" textTransform="uppercase">
+                      By{" "}
+                      <Link href={`/creators/${creator?.slug}`}>
+                        {creator?.name}
+                      </Link>
+                    </Heading>
+                    <SocialIcons socials={creator?.socials} />
+                  </>
                 )}
-              </Box>
-              {publishedAt && (
-                <Text fontFamily="mono">
-                  Published: {new Date(publishedAt).toLocaleDateString("en-CA")}
-                </Text>
-              )}
-              <Tooltip
-                label={hasCopied ? "copied!" : "click to copy"}
-                bg="complementary.400"
-              >
-                <Text
-                  as="button"
-                  fontFamily="mono"
-                  role="group"
-                  onClick={onCopy}
-                  _hover={{ color: "complementary.400" }}
+              </VStack>
+              <VStack align={{ base: "center", md: "flex-end" }} spacing={0}>
+                {publishedAt && (
+                  <Text fontFamily="mono">
+                    Published:{" "}
+                    {new Date(publishedAt).toLocaleDateString("en-CA")}
+                  </Text>
+                )}
+                <Tooltip
+                  label={hasCopied ? "copied!" : "click to copy"}
+                  bg="complementary.400"
                 >
-                  Share <Icon as={FaShareAlt} />
-                </Text>
-              </Tooltip>
-            </VStack>
+                  <Text
+                    as="button"
+                    fontFamily="mono"
+                    role="group"
+                    onClick={onCopy}
+                    _hover={{ color: "complementary.400" }}
+                  >
+                    Share <Icon as={FaShareAlt} />
+                  </Text>
+                </Tooltip>
+              </VStack>
+            </Stack>
             <Box flex={1} w="100%">
               <PortableText blocks={body} />
             </Box>
-            <VStack align="flex-start">
-              <Flex align="center">
-                <Link href={`/creators/${creator?.slug}`}>
-                  <Avatar
-                    size="xl"
-                    src={urlFor(creator?.image?.asset)}
-                    mr="1rem"
-                    _hover={{ opacity: 0.8 }}
-                  />
-                </Link>
-                <Flex direction="column">
-                  <Link href={`/creators/${creator?.slug}`}>
-                    <Heading textTransform="uppercase">{creator?.name}</Heading>
-                  </Link>
-                  <SocialIcons socials={creator?.socials} />
-                </Flex>
-              </Flex>
-              <PortableText blocks={creator?.bio} />
-            </VStack>
           </VStack>
         </PageContent>
       </Layout>

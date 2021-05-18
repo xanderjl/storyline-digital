@@ -1,41 +1,11 @@
 import { Container, Heading } from "@chakra-ui/layout"
 import Logo from "./Logo"
 
-const PageContent = ({ title, children, ...rest }) => {
+const PageContent = ({ children, ...rest }) => {
   return (
-    <Container
-      // minH="calc(100vh - 57px)"
-      p={{ base: "1.25rem", md: "3rem" }}
-      maxW="container.lg"
-      bg="white"
-      // boxShadow="md"
-    >
-      {title && (
-        <Heading
-          size={title.length > 24 ? "xl" : "2xl"}
-          w="max-content"
-          maxW={{ base: "80%", md: "66%" }}
-          m="0 auto"
-          position="relative"
-          top={0}
-          transform="translateY(50%)"
-          textTransform="uppercase"
-          textAlign="center"
-          // p={{ base: "0.5rem 1rem 0 1rem", md: "1rem 2rem 0 2rem" }}
-          p="1rem 2rem"
-          color="primary.700"
-          bg="warmGray.50"
-          border="4px solid"
-          borderColor="auburn.800"
-          borderRadius={14}
-          boxShadow="md"
-          zIndex={2}
-        >
-          {title}
-        </Heading>
-      )}
+    <Container p={{ base: "1.25rem", md: "3rem" }} maxW="container.lg">
       <Container
-        p="3rem 1.25rem"
+        p="3rem 1.25rem 8rem 1.25rem"
         display="flex"
         flexDirection="column"
         position="relative"
