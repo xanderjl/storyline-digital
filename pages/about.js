@@ -1,10 +1,6 @@
 import { groq } from "next-sanity"
-import {
-  getClient,
-  usePreviewSubscription,
-  PortableText,
-  urlFor,
-} from "@lib/sanity"
+import { usePreviewSubscription, PortableText, urlFor } from "@lib/sanity"
+import { getClient } from "@lib/sanity.server"
 import { Box, Container, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import SEO from "@components/SEO"

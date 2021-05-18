@@ -1,6 +1,7 @@
 import { Box, Grid, Heading, Image, Stack, VStack } from "@chakra-ui/react"
 import Layout from "@components/Layout"
-import { getClient, usePreviewSubscription, PortableText } from "@lib/sanity"
+import { usePreviewSubscription, PortableText } from "@lib/sanity"
+import { getClient } from "@lib/sanity.server"
 import { groq } from "next-sanity"
 import { useRouter } from "next/router"
 import Error from "next/error"
