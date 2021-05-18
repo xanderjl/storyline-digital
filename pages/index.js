@@ -73,7 +73,6 @@ const Home = ({ siteSettings, posts }) => {
                     bgPosition="center"
                     bgSize="cover"
                     src={urlFor(headerPost?.mainImage?.url)}
-                    fallbackSrc="https://via.placeholder.com/400"
                     _groupHover={{ opacity: 0.8 }}
                   />
                 </Link>
@@ -166,7 +165,7 @@ const Home = ({ siteSettings, posts }) => {
                                 componentName="Entry"
                                 image={mainImage?.url}
                                 placeholder={mainImage?.metadata?.lqip}
-                                href={`/posts/`}
+                                href={`/posts/${slug}`}
                                 title={title}
                                 creatorName={creator?.name}
                                 date={publishedAt}

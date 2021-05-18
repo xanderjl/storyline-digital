@@ -8,7 +8,6 @@ import {
   VStack,
   useClipboard,
   Tooltip,
-  HStack,
   Stack,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
@@ -31,10 +30,10 @@ const Post = ({ data, preview }) => {
   }`
   const { hasCopied, onCopy } = useClipboard(shareLink)
 
-  const { data: post = {} } = usePreviewSubscription(singlePostQuery, {
+  const { data: post } = usePreviewSubscription(singlePostQuery, {
     params: { slug: data?.slug },
     initialData: data,
-    enabled: preview || router.query.preview !== null,
+    enabled: preview,
   })
 
   const { metaDescription, ogImage, title, creator, publishedAt, body } = post

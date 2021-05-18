@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { loadStripe } from "@stripe/stripe-js"
-import { useRouter } from "next/router"
 import { groq } from "next-sanity"
 import {
   getClient,
@@ -27,14 +26,13 @@ const stripePromise = loadStripe(
 )
 
 const Donate = ({ siteSettings, donateBody, preview }) => {
-  const router = useRouter()
   const format = val => `$` + val
   const parse = val => val.replace(/^\$/, "")
   const [customPrice, setCustomPrice] = useState("27.50")
 
   const { data: donate = {} } = usePreviewSubscription(donateQuery, {
     initialData: donateBody,
-    enabled: preview || router.query.preview !== null,
+    enabled: preview,
   })
 
   const { title, body, pricingTiers } = donate

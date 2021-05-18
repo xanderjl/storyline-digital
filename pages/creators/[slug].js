@@ -17,10 +17,10 @@ const Creators = ({ data, preview }) => {
     return <Error statusCode={404} />
   }
 
-  const { data: creator = {} } = usePreviewSubscription(singleCreatorQuery, {
+  const { data: creator } = usePreviewSubscription(singleCreatorQuery, {
     params: { slug: data?.slug },
     initialData: data,
-    enabled: preview || router.query.preview !== null,
+    enabled: preview,
   })
 
   const { name, bio, image, socials, posts, metaDescription, ogImage } = creator

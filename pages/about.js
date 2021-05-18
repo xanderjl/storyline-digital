@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import { groq } from "next-sanity"
 import {
   getClient,
@@ -11,11 +10,9 @@ import Layout from "@components/Layout"
 import SEO from "@components/SEO"
 
 const About = ({ data, preview }) => {
-  const router = useRouter()
-
   const { data: bod } = usePreviewSubscription(aboutBodyQuery, {
     initialData: data,
-    enabled: preview || router.query.preview !== null,
+    enabled: preview,
   })
 
   const { metaDescription, ogImage, title, tagline, image, body } = bod

@@ -44,7 +44,6 @@ const CodeBlockCard = ({
             bgPosition="center"
             bgSize="cover"
             src={urlFor(image)}
-            fallbackSrc="https://via.placeholder.com/400"
             _groupHover={{ opacity: 0.8 }}
           />
           <Box flex={1} p="2rem">
