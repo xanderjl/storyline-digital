@@ -12,7 +12,8 @@ import {
 import Fuse from "fuse.js"
 import Layout from "@components/Layout"
 import { BiSearch } from "react-icons/bi"
-import { getClient, urlFor } from "@lib/sanity"
+import { urlFor } from "@lib/sanity"
+import { getClient } from "@lib/sanity.server"
 import { groq } from "next-sanity"
 import React from "react"
 import SEO from "@components/SEO"
@@ -79,7 +80,7 @@ const Creators = ({ siteSettings, creators }) => {
             gap={6}
           >
             {creatorResults.map(creator => {
-              const { name, slug, image } = creator
+              const { name, slug, creatorPreview, image } = creator
 
               return (
                 <CodeBlockCard
@@ -88,6 +89,7 @@ const Creators = ({ siteSettings, creators }) => {
                   image={image?.url}
                   placeholder={image?.metadata?.lqip}
                   creatorName={name}
+                  creatorBio={creatorPreview}
                   borderRadius={10}
                   h={{ base: "auto", md: "100%" }}
                 />
@@ -102,6 +104,7 @@ const Creators = ({ siteSettings, creators }) => {
 const creatorsQuery = groq`*[_type == "creator"] | order(name) {
     _id,
     name,
+    creatorPreview,
     "slug": slug.current,
     "image": image.asset->,
     socials,

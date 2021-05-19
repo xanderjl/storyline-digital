@@ -14,7 +14,8 @@ import {
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import DateSlider from "@components/DateSlider"
-import { getClient, urlFor } from "@lib/sanity"
+import { urlFor } from "@lib/sanity"
+import { getClient } from "@lib/sanity.server"
 import groq from "groq"
 import CodeBlockCard from "@components/Cards/CodeBlockCard"
 import SEO from "@components/SEO"
@@ -35,10 +36,24 @@ const Home = ({ siteSettings, posts }) => {
         ogImageURL={urlFor(siteSettings.ogImage.asset)}
       />
       <Layout>
-        <Container
-          maxW="container.xl"
-          p={{ base: "3rem 1.25rem", md: "7rem 1.25rem" }}
-        >
+        <Box
+          position="fixed"
+          top={0}
+          left="50%"
+          viewBox="0 0 530 1024"
+          transform="translate(-55%, 0)"
+          bgImage="url(./Background.svg)"
+          h="100vh"
+          w="100%"
+          bgSize={{ base: "cover", md: "contain" }}
+          bgRepeat="no-repeat"
+          bgPosition="center"
+          zIndex={-1}
+        />
+        <Container maxW="container.xl" pt="3rem" px=" 1.25rem">
+          <Heading pb="3rem" textTransform="uppercase">
+            Entering Archive
+          </Heading>
           <VStack spacing={{ base: 6, md: 14 }}>
             <Box
               p="4px"
@@ -48,11 +63,11 @@ const Home = ({ siteSettings, posts }) => {
             >
               <Card
                 role="group"
-                maxH="580px"
+                maxH={{ base: "100%", md: "460px" }}
                 p={0}
                 direction={{ base: "column", md: "row" }}
                 justifyContent="center"
-                alignItems="stretch"
+                alignItems="center"
                 color="complementary.100"
                 bg="coolGray.900"
                 _hover={{ bg: "warmGray.900" }}
@@ -125,7 +140,7 @@ const Home = ({ siteSettings, posts }) => {
                 </Box>
               </Card>
             </Box>
-            <Flex alignItems="flex-start">
+            <Flex alignItems="flex-start" pt="80px" pb="3rem">
               <Grid
                 templateColumns={{
                   base: "minmax(0, 1fr)",
@@ -142,11 +157,11 @@ const Home = ({ siteSettings, posts }) => {
                       ref={postRefs[i]}
                       minH={{
                         base: "max-content",
-                        md: "calc(40vh - 57px)",
+                        md: "320px",
                       }}
                       colStart={{
                         base: 0,
-                        lg: i % 2 === 0 ? 0 : 6,
+                        lg: i % 2 === 0 ? 6 : 0,
                       }}
                       colSpan={{ base: 1, lg: 6 }}
                     >

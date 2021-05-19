@@ -14,6 +14,11 @@ export default {
       type: "blockContent",
     },
     {
+      name: "illustration",
+      title: "Illustration",
+      type: "image",
+    },
+    {
       name: "pricingTiers",
       title: "Pricing Tiers",
       type: "array",

@@ -4,6 +4,7 @@ import { getClient } from "@lib/sanity.server"
 import { Box, Container, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
 import SEO from "@components/SEO"
+import { Image } from "@chakra-ui/image"
 
 const About = ({ data, preview }) => {
   const { data: bod } = usePreviewSubscription(aboutBodyQuery, {
@@ -11,71 +12,71 @@ const About = ({ data, preview }) => {
     enabled: preview,
   })
 
-  const { metaDescription, ogImage, title, tagline, image, body } = bod
-  console.log(bod)
+  const { metaDescription, ogImage, title, tagline, image, glyphs, body } = bod
 
   return (
     <>
       <SEO description={metaDescription} ogImageURL={urlFor(ogImage.asset)} />
       <Layout>
-        <Box
-          position="absolute"
-          left="50%"
-          top={0}
-          transform="translate(-50%, 0)"
-          w="container.xl"
-          h="100%"
-          bgColor={image?.metadata?.palette?.darkVibrant?.background}
-          bgImage={{ md: `url(${image?.metadata?.lqip})` }}
-          bgRepeat="no-repeat"
-          bgSize="auto"
-          bgPosition="0% 120%"
-          zIndex={-1}
+        <Container
+          maxW="container.xl"
+          p={{ base: "3rem 1.25rem", md: "4rem 3rem" }}
         >
           <Box
-            position="inherit"
-            w="inherit"
-            h="inherit"
-            bgImage={{ md: `url(${image?.url})` }}
-            bgRepeat="inherit"
-            bgSize="inherit"
-            bgPosition="inherit"
-            zIndex="inherit"
-          />
-        </Box>
-        <Container
-          p="3rem 1.25rem"
-          position="relative"
-          minH={{ base: "max-content", md: "1800px" }}
-          maxW="container.xl"
-          color="white"
-          textAlign="center"
-        >
-          <Flex
-            direction="column"
-            minH="inherit"
-            align="center"
-            justify="space-between"
+            borderRadius={4}
+            overflow="hidden"
+            bgColor={image?.metadata?.palette?.darkVibrant?.background}
+            bgImage={{ md: `url(${image?.metadata?.lqip})` }}
+            bgRepeat="no-repeat"
+            bgSize="auto"
+            bgPosition="0 90%"
           >
-            <VStack m="0 auto 3rem auto" spacing={6}>
-              <Heading
-                size="2xl"
-                p="1rem"
-                m="0 auto"
-                border="4px solid"
-                borderColor="white"
-                borderRadius={12}
-                maxW="max-content"
-                textTransform="uppercase"
+            <Box
+              p="3rem 1.25rem"
+              position="relative"
+              minH={{ base: "max-content", md: "1900px" }}
+              color="white"
+              textAlign="center"
+              bgImage={{ md: `url(${image?.url})` }}
+              bgRepeat="inherit"
+              bgSize="inherit"
+              bgPosition="inherit"
+            >
+              <Flex
+                direction="column"
+                minH="inherit"
+                align="center"
+                justify="space-between"
               >
-                {title}
-              </Heading>
-              <Text maxW="90ch">{tagline}</Text>
-            </VStack>
-            <Box maxW="90ch">
-              <PortableText blocks={body} />
+                <VStack m="0 auto 3rem auto" spacing={6}>
+                  <Heading
+                    size="2xl"
+                    p="1rem"
+                    m="0 auto"
+                    my="2rem"
+                    border="4px solid"
+                    borderColor="white"
+                    borderRadius={12}
+                    maxW="max-content"
+                    textTransform="uppercase"
+                  >
+                    {title}
+                  </Heading>
+                  <Text fontSize="xl" maxW="70ch">
+                    {tagline}
+                  </Text>
+                </VStack>
+                <VStack maxW="90ch" spacing={8}>
+                  <Image
+                    src={glyphs.url}
+                    w="auto"
+                    h={{ base: "90px", md: "118px" }}
+                  />
+                  <PortableText blocks={body} />
+                </VStack>
+              </Flex>
             </Box>
-          </Flex>
+          </Box>
         </Container>
       </Layout>
     </>
@@ -86,6 +87,7 @@ const aboutBodyQuery = groq`*[_type == "aboutPage"]{
   title,
   tagline,
   "image": image.asset->,
+  "glyphs": glyphs.asset->,
   body,
 }[0]`
 

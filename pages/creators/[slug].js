@@ -5,7 +5,6 @@ import { getClient } from "@lib/sanity.server"
 import { groq } from "next-sanity"
 import { useRouter } from "next/router"
 import Error from "next/error"
-import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
 import SocialIcons from "@components/SocialIcons"
 import PageContent from "@components/PageContent"
@@ -16,6 +15,9 @@ const Creators = ({ data, preview }) => {
   const router = useRouter()
   if (!router.isFallback && !data?.slug) {
     return <Error statusCode={404} />
+  }
+  if (router.isFallback) {
+    return <div>Loading...</div>
   }
 
   const { data: creator } = usePreviewSubscription(singleCreatorQuery, {
@@ -72,13 +74,12 @@ const Creators = ({ data, preview }) => {
               {posts?.map(post => {
                 const { _id, title, slug, postImage } = post
                 return (
-                  <Link key={_id} href={`/posts/${slug}`}>
-                    <CodeBlockCard
-                      componentName="Entry"
-                      image={postImage?.url}
-                      title={title}
-                    />
-                  </Link>
+                  <CodeBlockCard
+                    componentName="Entry"
+                    image={postImage?.url}
+                    title={title}
+                    href={`/posts/${slug}`}
+                  />
                 )
               })}
             </Grid>
@@ -127,6 +128,8 @@ export const getStaticProps = async ({ params, preview = false }) => {
   const creatorData = await getClient(preview).fetch(singleCreatorQuery, {
     slug: params.slug,
   })
+
+  // console.log({ ...siteSettings, ...creatorData })
 
   return { props: { data: { ...siteSettings, ...creatorData }, preview } }
 }

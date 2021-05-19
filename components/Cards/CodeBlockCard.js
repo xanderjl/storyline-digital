@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image"
-import { Box, Text } from "@chakra-ui/layout"
+import { Box, Flex, Text } from "@chakra-ui/layout"
 import { useTheme } from "@chakra-ui/system"
 import Link from "@components/NextLink"
 import { urlFor } from "@lib/sanity"
@@ -12,6 +12,7 @@ const CodeBlockCard = ({
   href,
   title,
   creatorName,
+  creatorBio,
   date,
   ...rest
 }) => {
@@ -46,7 +47,7 @@ const CodeBlockCard = ({
             src={urlFor(image)}
             _groupHover={{ opacity: 0.8 }}
           />
-          <Box flex={1} p="2rem">
+          <Flex direction="column" justify="center" flex={1} p="2rem">
             <Box
               as="span"
               fontWeight={600}
@@ -74,6 +75,14 @@ const CodeBlockCard = ({
                   </Box>
                 </Text>
               )}
+              {creatorBio && (
+                <Text as="h2" size="md" color="primary.100">
+                  bio=
+                  <Box as="span" color="white">
+                    "{creatorBio}"
+                  </Box>
+                </Text>
+              )}
               {date && (
                 <Text color="primary.100">
                   date=
@@ -84,7 +93,7 @@ const CodeBlockCard = ({
               )}
             </Box>
             <Box as="span" fontWeight={600}>{` />`}</Box>
-          </Box>
+          </Flex>
         </Card>
       </Link>
     </Box>

@@ -43,6 +43,12 @@ export default {
       },
     },
     {
+      name: "creatorPreview",
+      title: "Creator Preview",
+      type: "text",
+      rows: 4,
+    },
+    {
       name: "bio",
       title: "Bio",
       type: "array",
