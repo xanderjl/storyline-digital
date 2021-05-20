@@ -23,11 +23,6 @@ export default {
       },
     },
     {
-      name: "glyphs",
-      title: "Glyphs",
-      type: "image",
-    },
-    {
       name: "body",
       title: "Body",
       type: "blockContent",

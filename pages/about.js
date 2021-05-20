@@ -1,5 +1,10 @@
 import { groq } from "next-sanity"
-import { usePreviewSubscription, PortableText, urlFor } from "@lib/sanity"
+import {
+  usePreviewSubscription,
+  PortableText,
+  urlFor,
+  serializers,
+} from "@lib/sanity"
 import { getClient } from "@lib/sanity.server"
 import { Box, Container, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import Layout from "@components/Layout"
@@ -12,7 +17,7 @@ const About = ({ data, preview }) => {
     enabled: preview,
   })
 
-  const { metaDescription, ogImage, title, tagline, image, glyphs, body } = bod
+  const { metaDescription, ogImage, title, tagline, image, body } = bod
 
   return (
     <>
@@ -67,12 +72,26 @@ const About = ({ data, preview }) => {
                   </Text>
                 </VStack>
                 <VStack maxW="90ch" spacing={8}>
-                  <Image
-                    src={glyphs.url}
-                    w="auto"
-                    h={{ base: "90px", md: "118px" }}
+                  <PortableText
+                    blocks={body}
+                    serializers={{
+                      ...serializers,
+                      types: {
+                        ...serializers.types,
+                        image: props => {
+                          return (
+                            <Image
+                              src={urlFor(props.node.asset)}
+                              w="auto"
+                              h="150px"
+                              pb="2rem"
+                              m="0 auto"
+                            />
+                          )
+                        },
+                      },
+                    }}
                   />
-                  <PortableText blocks={body} />
                 </VStack>
               </Flex>
             </Box>
@@ -87,7 +106,6 @@ const aboutBodyQuery = groq`*[_type == "aboutPage"]{
   title,
   tagline,
   "image": image.asset->,
-  "glyphs": glyphs.asset->,
   body,
 }[0]`
 
