@@ -23,12 +23,9 @@ const About = ({ data, preview }) => {
     <>
       <SEO description={metaDescription} ogImageURL={urlFor(ogImage.asset)} />
       <Layout>
-        <Container
-          maxW="container.xl"
-          p={{ base: "3rem 1.25rem", md: "4rem 3rem" }}
-        >
+        <Container maxW="container.xl" p={{ base: 0, md: "4rem 3rem" }}>
           <Box
-            borderRadius={4}
+            borderRadius={{ base: 0, md: 4 }}
             overflow="hidden"
             bgColor={image?.metadata?.palette?.darkVibrant?.background}
             bgImage={{ md: `url(${image?.metadata?.lqip})` }}
@@ -36,9 +33,9 @@ const About = ({ data, preview }) => {
             bgSize="auto"
             bgPosition="0 90%"
           >
-            <Box
+            <VStack
+              display={{ base: "block", md: "flex" }}
               p="3rem 1.25rem"
-              position="relative"
               minH={{ base: "max-content", md: "1900px" }}
               color="white"
               textAlign="center"
@@ -48,17 +45,20 @@ const About = ({ data, preview }) => {
               bgPosition="inherit"
             >
               <Flex
+                display="inherit"
+                justify="space-between"
                 direction="column"
+                maxW="90ch"
                 minH="inherit"
                 align="center"
                 justify="space-between"
+                m="0 auto"
               >
                 <VStack m="0 auto 3rem auto" spacing={6}>
                   <Heading
-                    size="2xl"
+                    size="xl"
                     p="1rem"
-                    m="0 auto"
-                    my="2rem"
+                    my={{ base: "1rem", md: "2rem" }}
                     border="4px solid"
                     borderColor="white"
                     borderRadius={12}
@@ -67,34 +67,30 @@ const About = ({ data, preview }) => {
                   >
                     {title}
                   </Heading>
-                  <Text fontSize="xl" maxW="70ch">
-                    {tagline}
-                  </Text>
+                  <Text fontSize={{ base: "md", md: "xl" }}>{tagline}</Text>
                 </VStack>
-                <VStack maxW="90ch" spacing={8}>
-                  <PortableText
-                    blocks={body}
-                    serializers={{
-                      ...serializers,
-                      types: {
-                        ...serializers.types,
-                        image: props => {
-                          return (
-                            <Image
-                              src={urlFor(props.node.asset)}
-                              w="auto"
-                              h="150px"
-                              pb="2rem"
-                              m="0 auto"
-                            />
-                          )
-                        },
+                <PortableText
+                  blocks={body}
+                  serializers={{
+                    ...serializers,
+                    types: {
+                      ...serializers.types,
+                      image: props => {
+                        return (
+                          <Image
+                            src={urlFor(props.node.asset)}
+                            w="auto"
+                            h="150px"
+                            pb="2rem"
+                            m="0 auto"
+                          />
+                        )
                       },
-                    }}
-                  />
-                </VStack>
+                    },
+                  }}
+                />
               </Flex>
-            </Box>
+            </VStack>
           </Box>
         </Container>
       </Layout>
