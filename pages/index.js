@@ -63,7 +63,7 @@ const Home = ({ siteSettings, posts }) => {
             >
               <Card
                 role="group"
-                maxH={{ base: "100%", md: "460px" }}
+                maxH={{ base: "100%", md: "380px", lg: "460px" }}
                 p={0}
                 direction={{ base: "column", md: "row" }}
                 justifyContent="center"
