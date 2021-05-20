@@ -79,11 +79,12 @@ const Creators = ({ siteSettings, creators }) => {
             }}
             gap={6}
           >
-            {creatorResults.map(creator => {
+            {creatorResults.map((creator, i) => {
               const { name, slug, creatorPreview, image } = creator
 
               return (
                 <CodeBlockCard
+                  key={i}
                   href={`/creators/${slug}`}
                   componentName="Creator"
                   image={image?.url}

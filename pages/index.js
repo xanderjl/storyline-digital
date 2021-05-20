@@ -153,7 +153,7 @@ const Home = ({ siteSettings, posts }) => {
                     post
                   return (
                     <GridItem
-                      key={_id}
+                      key={i}
                       ref={postRefs[i]}
                       minH={{
                         base: "max-content",
