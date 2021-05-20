@@ -12,6 +12,8 @@ import {
   Box,
   VStack,
   Image,
+  InputLeftElement,
+  InputLeftAddon,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
@@ -25,14 +27,15 @@ const stripePromise = loadStripe(
 const Donate = ({ siteSettings, donateBody, preview }) => {
   const format = val => `$` + val
   const parse = val => val.replace(/^\$/, "")
-  const [customPrice, setCustomPrice] = useState("27.50")
 
   const { data: donate = {} } = usePreviewSubscription(donateQuery, {
     initialData: donateBody,
     enabled: preview,
   })
 
-  const { title, body, illustration, pricingTiers } = donate
+  const { title, body, illustration, pricingTiers, customCard } = donate
+
+  const [customPrice, setCustomPrice] = useState(customCard.placeholder)
 
   const stripeHandler = async (name, unit_amount) => {
     const { sessionId } = await fetch("/api/create-session", {
@@ -96,12 +99,12 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
               const { _key, title, price } = tier
               return (
                 <Box
+                  key={_key}
                   borderRadius={14}
                   border="4px solid"
                   borderColor="auburn.800"
                 >
                   <Card
-                    key={_key}
                     minH="18em"
                     alignItems="center"
                     bg="coolGray.900"
@@ -149,11 +152,11 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
                   spacing={4}
                   textAlign="center"
                 >
-                  <Heading>Custom Amount</Heading>
+                  <Heading>{customCard.title}</Heading>
                   <NumberInput
-                    variant="unstyled"
+                    w="8ch"
+                    variant="flushed"
                     precision={2}
-                    borderColor="analogous.600"
                     fontSize="3xl"
                     value={format(customPrice)}
                     onChange={e => setCustomPrice(parse(e))}
@@ -188,8 +191,9 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
 const donateQuery = groq`*[_type == "donatePage"]{
   title,
   body,
+  "illustration": illustration.asset->,
   pricingTiers,
-  "illustration": illustration.asset->
+  customCard
 }[0]`
 
 export const getStaticProps = async () => {

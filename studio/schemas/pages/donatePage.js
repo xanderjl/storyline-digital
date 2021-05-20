@@ -24,5 +24,23 @@ export default {
       type: "array",
       of: [{ type: "pricingTier" }],
     },
+    {
+      name: "customCard",
+      title: "Custom Price Card",
+      type: "object",
+      fields: [
+        {
+          name: "title",
+          title: "Card Heading",
+          type: "string",
+        },
+        {
+          name: "placeholder",
+          title: "Placeholder value",
+          description: "Keep it in the format of xx.xx",
+          type: "string",
+        },
+      ],
+    },
   ],
 }
