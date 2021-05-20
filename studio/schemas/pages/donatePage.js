@@ -37,8 +37,8 @@ export default {
         {
           name: "placeholder",
           title: "Placeholder value",
-          description: "Keep it in the format of xx.xx",
-          type: "string",
+          description: "The value here will be formatted as xx.xx  if the value here is 15.5, it will appear as $15.50 on the site",
+          type: "number",
         },
       ],
     },

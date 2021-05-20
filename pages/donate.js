@@ -12,8 +12,6 @@ import {
   Box,
   VStack,
   Image,
-  InputLeftElement,
-  InputLeftAddon,
 } from "@chakra-ui/react"
 import Layout from "@components/Layout"
 import PageContent from "@components/PageContent"
@@ -35,7 +33,9 @@ const Donate = ({ siteSettings, donateBody, preview }) => {
 
   const { title, body, illustration, pricingTiers, customCard } = donate
 
-  const [customPrice, setCustomPrice] = useState(customCard.placeholder)
+  const [customPrice, setCustomPrice] = useState(
+    customCard.placeholder.toFixed(2)
+  )
 
   const stripeHandler = async (name, unit_amount) => {
     const { sessionId } = await fetch("/api/create-session", {

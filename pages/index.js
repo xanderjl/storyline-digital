@@ -227,7 +227,7 @@ const Home = ({ siteSettings, posts }) => {
 const currentYear = new Date(new Date().getFullYear(), 0, 1)
 const params = { currentYear }
 const postsQuery = groq`
-  *[_type == "post" && publishedAt > $currentYear] | order(publishedAt desc) {
+  *[_type == "post"] | order(publishedAt desc) {
     _id,
     creator->{
       name,
