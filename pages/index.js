@@ -207,10 +207,10 @@ const Home = ({ siteSettings, posts }) => {
                     posts={gridPosts}
                     targetPost={targetPost}
                     onChange={e => {
-                      postRefs[e].current.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                      })
+                      // postRefs[e].current.scrollIntoView({
+                      //   behavior: "smooth",
+                      //   block: "center",
+                      // })
                       setTargetPost(gridPosts[e])
                     }}
                   />
