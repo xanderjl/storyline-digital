@@ -47,7 +47,7 @@ const CodeBlockCard = ({
             src={urlFor(image)}
             _groupHover={{ opacity: 0.8 }}
           />
-          <Flex direction="column" justify="center" flex={1} p="2rem">
+          <Box flex={1} p="2rem" m="auto">
             <Box
               as="span"
               fontWeight={600}
@@ -93,7 +93,7 @@ const CodeBlockCard = ({
               )}
             </Box>
             <Box as="span" fontWeight={600}>{` />`}</Box>
-          </Flex>
+          </Box>
         </Card>
       </Link>
     </Box>

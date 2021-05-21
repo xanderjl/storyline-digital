@@ -1,4 +1,4 @@
-import { useState, createRef } from "react"
+import { useMemo, useState, createRef } from "react"
 import { InView } from "react-intersection-observer"
 import {
   Box,
@@ -26,8 +26,8 @@ const Home = ({ siteSettings, posts }) => {
   const theme = useTheme()
   const headerPost = posts[0]
   const gridPosts = posts.filter(post => post !== posts[0])
-  const [targetPost, setTargetPost] = useState(gridPosts[0])
-  const postRefs = gridPosts.map(() => createRef())
+  const [targetPost, setTargetPost] = useState(gridPosts[gridPosts.length - 1])
+  const postRefs = useMemo(() => gridPosts.map(() => createRef()), [gridPosts])
 
   return (
     <>
@@ -50,7 +50,11 @@ const Home = ({ siteSettings, posts }) => {
           bgPosition="center"
           zIndex={-1}
         />
-        <Container maxW="container.xl" pt="3rem" px=" 1.25rem">
+        <Container
+          maxW="container.xl"
+          pt="3rem"
+          px={{ base: "1.25rem", md: "4rem" }}
+        >
           <Heading pb="3rem" textTransform="uppercase">
             Entering Archive
           </Heading>
@@ -165,15 +169,17 @@ const Home = ({ siteSettings, posts }) => {
                       }}
                       colSpan={{ base: 1, lg: 6 }}
                     >
-                      <InView rootMargin="0px 0px -75% 0px">
-                        {({ inView, ref }) => {
-                          if (inView) {
-                            setTargetPost(
-                              gridPosts[
-                                gridPosts.findIndex(item => item._id === _id)
-                              ]
-                            )
-                          }
+                      <InView
+                        onChange={() =>
+                          setTargetPost(
+                            gridPosts[
+                              gridPosts.findIndex(item => item._id === _id)
+                            ]
+                          )
+                        }
+                        rootMargin="0px 0px -75% 0px"
+                      >
+                        {({ ref }) => {
                           return (
                             <Box ref={ref} minH="inherit">
                               <CodeBlockCard
@@ -204,15 +210,15 @@ const Home = ({ siteSettings, posts }) => {
                     Entries
                   </Heading>
                   <DateSlider
-                    posts={gridPosts}
+                    posts={gridPosts.reverse()}
                     targetPost={targetPost}
-                    onChange={e => {
-                      // postRefs[e].current.scrollIntoView({
-                      //   behavior: "smooth",
-                      //   block: "center",
-                      // })
-                      setTargetPost(gridPosts[e])
-                    }}
+                    // onChange={e => {
+                    //   postRefs[e].current.scrollIntoView({
+                    //     behavior: "smooth",
+                    //     block: "center",
+                    //   })
+                    //   setTargetPost(gridPosts[e])
+                    // }}
                   />
                 </VStack>
               </Box>

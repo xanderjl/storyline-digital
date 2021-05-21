@@ -24,14 +24,30 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
           max={posts?.length - 1}
           step={1}
           value={posts.indexOf(targetPost)}
-          onChange={onChange}
-          isReversed
+          // onChange={onChange}
+          // isReversed
+          isDisabled
         >
-          <SliderTrack bg="complementary.50">
-            <SliderFilledTrack bg="complementary.500" />
+          <SliderTrack
+            bg="complementary.50"
+            _disabled={{ bg: "complementary.50" }}
+          >
+            <SliderFilledTrack
+              bg="complementary.500"
+              _disabled={{ bg: "complementary.500" }}
+            />
           </SliderTrack>
-          <SliderThumb w={2} h="max-content" bg="complementary.500">
-            <Box position="relative" left="60px">
+          <SliderThumb
+            w={2}
+            h="max-content"
+            bg="complementary.500"
+            _disabled={{ bg: "complementary.500" }}
+          >
+            <Box
+              position="relative"
+              left="60px"
+              _disabled={{ color: "coolGray.900" }}
+            >
               <Text fontFamily="mono">{`${posts.indexOf(targetPost) + 1} / ${
                 posts.length
               }`}</Text>
