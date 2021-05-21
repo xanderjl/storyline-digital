@@ -26,8 +26,10 @@ const Home = ({ siteSettings, posts }) => {
   const theme = useTheme()
   const headerPost = posts[0]
   const gridPosts = posts.filter(post => post !== posts[0])
-  const [targetPost, setTargetPost] = useState(gridPosts[gridPosts.length - 1])
+  // const [targetPost, setTargetPost] = useState(gridPosts[gridPosts.length - 1])
   const postRefs = useMemo(() => gridPosts.map(() => createRef()), [gridPosts])
+
+  // TODO: fix date slider
 
   return (
     <>
@@ -144,7 +146,12 @@ const Home = ({ siteSettings, posts }) => {
                 </Box>
               </Card>
             </Box>
-            <Flex alignItems="flex-start" pt="80px" pb="3rem">
+            <Flex
+              // alignItems="flex-start"
+              justify="center"
+              pt="80px"
+              pb="3rem"
+            >
               <Grid
                 templateColumns={{
                   base: "minmax(0, 1fr)",
@@ -169,7 +176,7 @@ const Home = ({ siteSettings, posts }) => {
                       }}
                       colSpan={{ base: 1, lg: 6 }}
                     >
-                      <InView
+                      {/* <InView
                         onChange={() =>
                           setTargetPost(
                             gridPosts[
@@ -180,26 +187,29 @@ const Home = ({ siteSettings, posts }) => {
                         rootMargin="0px 0px -75% 0px"
                       >
                         {({ ref }) => {
-                          return (
-                            <Box ref={ref} minH="inherit">
-                              <CodeBlockCard
-                                componentName="Entry"
-                                image={mainImage?.url}
-                                placeholder={mainImage?.metadata?.lqip}
-                                href={`/posts/${slug}`}
-                                title={title}
-                                creatorName={creator?.name}
-                                date={publishedAt}
-                              />
-                            </Box>
-                          )
+                          return ( */}
+                      <Box
+                        // ref={ref}
+                        minH="inherit"
+                      >
+                        <CodeBlockCard
+                          componentName="Entry"
+                          image={mainImage?.url}
+                          placeholder={mainImage?.metadata?.lqip}
+                          href={`/posts/${slug}`}
+                          title={title}
+                          creatorName={creator?.name}
+                          date={publishedAt}
+                        />
+                      </Box>
+                      {/* )
                         }}
-                      </InView>
+                      </InView> */}
                     </GridItem>
                   )
                 })}
               </Grid>
-              <Box
+              {/* <Box
                 display={{ base: "none", md: "inline-block" }}
                 position="sticky"
                 top={24}
@@ -221,7 +231,7 @@ const Home = ({ siteSettings, posts }) => {
                     // }}
                   />
                 </VStack>
-              </Box>
+              </Box> */}
             </Flex>
           </VStack>
         </Container>
