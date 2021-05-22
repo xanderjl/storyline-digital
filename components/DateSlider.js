@@ -8,7 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 
-const DateSlider = ({ posts, targetPost, onChange }) => {
+const DateSlider = ({ posts, targetPost }) => {
   return (
     <VStack spacing={6}>
       <Text fontFamily="mono" whiteSpace="nowrap">
@@ -24,7 +24,6 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
           max={posts?.length - 1}
           step={1}
           value={targetPost}
-          // onChange={onChange}
           isReversed
           isDisabled
         >

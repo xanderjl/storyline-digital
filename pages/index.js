@@ -221,17 +221,7 @@ const Home = ({ siteSettings, posts }) => {
                   <Heading as="h3" size="lg">
                     Entries
                   </Heading>
-                  <DateSlider
-                    posts={gridPosts}
-                    targetPost={targetPost}
-                    // onChange={e => {
-                    //   postRefs[e].current.scrollIntoView({
-                    //     behavior: "smooth",
-                    //     block: "center",
-                    //   })
-                    //   setTargetPost(gridPosts[e])
-                    // }}
-                  />
+                  <DateSlider posts={gridPosts} targetPost={targetPost} />
                 </VStack>
               </Box>
             </Flex>
