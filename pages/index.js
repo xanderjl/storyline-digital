@@ -45,7 +45,10 @@ const Home = ({ siteSettings, posts }) => {
         post => post.offsetTop === closestYPos
       )
 
-      setTargetPost(closestIndex)
+      // If viewport is larger than mobile breakpoint, setState
+      if (window.innerWidth > 767) {
+        setTargetPost(closestIndex)
+      }
     }
 
     // Add scroll event listener
