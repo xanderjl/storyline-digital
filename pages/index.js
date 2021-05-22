@@ -26,7 +26,7 @@ const Home = ({ siteSettings, posts }) => {
   const headerPost = posts[0]
   const gridPosts = posts.filter(post => post !== posts[0])
   const gridRef = useRef(null)
-  const [targetPost, setTargetPost] = useState({})
+  const [targetPost, setTargetPost] = useState(0)
 
   useEffect(() => {
     // Grab array of child nodes (posts)
@@ -44,11 +44,8 @@ const Home = ({ siteSettings, posts }) => {
       const closestIndex = dasChildren.findIndex(
         post => post.offsetTop === closestYPos
       )
-      const closestNode = dasChildren.find(
-        post => post.offsetTop === closestYPos
-      )
 
-      return { closestIndex, closestNode }
+      setTargetPost(closestIndex)
     }
 
     // Add scroll event listener
@@ -175,12 +172,7 @@ const Home = ({ siteSettings, posts }) => {
                 </Box>
               </Card>
             </Box>
-            <Flex
-              // alignItems="flex-start"
-              justify="center"
-              pt="80px"
-              pb="3rem"
-            >
+            <Flex alignItems="flex-start" justify="center" pt="80px" pb="3rem">
               <Grid
                 ref={gridRef}
                 templateColumns={{
@@ -190,8 +182,7 @@ const Home = ({ siteSettings, posts }) => {
                 gap={12}
               >
                 {gridPosts.map((post, i) => {
-                  const { _id, title, publishedAt, slug, mainImage, creator } =
-                    post
+                  const { title, publishedAt, slug, mainImage, creator } = post
                   return (
                     <GridItem
                       key={i}
@@ -230,8 +221,8 @@ const Home = ({ siteSettings, posts }) => {
                   <Heading as="h3" size="lg">
                     Entries
                   </Heading>
-                  {/* <DateSlider
-                    posts={gridPosts.reverse()}
+                  <DateSlider
+                    posts={gridPosts}
                     targetPost={targetPost}
                     // onChange={e => {
                     //   postRefs[e].current.scrollIntoView({
@@ -240,7 +231,7 @@ const Home = ({ siteSettings, posts }) => {
                     //   })
                     //   setTargetPost(gridPosts[e])
                     // }}
-                  /> */}
+                  />
                 </VStack>
               </Box>
             </Flex>

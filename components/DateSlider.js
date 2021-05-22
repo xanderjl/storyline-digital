@@ -23,9 +23,9 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
           min={0}
           max={posts?.length - 1}
           step={1}
-          value={posts.indexOf(targetPost)}
+          value={targetPost}
           // onChange={onChange}
-          // isReversed
+          isReversed
           isDisabled
         >
           <SliderTrack
@@ -48,11 +48,13 @@ const DateSlider = ({ posts, targetPost, onChange }) => {
               left="60px"
               _disabled={{ color: "coolGray.900" }}
             >
-              <Text fontFamily="mono">{`${posts.indexOf(targetPost) + 1} / ${
+              <Text fontFamily="mono">{`${targetPost + 1} / ${
                 posts.length
               }`}</Text>
               <Text fontFamily="mono" whiteSpace="nowrap" fontWeight={600}>
-                {new Date(targetPost.publishedAt).toLocaleDateString("en-CA")}
+                {new Date(posts[targetPost].publishedAt).toLocaleDateString(
+                  "en-CA"
+                )}
               </Text>
             </Box>
           </SliderThumb>

@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { Image } from "@chakra-ui/image"
 import { Box, Flex, Text } from "@chakra-ui/layout"
 import { useTheme } from "@chakra-ui/system"
@@ -100,4 +101,4 @@ const CodeBlockCard = ({
   )
 }
 
-export default CodeBlockCard
+export default memo(CodeBlockCard)
