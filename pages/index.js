@@ -1,5 +1,4 @@
-import { useMemo, useState, createRef } from "react"
-import { InView } from "react-intersection-observer"
+import { useState, useRef, useEffect } from "react"
 import {
   Box,
   Container,
@@ -26,10 +25,40 @@ const Home = ({ siteSettings, posts }) => {
   const theme = useTheme()
   const headerPost = posts[0]
   const gridPosts = posts.filter(post => post !== posts[0])
-  // const [targetPost, setTargetPost] = useState(gridPosts[gridPosts.length - 1])
-  const postRefs = useMemo(() => gridPosts.map(() => createRef()), [gridPosts])
+  const gridRef = useRef(null)
+  const [targetPost, setTargetPost] = useState({})
 
-  // TODO: fix date slider
+  useEffect(() => {
+    // Grab array of child nodes (posts)
+    const dasChildren = Array.from(gridRef.current.childNodes)
+
+    // Handler for finding closest post to scroll position
+    const scrollHandler = (scrollPos, posts) => {
+      const closestYPos = posts.reduce((prev, curr) => {
+        return Math.abs(curr - scrollPos) < Math.abs(prev - scrollPos)
+          ? curr
+          : prev
+      })
+
+      // return child node and array index of closest post
+      const closestIndex = dasChildren.findIndex(
+        post => post.offsetTop === closestYPos
+      )
+      const closestNode = dasChildren.find(
+        post => post.offsetTop === closestYPos
+      )
+
+      return { closestIndex, closestNode }
+    }
+
+    // Add scroll event listener
+    window.addEventListener("scroll", () =>
+      scrollHandler(
+        window.scrollY,
+        dasChildren.map(child => child.offsetTop)
+      )
+    )
+  }, [])
 
   return (
     <>
@@ -153,6 +182,7 @@ const Home = ({ siteSettings, posts }) => {
               pb="3rem"
             >
               <Grid
+                ref={gridRef}
                 templateColumns={{
                   base: "minmax(0, 1fr)",
                   lg: "repeat(12, 1fr)",
@@ -165,7 +195,6 @@ const Home = ({ siteSettings, posts }) => {
                   return (
                     <GridItem
                       key={i}
-                      ref={postRefs[i]}
                       minH={{
                         base: "max-content",
                         md: "320px",
@@ -176,22 +205,7 @@ const Home = ({ siteSettings, posts }) => {
                       }}
                       colSpan={{ base: 1, lg: 6 }}
                     >
-                      {/* <InView
-                        onChange={() =>
-                          setTargetPost(
-                            gridPosts[
-                              gridPosts.findIndex(item => item._id === _id)
-                            ]
-                          )
-                        }
-                        rootMargin="0px 0px -75% 0px"
-                      >
-                        {({ ref }) => {
-                          return ( */}
-                      <Box
-                        // ref={ref}
-                        minH="inherit"
-                      >
+                      <Box minH="inherit">
                         <CodeBlockCard
                           componentName="Entry"
                           image={mainImage?.url}
@@ -202,14 +216,11 @@ const Home = ({ siteSettings, posts }) => {
                           date={publishedAt}
                         />
                       </Box>
-                      {/* )
-                        }}
-                      </InView> */}
                     </GridItem>
                   )
                 })}
               </Grid>
-              {/* <Box
+              <Box
                 display={{ base: "none", md: "inline-block" }}
                 position="sticky"
                 top={24}
@@ -219,7 +230,7 @@ const Home = ({ siteSettings, posts }) => {
                   <Heading as="h3" size="lg">
                     Entries
                   </Heading>
-                  <DateSlider
+                  {/* <DateSlider
                     posts={gridPosts.reverse()}
                     targetPost={targetPost}
                     // onChange={e => {
@@ -229,9 +240,9 @@ const Home = ({ siteSettings, posts }) => {
                     //   })
                     //   setTargetPost(gridPosts[e])
                     // }}
-                  />
+                  /> */}
                 </VStack>
-              </Box> */}
+              </Box>
             </Flex>
           </VStack>
         </Container>
