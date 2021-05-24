@@ -37,7 +37,7 @@ const CodeBlockCard = ({
           <Image
             objectFit="cover"
             maxH={{ base: "auto", md: "250px" }}
-            h={{ base: "300px", md: "auto" }}
+            maxH={{ base: "300px", md: "auto" }}
             w="100%"
             maxW={{ base: "100%", md: "40%" }}
             objectFit="cover"

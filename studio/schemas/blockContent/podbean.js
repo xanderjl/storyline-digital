@@ -1,16 +1,16 @@
 import React from "react"
 
-const Player = props => {
-  return <pre>{JSON.stringify(props, null, 2)}</pre>
+const Iframe = ({ value }) => {
+  return <div dangerouslySetInnerHTML={{ __html: value.code }} />
 }
 
 export default {
   name: "podbean",
   title: "Podbean",
   type: "object",
-  fields: [{ name: "url", title: "URL", type: "url" }],
+  fields: [{ name: "iframe", title: "Code", type: "text" }],
   preview: {
-    select: { url: "url" },
-    component: Player,
+    select: { code: "iframe" },
+    component: Iframe,
   },
 }
