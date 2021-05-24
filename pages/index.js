@@ -197,7 +197,7 @@ const Home = ({ siteSettings, posts }) => {
                         base: 0,
                         lg: i % 2 === 0 ? 6 : 0,
                       }}
-                      colSpan={{ base: 1, lg: 6 }}
+                      colSpan={{ base: 1, lg: 7 }}
                     >
                       <Box minH="inherit">
                         <CodeBlockCard
