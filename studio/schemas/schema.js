@@ -11,6 +11,7 @@ import aboutPage from "./pages/aboutPage"
 import donatePage from "./pages/donatePage"
 import pricingTier from "./pricingTier"
 import siteSettings from "./siteSettings"
+import podbean from "./blockContent/podbean"
 
 export default createSchema({
   name: "default",
@@ -24,6 +25,7 @@ export default createSchema({
     blockContent,
     youtube,
     soundcloud,
+    podbean,
     pricingTier,
   ]),
 })

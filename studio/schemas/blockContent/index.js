@@ -63,5 +63,6 @@ export default {
     },
     { type: "youtube" },
     { type: "soundcloud" },
+    { type: "podbean" },
   ],
 }

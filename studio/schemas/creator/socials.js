@@ -39,6 +39,11 @@ export default {
       type: "url",
     },
     {
+      name: "applePodcast",
+      title: "Apple Podcast",
+      type: "url",
+    },
+    {
       name: "tikTok",
       title: "TikTok",
       type: "url",
@@ -58,4 +63,4 @@ export default {
     collapsible: true,
     collapsed: false,
   },
-};
+}
