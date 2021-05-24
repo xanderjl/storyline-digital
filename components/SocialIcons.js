@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa"
 import { SiApplemusic } from "react-icons/si"
 import { FiGlobe } from "react-icons/fi"
+import { FaPodcast } from "react-icons/fa"
 import Link from "./NextLink"
 
 const iconStyles = {
@@ -54,6 +55,11 @@ const SocialIcons = ({ socials, ...rest }) => {
       {socials?.appleMusic && (
         <Link href={socials?.appleMusic} isExternal>
           <Icon as={SiApplemusic} {...iconStyles} />
+        </Link>
+      )}
+      {socials?.applePodcast && (
+        <Link href={socials?.applePodcast} isExternal>
+          <Icon as={FaPodcast} {...iconStyles} />
         </Link>
       )}
       {socials?.tikTok && (
