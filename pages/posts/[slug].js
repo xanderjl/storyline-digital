@@ -13,29 +13,30 @@ import {
 import Layout from "@components/Layout"
 import Link from "@components/NextLink"
 import SocialIcons from "@components/SocialIcons"
-import { usePreviewSubscription, PortableText } from "@lib/sanity"
+import { usePreviewSubscription, PortableText, urlFor } from "@lib/sanity"
 import { getClient } from "@lib/sanity.server"
-import { urlFor } from "@lib/sanity"
 import { groq } from "next-sanity"
 import { FaShareAlt } from "react-icons/fa"
 import PageContent from "@components/PageContent"
 import SEO from "@components/SEO"
 
-const Post = ({ data, preview }) => {
+const Post = ({ data = {}, preview }) => {
   const router = useRouter()
-  if (!data?.slug) {
-    return <Error statusCode={404} />
-  }
   const shareLink = `${process.env.NEXT_PUBLIC_SITE_URL || "localhost:3000"}${
     router.asPath
   }`
   const { hasCopied, onCopy } = useClipboard(shareLink)
 
+  const slug = data?.slug
   const { data: post } = usePreviewSubscription(singlePostQuery, {
-    params: { slug: data?.slug },
+    params: { slug },
     initialData: data,
-    enabled: preview,
+    enabled: preview && slug,
   })
+
+  if (!router.isFallback && !data?.slug) {
+    return <Error statusCode={404} />
+  }
 
   const { metaDescription, ogImage, title, creator, publishedAt, body } = post
 
