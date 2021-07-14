@@ -27,16 +27,16 @@ const Post = ({ data = {}, preview }) => {
   }`
   const { hasCopied, onCopy } = useClipboard(shareLink)
 
+  if (!data?.slug) {
+    return <Error statusCode={404} />
+  }
+
   const slug = data?.slug
   const { data: post } = usePreviewSubscription(singlePostQuery, {
     params: { slug },
     initialData: data,
     enabled: preview && slug,
   })
-
-  if (!router.isFallback && !data?.slug) {
-    return <Error statusCode={404} />
-  }
 
   const { metaDescription, ogImage, title, creator, publishedAt, body } = post
 
